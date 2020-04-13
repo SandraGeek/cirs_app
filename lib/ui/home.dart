@@ -53,7 +53,9 @@ class FallBerichtPage extends StatelessWidget {
       appBar: AppBar(
         title: Text('Fall berichten'),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.info_outline), onPressed: _tapButton)
+          IconButton(icon: Icon(Icons.info_outline), onPressed: (){
+            _infoButtonPressed(context);
+          })
         ],
       ),
       body: Center(
@@ -73,6 +75,7 @@ class FallBerichtPage extends StatelessWidget {
                 ),
               ),
             ),
+
             new MaterialButton(
               color: Theme.of(context).primaryColor,
               textColor: Colors.white,
@@ -102,7 +105,7 @@ class FallBerichtPage extends StatelessWidget {
         return AlertDialog(
           title: Text('Vielen Dank!'),
           content: const Text(
-              'Einen Feedback wird in der nächsten Tagen veröffentlicht. Bitte behalten Sie Ihre Fallnummer.'),
+              'Einen Feedback wird in den nächsten Tagen veröffentlicht. Bitte behalten Sie Ihre Fallnummer.'),
           actions: <Widget>[
             FlatButton(
               child: Text('Ok'),
@@ -121,7 +124,29 @@ class FallBerichtPage extends StatelessWidget {
         MaterialPageRoute(builder: (context) => ProzesseUndAufgaben()));
   }
 
-  _tapButton() {}
+}
+
+Future<void> _infoButtonPressed(BuildContext context) {
+
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Wichtige Info'),
+        content: const Text(
+            'Was bedeutet Fall berichten bzw. analysieren?'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+
 }
 
 class ProzesseUndAufgaben extends StatelessWidget {
@@ -154,7 +179,7 @@ Widget _myListView(BuildContext context) {
         title: Text('Allgemeine medizinische Versorgung'),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
-          print('ok');
+          Navigator.push(context, new MaterialPageRoute(builder: (context) => AllMedVer()));
         },
       ),
       ListTile(
@@ -237,3 +262,17 @@ Widget _myListView(BuildContext context) {
     ],
   );
 }
+
+class AllMedVer  extends StatelessWidget{
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Allgemeine medizinische Versorgung"),
+      ),
+    );
+  }
+}
+
+
