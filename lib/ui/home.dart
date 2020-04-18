@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cirs_app/model//database_helpers.dart';
 
 class Home extends StatelessWidget {
   // This widget is the root of your application.
@@ -51,11 +52,13 @@ class FallBerichtPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Fall berichten'),
+        title: Text('Fallbericht erfassen'),
         actions: <Widget>[
-          IconButton(icon: Icon(Icons.info_outline), onPressed: (){
-            _infoButtonPressed(context);
-          })
+          IconButton(
+              icon: Icon(Icons.info_outline),
+              onPressed: () {
+                _infoButtonPressed(context);
+              })
         ],
       ),
       body: Center(
@@ -75,11 +78,10 @@ class FallBerichtPage extends StatelessWidget {
                 ),
               ),
             ),
-
             new MaterialButton(
               color: Theme.of(context).primaryColor,
               textColor: Colors.white,
-              child: new Text("Fall ohne Analyse abgeben"),
+              child: new Text("Fallbericht ohne Analyse abgeben"),
               onPressed: () {
                 savedAlert(context);
               },
@@ -87,7 +89,7 @@ class FallBerichtPage extends StatelessWidget {
             new MaterialButton(
               color: Theme.of(context).primaryColor,
               textColor: Colors.white,
-              child: new Text("Fall analysieren"),
+              child: new Text("Fallbericht analysieren"),
               onPressed: () {
                 navigateToProcesses(context);
               },
@@ -105,7 +107,7 @@ class FallBerichtPage extends StatelessWidget {
         return AlertDialog(
           title: Text('Vielen Dank!'),
           content: const Text(
-              'Einen Feedback wird in den nächsten Tagen veröffentlicht. Bitte behalten Sie Ihre Fallnummer.'),
+              'Einen Feedback wird in den nächsten Tagen veröffentlicht. Bitte behalten Sie die folgende Fallnummer:'),
           actions: <Widget>[
             FlatButton(
               child: Text('Ok'),
@@ -123,18 +125,15 @@ class FallBerichtPage extends StatelessWidget {
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => ProzesseUndAufgaben()));
   }
-
 }
 
 Future<void> _infoButtonPressed(BuildContext context) {
-
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text('Wichtige Info'),
-        content: const Text(
-            'Was bedeutet Fall berichten bzw. analysieren?'),
+        content: const Text("Was passiert wenn ich ein Fallbericht analysiere oder nicht analsysiere?"),
         actions: <Widget>[
           FlatButton(
             child: Text('Ok'),
@@ -146,7 +145,6 @@ Future<void> _infoButtonPressed(BuildContext context) {
       );
     },
   );
-
 }
 
 class ProzesseUndAufgaben extends StatelessWidget {
@@ -158,28 +156,31 @@ class ProzesseUndAufgaben extends StatelessWidget {
           IconButton(icon: Icon(Icons.info_outline), onPressed: _tapButton)
         ],
       ),
-      body: BodyLayout());
+      body: BodyLayoutPA());
+
 }
+
 
 _tapButton() {}
 
-class BodyLayout extends StatelessWidget {
+class BodyLayoutPA extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return _myListView(context);
+    return _PAList(context);
   }
 }
 
-// replace this function with the code in the examples
-Widget _myListView(BuildContext context) {
+Widget _PAList(BuildContext context) {
   // backing data
   return ListView(
+
     children: <Widget>[
       ListTile(
         title: Text('Allgemeine medizinische Versorgung'),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
-          Navigator.push(context, new MaterialPageRoute(builder: (context) => AllMedVer()));
+          Navigator.push(context,
+              new MaterialPageRoute(builder: (context) => AllMedVer()));
         },
       ),
       ListTile(
@@ -232,7 +233,7 @@ Widget _myListView(BuildContext context) {
         },
       ),
       ListTile(
-        title: Text('Management medizinisher Geräte'),
+        title: Text('Management medizinischer Geräte'),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
           print('ok');
@@ -263,16 +264,72 @@ Widget _myListView(BuildContext context) {
   );
 }
 
-class AllMedVer  extends StatelessWidget{
-
+class AllMedVer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Allgemeine medizinische Versorgung"),
-      ),
-    );
+        appBar: AppBar(
+          title: Text("Allgemeine medizinische Versorgung"),
+        ),
+        body: BodyLayoutAllMedVer());
   }
 }
 
+class BodyLayoutAllMedVer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return _AllMedverList(context);
+  }
+}
 
+Widget _AllMedverList(BuildContext context) {
+  // backing data
+  return ListView(
+    children: <Widget>[
+      ListTile(
+        title: Text('Follow up, Routine Checkup'),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          print('ok');
+        },
+      ),
+      ListTile(
+        title: Text('Konsultationen, Visite, ärztlicher Patientenkontakt'),
+        trailing: Icon(Icons.keyboard_arrow_right),
+        onTap: () {
+          print('ok');
+        },
+      ),
+      ListTile(
+          title: Text('Transport'),
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            print('ok');
+          }),
+      ListTile(
+          title: Text('Post-Konsultationen, -Visite'),
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            print('ok');
+          }),
+      ListTile(
+          title: Text('Prä-Konsultationen, -Visite'),
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            print('ok');
+          }),
+      ListTile(
+          title: Text('Übergabe'),
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            print('ok');
+          }),
+      ListTile(
+          title: Text('NOS'),
+          trailing: Icon(Icons.keyboard_arrow_right),
+          onTap: () {
+            print('ok');
+          })
+    ],
+  );
+}

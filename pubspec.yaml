@@ -24,6 +24,13 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^0.1.2
 
+#interacts with an SQLite database
+  sqflite: ^1.3.0
+
+#give us the data directory where we can store the database in Android and iOS.
+#In Android this maps to the AppData directory, and in iOS to NSDocumentsDirectory.
+  path_provider: ^1.6.5
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
