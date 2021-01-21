@@ -1,4 +1,4 @@
-import 'package:cirs_app/ui/input_analysis/inputHome.dart';
+import 'package:cirs_app/ui/input_analysis/info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,8 +20,8 @@ class BodyLayoutdokuProzess extends StatelessWidget {
   }
 }
 
-Future navigateToInputHome(context) async {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => inputHome()));
+Future navigateToInfo(context) async {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => info()));
 }
 
 Widget _dokuProzessList(BuildContext context) {
@@ -32,27 +32,27 @@ Widget _dokuProzessList(BuildContext context) {
         title: Text('Dokumentenerstellung'),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
-          navigateToInputHome(context);
+          navigateToInfo(context);
         },
       ),
       ListTile(
         title: Text('Kontrolle und Unterschrift'),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
-          navigateToInputHome(context);
+          navigateToInfo(context);
         },
       ),
       ListTile(
           title: Text('Kontrolle'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInputHome(context);
+            navigateToInfo(context);
           }),
       ListTile(
           title: Text('NOS'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInputHome(context);
+            navigateToInfo(context);
           })
     ],
   );

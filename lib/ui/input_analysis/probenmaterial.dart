@@ -1,32 +1,39 @@
-import 'package:cirs_app/ui/input_analysis/inputHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class probenmaterial extends StatelessWidget {
+class probenmaterial extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  _ProbenmaterialState createState() => _ProbenmaterialState();
+}
+
+class _ProbenmaterialState extends State<probenmaterial> {
+
+  @override
+  Widget build(BuildContext context) =>
+      Scaffold(
         appBar: AppBar(
-          title: Text("Probenmaterial/Medikamente"),
+          title: Text("Angaben zu Probenmaterial/Medikament"),
         ),
-        body: BodyLayoutProbenmaterial());
-  }
+
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+
+              new MaterialButton(
+                color: Theme.of(context).primaryColor,
+                textColor: Colors.white,
+                child: new Text("Weiter"),
+                onPressed: () {
+                  navigateToProbenmaterial(context);
+                },
+              )
+            ],
+          ),
+        ),
+      );
+
 }
 
-class BodyLayoutProbenmaterial extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return probenmaterialList(context);
-  }
-}
-
-Future navigateToInputHome(context) async {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => inputHome()));
-}
-
-Widget probenmaterialList(BuildContext context) {
-  // backing data
-  CheckboxListTile(
-    title: Text("kein Probenmaterial"),
-  );
-}
+Future navigateToProbenmaterial(context) async => Navigator.push(context,
+      MaterialPageRoute(builder: (context) => probenmaterial()));

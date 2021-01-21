@@ -1,4 +1,4 @@
-import 'package:cirs_app/ui/input_analysis/inputHome.dart';
+import 'package:cirs_app/ui/input_analysis/info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,8 +20,8 @@ class BodyLayoutInfundGeb extends StatelessWidget {
   }
 }
 
-Future navigateToInputHome(context) async {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => inputHome()));
+Future navigateToInfo(context) async {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => info()));
 }
 
 Widget _InfundGebList(BuildContext context) {
@@ -32,33 +32,33 @@ Widget _InfundGebList(BuildContext context) {
         title: Text('Administration'),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
-          navigateToInputHome(context);
+          navigateToInfo(context);
         },
       ),
       ListTile(
         title: Text('Reinigung'),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
-          navigateToInputHome(context);
+          navigateToInfo(context);
         },
       ),
       ListTile(
           title: Text('Sterilisation'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInputHome(context);
+            navigateToInfo(context);
           }),
       ListTile(
           title: Text('Wartung'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInputHome(context);
+            navigateToInfo(context);
           }),
       ListTile(
           title: Text('NOS'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInputHome(context);
+            navigateToInfo(context);
           })
     ],
   );

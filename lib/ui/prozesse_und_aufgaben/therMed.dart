@@ -1,4 +1,4 @@
-import 'package:cirs_app/ui/input_analysis/inputHome.dart';
+import 'package:cirs_app/ui/input_analysis/info.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,8 +20,8 @@ class BodyLayouttherMed extends StatelessWidget {
   }
 }
 
-Future navigateToInputHome(context) async {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => inputHome()));
+Future navigateToInfo(context) async {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => info()));
 }
 
 Widget _therMedList(BuildContext context) {
@@ -32,50 +32,50 @@ Widget _therMedList(BuildContext context) {
         title: Text('Administration'),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
-          navigateToInputHome(context);
+          navigateToInfo(context);
         },
       ),
       ListTile(
           title: Text('Aufbewahrung'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInputHome(context);
+            navigateToInfo(context);
           }),
       ListTile(
           title: Text('Abgabe, Transport, Anlieferung'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInputHome(context);
+            navigateToInfo(context);
           }),
       ListTile(
           title: Text('Bestellung, Order'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInputHome(context);
+            navigateToInfo(context);
           }),
       ListTile(
           title: Text('Monitoring'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInputHome(context);
+            navigateToInfo(context);
           }),
       ListTile(
           title: Text('Verschreibung'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInputHome(context);
+            navigateToInfo(context);
           }),
       ListTile(
           title: Text('Vorbereitung, Aufbereitung, Bereitstellung'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInputHome(context);
+            navigateToInfo(context);
           }),
       ListTile(
           title: Text('NOS'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInputHome(context);
+            navigateToInfo(context);
           })
     ],
   );

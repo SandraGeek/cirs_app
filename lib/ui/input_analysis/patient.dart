@@ -1,32 +1,42 @@
-import 'package:cirs_app/ui/input_analysis/inputHome.dart';
+import 'package:cirs_app/ui/input_analysis/probenmaterial.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class patient extends StatelessWidget {
+class patient extends StatefulWidget {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
+  _PatientState createState() => _PatientState();
+}
+
+class _PatientState extends State<patient> {
+
+  @override
+  Widget build(BuildContext context) =>
+      Scaffold(
         appBar: AppBar(
-          title: Text("Patient"),
+          title: Text("Angaben zur Patient"),
         ),
-        body: BodyLayoutPatient());
-  }
+
+        body: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: <Widget>[
+
+              new MaterialButton(
+                color: Theme.of(context).primaryColor,
+                textColor: Colors.white,
+                child: new Text("Weiter"),
+                onPressed: () {
+                  navigateToProbenmaterial(context);
+                },
+              )
+            ],
+          ),
+        ),
+      );
+
 }
 
-class BodyLayoutPatient extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return probenmaterialList(context);
-  }
-}
-
-Future navigateToInputHome(context) async {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => inputHome()));
-}
-
-Widget probenmaterialList(BuildContext context) {
-  // backing data
-  CheckboxListTile(
-    title: Text("kein Probenmaterial"),
-  );
+Future navigateToProbenmaterial(context) async {
+  Navigator.push(context,
+      MaterialPageRoute(builder: (context) => probenmaterial()));
 }
