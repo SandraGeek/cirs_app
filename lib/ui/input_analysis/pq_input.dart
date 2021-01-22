@@ -1,19 +1,18 @@
-import 'package:cirs_app/ui/input_analysis/pq_input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class probenmaterial extends StatefulWidget {
+class pq_input extends StatefulWidget {
   @override
-  _ProbenmaterialState createState() => _ProbenmaterialState();
+  _Pq_inputState createState() => _Pq_inputState();
 }
 
-class _ProbenmaterialState extends State<probenmaterial> {
+class _Pq_inputState extends State<pq_input> {
 
   @override
   Widget build(BuildContext context) =>
       Scaffold(
         appBar: AppBar(
-          title: Text("Angaben zu Probenmaterial/Medikament"),
+          title: Text("Patientenqualitätszustand Input"),
         ),
 
         body: Center(
@@ -26,7 +25,7 @@ class _ProbenmaterialState extends State<probenmaterial> {
                 textColor: Colors.white,
                 child: new Text("Weiter"),
                 onPressed: () {
-                  navigateToPq_input(context);
+                  //navigateToProbenmaterial(context);
                 },
               )
             ],
@@ -36,5 +35,4 @@ class _ProbenmaterialState extends State<probenmaterial> {
 
 }
 
-Future navigateToPq_input(context) async => Navigator.push(context,
-      MaterialPageRoute(builder: (context) => pq_input()));
+

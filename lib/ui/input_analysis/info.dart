@@ -57,10 +57,10 @@ class _InfoState extends State<info> {
           activeColor: Colors.green,
         ),
       );
+
     }
     return widgets;
   }
-
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -74,13 +74,19 @@ class _InfoState extends State<info> {
               children: createRadioListUsers(),
             ),
 
+            DropdownButtonFormField<String>(
+              hint: Text("Anzahl der Informationsquellen"),
+              decoration: InputDecoration(border: const OutlineInputBorder(), contentPadding: EdgeInsets.symmetric()),
+              //items: ["keine Angaben, "nicht relevant"],
+            ),
+
             Column(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
               new MaterialButton(
                 color: Theme.of(context).primaryColor,
                 textColor: Colors.white,
                 child: new Text("Weiter"),
                 onPressed: () {
-                  navigateToProbenmaterial(context);
+                  navigateToPatient(context);
                 },
               ),
             ]),
