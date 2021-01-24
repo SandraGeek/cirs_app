@@ -1,4 +1,4 @@
-import 'package:cirs_app/ui/input_analysis/patient.dart';
+import 'package:cirs_app/ui/input_analysis/infoHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../model/info_options.dart';
@@ -9,6 +9,8 @@ class info extends StatefulWidget {
 }
 
 class _InfoState extends State<info> {
+
+  String selected;
 
   List<info_options> options;
   info_options selectedOption;
@@ -74,10 +76,23 @@ class _InfoState extends State<info> {
               children: createRadioListUsers(),
             ),
 
-            DropdownButtonFormField<String>(
-              hint: Text("Anzahl der Informationsquellen"),
-              decoration: InputDecoration(border: const OutlineInputBorder(), contentPadding: EdgeInsets.symmetric()),
-              //items: ["keine Angaben, "nicht relevant"],
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: DropdownButtonFormField<String>(
+
+                decoration: InputDecoration(border: OutlineInputBorder()),
+                value: selected,
+                hint: Text("Anzahl der Informationsquellen"),
+                items: ["1", "2", "3 oder mehr", "keine Angaben", "nicht relevant"]
+                    .map((label) => DropdownMenuItem(
+                  child: Text(label),
+                  value: label,
+                ))
+                    .toList(),
+                onChanged: (value) {
+                  setState(() => selected = value);
+                },
+              ),
             ),
 
             Column(mainAxisAlignment: MainAxisAlignment.end, children: <Widget>[
@@ -86,7 +101,7 @@ class _InfoState extends State<info> {
                 textColor: Colors.white,
                 child: new Text("Weiter"),
                 onPressed: () {
-                  navigateToPatient(context);
+                  navigateToInfoHome(context);
                 },
               ),
             ]),
@@ -94,6 +109,6 @@ class _InfoState extends State<info> {
       ));
 }
 
-Future navigateToPatient(context) async {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => patient()));
+Future navigateToInfoHome(context) async {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => infoHome()));
 }
