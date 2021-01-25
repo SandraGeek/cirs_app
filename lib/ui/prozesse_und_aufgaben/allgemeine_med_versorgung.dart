@@ -1,4 +1,4 @@
-import 'package:cirs_app/ui/input_analysis/info.dart';
+import 'package:cirs_app/ui/input_analysis/infoHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,8 +20,8 @@ class BodyLayoutAllMedVer extends StatelessWidget {
   }
 }
 
-Future navigateToInfo(context) async {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => info()));
+Future navigateToInfoHome(context) async {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => infoHome()));
 }
 
 Widget _AllMedverList(BuildContext context) {
@@ -32,45 +32,45 @@ Widget _AllMedverList(BuildContext context) {
         title: Text('Follow up, Routine Checkup'),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
-          navigateToInfo(context);
+          navigateToInfoHome(context);
         },
       ),
       ListTile(
         title: Text('Konsultationen, Visite, ärztlicher Patientenkontakt'),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
-          navigateToInfo(context);
+          navigateToInfoHome(context);
         },
       ),
       ListTile(
           title: Text('Transport'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInfo(context);
+            navigateToInfoHome(context);
           }),
       ListTile(
           title: Text('Post-Konsultationen, -Visite'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInfo(context);
+            navigateToInfoHome(context);
           }),
       ListTile(
           title: Text('Prä-Konsultationen, -Visite'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInfo(context);
+            navigateToInfoHome(context);
           }),
       ListTile(
           title: Text('Übergabe'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInfo(context);
+            navigateToInfoHome(context);
           }),
       ListTile(
           title: Text('NOS'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInfo(context);
+            navigateToInfoHome(context);
           })
     ],
   );

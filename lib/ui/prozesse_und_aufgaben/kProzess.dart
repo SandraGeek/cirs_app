@@ -1,4 +1,4 @@
-import 'package:cirs_app/ui/input_analysis/info.dart';
+import 'package:cirs_app/ui/input_analysis/infoHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,8 +20,8 @@ class BodyLayoutkProzess extends StatelessWidget {
   }
 }
 
-Future navigateToInfo(context) async {
-  Navigator.push(context, MaterialPageRoute(builder: (context) => info()));
+Future navigateToInfoHome(context) async {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => infoHome()));
 }
 
 Widget _kProzessList(BuildContext context) {
@@ -32,69 +32,69 @@ Widget _kProzessList(BuildContext context) {
         title: Text('Allgemeine Pflege'),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
-          navigateToInfo(context);
+          navigateToInfoHome(context);
         },
       ),
       ListTile(
         title: Text('Durchführung Diagnostik'),
         trailing: Icon(Icons.keyboard_arrow_right),
         onTap: () {
-          navigateToInfo(context);
+          navigateToInfoHome(context);
         },
       ),
       ListTile(
           title: Text('Durchführung Therapie'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInfo(context);
+            navigateToInfoHome(context);
           }),
       ListTile(
           title: Text('Management Laborergebnisse'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInfo(context);
+            navigateToInfoHome(context);
           }),
       ListTile(
           title: Text('OP Durchführung'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInfo(context);
+            navigateToInfoHome(context);
           }),
       ListTile(
           title: Text('OP Vorbereitung'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInfo(context);
+            navigateToInfoHome(context);
           }),
       ListTile(
           title: Text('Planung Diagnose'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInfo(context);
+            navigateToInfoHome(context);
           }),
       ListTile(
           title: Text('Planung Therapie'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInfo(context);
+            navigateToInfoHome(context);
           }),
       ListTile(
           title: Text('Postoperative Versorgung'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInfo(context);
+            navigateToInfoHome(context);
           }),
       ListTile(
           title: Text('Screening, Routine Checkup'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInfo(context);
+            navigateToInfoHome(context);
           }),
       ListTile(
           title: Text('NOS'),
           trailing: Icon(Icons.keyboard_arrow_right),
           onTap: () {
-            navigateToInfo(context);
+            navigateToInfoHome(context);
           })
     ],
   );
