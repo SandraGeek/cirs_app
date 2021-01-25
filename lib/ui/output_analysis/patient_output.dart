@@ -9,7 +9,7 @@ class patient_output extends StatefulWidget {
 }
 
 class _patient_outputState extends State<patient_output> {
-  int _selected = 0;
+  int _selected;
 
   void onPressed() {
     if( _selected != 0){

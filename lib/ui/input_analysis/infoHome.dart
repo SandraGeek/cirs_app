@@ -9,7 +9,7 @@ class infoHome extends StatefulWidget {
 }
 
 class _infoHomeState extends State<infoHome> {
- int _selected = 0;
+ int _selected;
 
   void onPressed() {
    if( _selected != 0){

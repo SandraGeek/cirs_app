@@ -8,7 +8,7 @@ class proben_output extends StatefulWidget {
 }
 
 class _Proben_OutputState extends State<proben_output> {
-  int _selected = 0;
+  int _selected;
 
   void onPressed() {
     if( _selected != 0){

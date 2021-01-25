@@ -9,7 +9,7 @@ class info_output extends StatefulWidget {
 }
 
 class _info_OutputState extends State<info_output> {
-  int _selected = 0;
+  int _selected;
 
   void onPressed() {
     if( _selected != 0){

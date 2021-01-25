@@ -10,7 +10,7 @@ class probenHome extends StatefulWidget {
 }
 
 class _ProbenHomeState extends State<probenHome> {
-  int _selected = 0;
+  int _selected;
 
   void onPressed() {
 
