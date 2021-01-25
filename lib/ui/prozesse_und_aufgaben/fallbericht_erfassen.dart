@@ -2,7 +2,16 @@ import 'package:cirs_app/ui/prozesse_und_aufgaben/prozesse_und_aufgaben.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class FallBerichtPage extends StatelessWidget {
+class FallBerichtPage extends StatefulWidget {
+  @override
+  _FallBerichtPageState createState() => _FallBerichtPageState();
+}
+
+class _FallBerichtPageState extends State<FallBerichtPage> {
+
+  final _formKey = GlobalKey<FormState>();
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,38 +25,48 @@ class FallBerichtPage extends StatelessWidget {
               })
         ],
       ),
-      body: Center(
+      body: Form(
+        key: _formKey,
         child: Column(
-          //mainAxisAlignment: MainAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Container(
-              margin: EdgeInsets.all(10.0),
-              // hack textfield height
-              padding: EdgeInsets.only(bottom: 10.0),
-              height: 200.0,
-              child: TextField(
-                maxLines: 20,
+            Padding(
+              padding: const EdgeInsets.all(50.0),
+              child: TextFormField(
                 decoration: InputDecoration(
-                  hintText: "Was ist passiert?",
-                  border: OutlineInputBorder(),
+                  hintText: 'Bitte Fall erfassen!', border: new OutlineInputBorder(borderRadius: new BorderRadius.vertical())
                 ),
+                textAlign: TextAlign.center,
+                validator: (text) {
+                  if (text == null || text.isEmpty) {
+                    return 'Feld ist leer!';
+                  }
+                  return null;
+                },
               ),
             ),
-            new MaterialButton(
-              color: Theme.of(context).primaryColor,
-              textColor: Colors.white,
-              child: new Text("Fallbericht ohne Analyse abgeben"),
+            RaisedButton(
               onPressed: () {
-                savedAlert(context);
+                if (_formKey.currentState.validate()) {
+                  savedAlert(context);
+                }
               },
+              child: Text('Abgeben ohne Analyse'),
+              color: Colors.blue,
+              shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0)),
             ),
-            new MaterialButton(
-              color: Theme.of(context).primaryColor,
-              textColor: Colors.white,
-              child: new Text("Fallbericht abgeben und analysieren"),
+
+            RaisedButton(
               onPressed: () {
-                navigateToProcesses(context);
+                if (_formKey.currentState.validate()) {
+                  navigateToProcesses(context);
+                }
               },
+              child: Text('Abgeben und Analyse durchführen'),
+              color: Colors.blue,
+              shape: new RoundedRectangleBorder(
+                  borderRadius: new BorderRadius.circular(30.0)),
             )
           ],
         ),

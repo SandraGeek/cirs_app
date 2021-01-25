@@ -31,7 +31,7 @@ class MainPage extends StatelessWidget {
                 color: Theme.of(context).primaryColor,
                 textColor: Colors.white,
                 child: Text(
-                  "Fallbericht Erfassung starten",
+                  "Fallberichterfassung starten",
                   style: TextStyle(fontSize: 20.0),
                 ),
                 onPressed: () {

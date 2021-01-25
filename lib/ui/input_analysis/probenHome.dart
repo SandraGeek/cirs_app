@@ -1,22 +1,24 @@
-import 'package:cirs_app/ui/input_analysis/patientDetails.dart';
+import 'package:cirs_app/ui/input_analysis/infoHome.dart';
 import 'package:cirs_app/ui/input_analysis/probenDetails.dart';
-import 'package:cirs_app/ui/input_analysis/probenHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class patientHome extends StatefulWidget {
+
+class probenHome extends StatefulWidget {
   @override
-  _patientHomeState createState() => _patientHomeState();
+  _ProbenHomeState createState() => _ProbenHomeState();
 }
 
-class _patientHomeState extends State<patientHome> {
+class _ProbenHomeState extends State<probenHome> {
   int _selected = 0;
 
   void onPressed() {
-    if( _selected != 0){
-      navigateToProbenHome(context);
+
+
+      if( _selected != 0){
+      navigateToInfoHome(context);
     }else{
-      navigateToPatientDetails(context);
+      navigateToProbenDetails(context);
     }
   }
 
@@ -26,7 +28,7 @@ class _patientHomeState extends State<patientHome> {
     });
   }
 
-  List<Widget> patientHomeList() {
+  List<Widget> probenHomeList() {
     List<Widget> list = new List<Widget>();
     List names = new List(3);
     names[0] = "Ja";
@@ -34,7 +36,7 @@ class _patientHomeState extends State<patientHome> {
     names[2] = "Nicht relevant";
 
     list.add(new Text(
-      "Gibt es ein Patient?",
+      "Sind probenmaterial oder Medikamenten vorhanden?",
       style: TextStyle(
         //decoration: TextDecoration.underline,
         fontSize: 18,
@@ -73,7 +75,7 @@ class _patientHomeState extends State<patientHome> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text("Angaben zum Patienten"),
+      title: Text("Angaben zu Probenmaterial/Medikamenten"),
     ),
     body: Center(
       child: new Container(
@@ -82,15 +84,17 @@ class _patientHomeState extends State<patientHome> {
         color: Colors.white70,
         alignment: Alignment.center,
         child: new Column(
-          children: patientHomeList(),
+          children: probenHomeList(),
         ),
       ),
     ),
   );
 }
 
-Future navigateToProbenHome(context) async => Navigator.push(
-    context, MaterialPageRoute(builder: (context) => probenHome()));
+Future navigateToProbenDetails(context) async => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => probenDetails()));
 
-Future navigateToPatientDetails(context) async => Navigator.push(
-    context, MaterialPageRoute(builder: (context) => patientDetails()));
+Future navigateToInfoHome(context) async => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => infoHome()));
+
+

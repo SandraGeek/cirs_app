@@ -57,6 +57,7 @@ class _InfoState extends State<info> {
           },
           selected: selectedOption == option,
           activeColor: Colors.green,
+
         ),
       );
 

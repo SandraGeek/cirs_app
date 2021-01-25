@@ -2,7 +2,7 @@ import 'dart:ui';
 
 import 'package:cirs_app/ui/input_analysis/infoHome.dart';
 import 'package:cirs_app/ui/input_analysis/patientHome.dart';
-import 'package:cirs_app/ui/input_analysis/probenmaterial.dart';
+import 'package:cirs_app/ui/input_analysis/probenDetails.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../../model/info_options.dart';
@@ -13,13 +13,15 @@ class infoDetails extends StatefulWidget {
 }
 
 class _InfoDetailsState extends State<infoDetails> {
-  String selected;
+   String selected;
   String selected1;
   String selected2;
   String selected3;
   String selected4;
 
   void onPressed() {
+
+
     navigateToPatientHome(context);
   }
 
@@ -30,9 +32,11 @@ class _InfoDetailsState extends State<infoDetails> {
       ),
       body:
           Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
+
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: DropdownButtonFormField<String>(
+
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: "Anzahl der Informationsquellen",

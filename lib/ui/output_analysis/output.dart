@@ -1,16 +1,15 @@
 import 'dart:ui';
 import 'package:cirs_app/ui/aufgabe_analysis/res_quality.dart';
-import 'package:cirs_app/ui/output_analysis/output.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class aufgabe extends StatefulWidget {
+class output extends StatefulWidget {
   @override
-  _AufgabeState createState() => _AufgabeState();
+  _OutputState createState() => _OutputState();
 }
-enum dqOption { first, second, third }
+enum outputOption { first, second, third }
 
-class _AufgabeState extends State<aufgabe> {
+class _OutputState extends State<output> {
   String selected;
   String selected1;
   String selected2;
@@ -19,15 +18,17 @@ class _AufgabeState extends State<aufgabe> {
   String selected5;
   String selected6;
   String selected7;
-  dqOption _option;
+  outputOption _option;
 
 
   void onPressed() {
-    navigateToResQ(context);  }
+    navigateToResQ(context);
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-        title: Text("Aufgabe"),
+        title: Text("Output"),
       ),
       body: SafeArea(
           child: Scrollbar(
@@ -36,53 +37,43 @@ class _AufgabeState extends State<aufgabe> {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        RadioListTile<dqOption>(
+                        RadioListTile<outputOption>(
                           title: const Text('keine Aufgabe'),
-                          value: dqOption.first,
+                          value: outputOption.first,
                           groupValue: _option,
-                          onChanged: (dqOption value) {
+                          onChanged: (outputOption value) {
                             setState(() {
                               _option = value;
                             });
-                            navigateToOutput(context);
+                            navigateToResQ(context);
                           },
                         ),
-                        RadioListTile<dqOption>(
+                        RadioListTile<outputOption>(
                           title: const Text('keine Angaben zur Aufgabe'),
-                          value: dqOption.second,
+                          value: outputOption.second,
                           groupValue: _option,
-                          onChanged: (dqOption value) {
+                          onChanged: (outputOption value) {
                             setState(() {
                               _option = value;
                             });
-                            navigateToOutput(context);
                           },
                         ),
-                        RadioListTile<dqOption>(
+                        RadioListTile<outputOption>(
                           title: const Text('nicht relevant'),
-                          value: dqOption.third,
+                          value: outputOption.third,
                           groupValue: _option,
-                          onChanged: (dqOption value) {
+                          onChanged: (outputOption value) {
                             setState(() {
                               _option = value;
                             });
-                            navigateToOutput(context);
                           },
-                        ),
-
-                        new Text(
-                          'Prozedur:',
-                          style: new TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22.0,
-                          ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: DropdownButtonFormField<String>(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: "Art der Prozedur",
+                              labelText: "Allgemeines",
                               labelStyle: TextStyle(
                                 fontSize: 20,
                                 //fontWeight: FontWeight.bold,
@@ -92,7 +83,7 @@ class _AufgabeState extends State<aufgabe> {
                             value: selected,
                             //hint: Text("Anzahl der Informationsquellen"),
                             items:
-                            ["invasiv", "nicht invasiv", "keine Angaben", "nicht relevant"]
+                            ["richtig, vollständig", "richtig, unvollständig, NOS", "fehlend", "falsch", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
@@ -108,7 +99,7 @@ class _AufgabeState extends State<aufgabe> {
                           child: DropdownButtonFormField<String>(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: "Kontaminationsgefahr",
+                              labelText: "Absender/Empfänger",
                               labelStyle: TextStyle(
                                 fontSize: 20,
                                 //fontWeight: FontWeight.bold,
@@ -118,7 +109,8 @@ class _AufgabeState extends State<aufgabe> {
                             value: selected1,
                             //hint: Text("Anzahl der Absender"),
                             items:
-                            ["keine Kontaminationsgefahr", "latente Kontaminationsgefahr", "manifeste Kontaminationsgefahr", "keine Angaben", "nicht relevant"]
+                            ["Absender richtig, vollständig", "Absender richtig, unvollständig", "Absender fehlend", "falsche Absender", "keine Angaben zum Absender", "Absender nicht relevant",
+                              "Adressat richtig, vollständig", "Adressat richtig, unvollständig", "Adressat fehlend", "falsche Adressat", "keine Angaben zum Adressat", "Adressat nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
@@ -134,7 +126,7 @@ class _AufgabeState extends State<aufgabe> {
                           child: DropdownButtonFormField<String>(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: "Benutzung von medizinischen Geräten",
+                              labelText: "Patientidentifikation",
                               labelStyle: TextStyle(
                                 fontSize: 20,
                                 //fontWeight: FontWeight.bold,
@@ -144,7 +136,7 @@ class _AufgabeState extends State<aufgabe> {
                             value: selected2,
                             // hint: Text("Form des Informationsaustausches"),
                             items: [
-                              "keines", "1", "2", "3 oder mehr", "keine Angaben", "nicht relevant"
+                              "richtig, vollständig", "richtig, unvollständig", "fehlend", "falsch", "keine Angaben", "nicht relevant"
                             ]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
@@ -161,7 +153,7 @@ class _AufgabeState extends State<aufgabe> {
                           child: DropdownButtonFormField<String>(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: "Notwendiger Ausbildungsstand",
+                              labelText: "Diagnose",
                               labelStyle: TextStyle(
                                 fontSize: 20,
                                 //fontWeight: FontWeight.bold,
@@ -171,8 +163,7 @@ class _AufgabeState extends State<aufgabe> {
                             value: selected3,
                             // hint: Text("Informationstyp und strukturiertheit"),
                             items: [
-                             "PatientIn, Angehörige", "PraktikantIn", "StudentIn", "GesundheitspflegerIn, MTA, PTA", "FachpflegerIn, FachMTA, FachPTA","AssistenzaerztIn" , "FachaerztIn",
-                              "keine Angaben", "nicht relevant"
+                              "richtig, vollständig", "richtig, unvollständig", "zeitlich verzögert", "falsch", "keine Angaben", "nicht relevant"
                             ]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
@@ -189,7 +180,7 @@ class _AufgabeState extends State<aufgabe> {
                           child: DropdownButtonFormField<String>(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: "Benutzung von medizinischem Verbrauchsmaterial",
+                              labelText: "Klinische Geschichte",
                               labelStyle: TextStyle(
                                 fontSize: 20,
                                 //fontWeight: FontWeight.bold,
@@ -198,7 +189,7 @@ class _AufgabeState extends State<aufgabe> {
                             ),
                             value: selected4,
                             // hint: Text("Informationsvolumen"),
-                            items: [ "keines", "1", "2", "3 oder mehr", "keine Angaben", "nicht relevant"]
+                            items: [ "richtig, vollständig", "richtig, unvollständig", "zeitlich verzögert", "falsch", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
@@ -214,7 +205,7 @@ class _AufgabeState extends State<aufgabe> {
                           child: DropdownButtonFormField<String>(
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
-                              labelText: "Anzahl involvierter medizinischer Domänen",
+                              labelText: "Therapie",
                               labelStyle: TextStyle(
                                 fontSize: 20,
                                 //fontWeight: FontWeight.bold,
@@ -223,7 +214,7 @@ class _AufgabeState extends State<aufgabe> {
                             ),
                             value: selected5,
                             // hint: Text("Informationsvolumen"),
-                            items: [ "1", "2", "3 oder mehr", "keine Angaben", "nicht relevant"]
+                            items: [ "richtig, vollständig", "richtig, unvollständig", "zeitlich verzögert", "falsch", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
@@ -234,118 +225,12 @@ class _AufgabeState extends State<aufgabe> {
                             },
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: "Anzahl involvierter Personen",
-                              labelStyle: TextStyle(
-                                fontSize: 20,
-                                //fontWeight: FontWeight.bold,
-                              ),
-                              isDense: true,
-                            ),
-                            value: selected5,
-                            // hint: Text("Informationsvolumen"),
-                            items: [ "1", "2", "3 oder mehr", "keine Angaben", "nicht relevant"]
-                                .map((label) => DropdownMenuItem(
-                              child: Text(label),
-                              value: label,
-                            ))
-                                .toList(),
-                            onChanged: (value) {
-                              setState(() => selected5 = value);
-                            },
-                          ),
-                        ),
-                        new Text(
-                          'Kommunikation & Monitoring:',
-                          style: new TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22.0,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: "Interne Teamkommunikation",
-                              labelStyle: TextStyle(
-                                fontSize: 20,
-                                //fontWeight: FontWeight.bold,
-                              ),
-                              isDense: true,
-                            ),
-                            value: selected5,
-                            // hint: Text("Informationsvolumen"),
-                            items: [ "gleiche hierarchische Ebene", "unterschiedlcihe hierarchische Ebenen", "keine Kommunikation", "keine Angaben", "nicht relevant"]
-                                .map((label) => DropdownMenuItem(
-                              child: Text(label),
-                              value: label,
-                            ))
-                                .toList(),
-                            onChanged: (value) {
-                              setState(() => selected5 = value);
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: "Anzahl verfügbarer Informationskanäle",
-                              labelStyle: TextStyle(
-                                fontSize: 20,
-                                //fontWeight: FontWeight.bold,
-                              ),
-                              isDense: true,
-                            ),
-                            value: selected5,
-                            // hint: Text("Informationsvolumen"),
-                            items: [ "1", "2", "3 oder mehr", "keine Angaben", "nicht relevant"]
-                                .map((label) => DropdownMenuItem(
-                              child: Text(label),
-                              value: label,
-                            ))
-                                .toList(),
-                            onChanged: (value) {
-                              setState(() => selected5 = value);
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(10.0),
-                          child: DropdownButtonFormField<String>(
-                            decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              labelText: "Anzahl notwendiger Informationsentitäten",
-                              labelStyle: TextStyle(
-                                fontSize: 20,
-                                //fontWeight: FontWeight.bold,
-                              ),
-                              isDense: true,
-                            ),
-                            value: selected5,
-                            // hint: Text("Informationsvolumen"),
-                            items: [ "1", "2", "3 oder mehr", "keine Angaben", "nicht relevant"]
-                                .map((label) => DropdownMenuItem(
-                              child: Text(label),
-                              value: label,
-                            ))
-                                .toList(),
-                            onChanged: (value) {
-                              setState(() => selected5 = value);
-                            },
-                          ),
-                        ),
+
                         new RaisedButton(
                           child: new Text(
                             "Weiter",
                             style: TextStyle(
-                              fontSize: 20.0,
+                              fontSize: 17.0,
                               color: Colors.white,
                             ),
                           ),
@@ -362,12 +247,7 @@ class _AufgabeState extends State<aufgabe> {
   );
 }
 
-Future navigateToOutput(context) async {
-  Navigator.push(
-      context, MaterialPageRoute(builder: (context) => output()));
-}
-
-Future navigateResQ(context) async {
+Future navigateToResQ(context) async {
   Navigator.push(
       context, MaterialPageRoute(builder: (context) => res_quality()));
 }

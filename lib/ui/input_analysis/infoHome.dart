@@ -1,6 +1,6 @@
 import 'package:cirs_app/ui/input_analysis/patientDetails.dart';
 import 'package:cirs_app/ui/input_analysis/patientHome.dart';
-import 'package:cirs_app/ui/input_analysis/probenmaterial.dart';
+import 'package:cirs_app/ui/input_analysis/probenDetails.dart';
 import 'infoDetails.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -11,10 +11,10 @@ class infoHome extends StatefulWidget {
 }
 
 class _infoHomeState extends State<infoHome> {
-  int _selected = 0;
+ int _selected = 0;
 
   void onPressed() {
-   if( _selected == 1 || _selected == 2){
+   if( _selected != 0){
     navigateToPatientHome(context);
   }else{
      navigateToInfDetails(context);

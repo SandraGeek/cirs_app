@@ -1,5 +1,6 @@
 import 'dart:ui';
-import 'package:cirs_app/ui/input_analysis/probenmaterial.dart';
+import 'package:cirs_app/ui/input_analysis/probenDetails.dart';
+import 'package:cirs_app/ui/input_analysis/probenHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,7 @@ class _PatientDetailsState extends State<patientDetails> {
   String selected4;
 
   void onPressed() {
-    navigateToProbenmaterial(context);
+    navigateToProbenHome(context);
   }
 
   @override
@@ -28,8 +29,9 @@ class _PatientDetailsState extends State<patientDetails> {
       body:
       Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
         Padding(
-          padding: const EdgeInsets.all(10.0),
+          padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
           child: DropdownButtonFormField<String>(
+           //, itemHeight: 2,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: "Anzahl der medizinischen Domänen",
@@ -179,7 +181,7 @@ class _PatientDetailsState extends State<patientDetails> {
       ]));
 }
 
-Future navigateToProbenmaterial(context) async {
+Future navigateToProbenHome(context) async {
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => probenmaterial()));
+      context, MaterialPageRoute(builder: (context) => probenHome()));
 }
