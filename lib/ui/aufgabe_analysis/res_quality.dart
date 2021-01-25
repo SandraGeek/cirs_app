@@ -1,6 +1,5 @@
 import 'dart:ui';
-import 'package:cirs_app/ui/aufgabe_analysis/aufgabe.dart';
-import 'package:cirs_app/ui/output_analysis/output.dart';
+import 'package:cirs_app/ui/output_analysis/info_output.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -478,5 +477,5 @@ class _Res_qualityState extends State<res_quality> {
 
 Future navigateToOutput(context) async {
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => output()));
+      context, MaterialPageRoute(builder: (context) => info_output()));
 }

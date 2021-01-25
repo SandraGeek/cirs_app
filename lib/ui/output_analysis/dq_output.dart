@@ -1,15 +1,15 @@
 import 'dart:ui';
-import 'package:cirs_app/ui/aufgabe_analysis/res_quality.dart';
+import 'package:cirs_app/ui/aufgabe_analysis/aufgabe.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class output extends StatefulWidget {
-  @override
-  _OutputState createState() => _OutputState();
-}
-enum outputOption { first, second, third }
 
-class _OutputState extends State<output> {
+class dq_output extends StatefulWidget {
+  @override
+  _Dq_outputState createState() => _Dq_outputState();
+}
+
+class _Dq_outputState extends State<dq_output> {
   String selected;
   String selected1;
   String selected2;
@@ -18,17 +18,15 @@ class _OutputState extends State<output> {
   String selected5;
   String selected6;
   String selected7;
-  outputOption _option;
-
 
   void onPressed() {
-    navigateToResQ(context);
+    navigateToAufgabe(context);
   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-        title: Text("Output"),
+        title: Text("Output Qualität (Dokumentation)"),
       ),
       body: SafeArea(
           child: Scrollbar(
@@ -37,37 +35,6 @@ class _OutputState extends State<output> {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        RadioListTile<outputOption>(
-                          title: const Text('keine Aufgabe'),
-                          value: outputOption.first,
-                          groupValue: _option,
-                          onChanged: (outputOption value) {
-                            setState(() {
-                              _option = value;
-                            });
-                            navigateToResQ(context);
-                          },
-                        ),
-                        RadioListTile<outputOption>(
-                          title: const Text('keine Angaben zur Aufgabe'),
-                          value: outputOption.second,
-                          groupValue: _option,
-                          onChanged: (outputOption value) {
-                            setState(() {
-                              _option = value;
-                            });
-                          },
-                        ),
-                        RadioListTile<outputOption>(
-                          title: const Text('nicht relevant'),
-                          value: outputOption.third,
-                          groupValue: _option,
-                          onChanged: (outputOption value) {
-                            setState(() {
-                              _option = value;
-                            });
-                          },
-                        ),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: DropdownButtonFormField<String>(
@@ -247,7 +214,7 @@ class _OutputState extends State<output> {
   );
 }
 
-Future navigateToResQ(context) async {
+Future navigateToAufgabe(context) async {
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => res_quality()));
+      context, MaterialPageRoute(builder: (context) => aufgabe()));
 }

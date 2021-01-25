@@ -1,24 +1,21 @@
-import 'package:cirs_app/ui/input_analysis/infoHome.dart';
-import 'package:cirs_app/ui/input_analysis/probenDetails.dart';
+import 'package:cirs_app/ui/output_analysis/info_output_details.dart';
+import 'package:cirs_app/ui/output_analysis/patient_output.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-
-class probenHome extends StatefulWidget {
+class info_output extends StatefulWidget {
   @override
-  _ProbenHomeState createState() => _ProbenHomeState();
+  _info_OutputState createState() => _info_OutputState();
 }
 
-class _ProbenHomeState extends State<probenHome> {
+class _info_OutputState extends State<info_output> {
   int _selected = 0;
 
   void onPressed() {
-
-
-      if( _selected != 0){
-      navigateToInfoHome(context);
+    if( _selected != 0){
+      navigateToPatientOutput(context);
     }else{
-      navigateToProbenDetails(context);
+      navigateToInfo_output_details(context);
     }
   }
 
@@ -28,16 +25,16 @@ class _ProbenHomeState extends State<probenHome> {
     });
   }
 
-  List<Widget> probenHomeList() {
+  List<Widget> info_outputList() {
     List<Widget> list = new List<Widget>();
     List names = new List(4);
     names[0] = "Ja";
-    names[1] = "kein Probenmaterial";
-    names[2] = "keine Angaben";
+    names[1] = "keine Information als Output";
+    names[2] = "keine Angabe";
     names[3] = "Nicht relevant";
 
     list.add(new Text(
-      "Sind probenmaterial oder Medikamenten vorhanden?",
+      "Sind Informationen (Berichte, Befunde, u.a.) Bestandteil des Ergebnisses der Aufgabe?",
       style: TextStyle(
         //decoration: TextDecoration.underline,
         fontSize: 18,
@@ -76,7 +73,7 @@ class _ProbenHomeState extends State<probenHome> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text("Angaben zu Probenmaterial/Medikamenten"),
+      title: Text("Information als Output"),
     ),
     body: Center(
       child: new Container(
@@ -85,17 +82,37 @@ class _ProbenHomeState extends State<probenHome> {
         color: Colors.white70,
         alignment: Alignment.center,
         child: new Column(
-          children: probenHomeList(),
+          children: info_outputList(),
         ),
       ),
     ),
   );
 }
+Future<void> savedAlert(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Vielen Dank!'),
+        content: const Text(
+            'todo!'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
 
-Future navigateToProbenDetails(context) async => Navigator.push(
-    context, MaterialPageRoute(builder: (context) => probenDetails()));
+Future navigateToPatientOutput(context) async => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => patient_output()));
 
-Future navigateToInfoHome(context) async => Navigator.push(
-    context, MaterialPageRoute(builder: (context) => infoHome()));
+Future navigateToInfo_output_details(context) async => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => info_output_details()));
 
 

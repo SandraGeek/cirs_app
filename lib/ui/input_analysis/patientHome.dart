@@ -1,5 +1,4 @@
 import 'package:cirs_app/ui/input_analysis/patientDetails.dart';
-import 'package:cirs_app/ui/input_analysis/probenDetails.dart';
 import 'package:cirs_app/ui/input_analysis/probenHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -28,10 +27,11 @@ class _patientHomeState extends State<patientHome> {
 
   List<Widget> patientHomeList() {
     List<Widget> list = new List<Widget>();
-    List names = new List(3);
+    List names = new List(4);
     names[0] = "Ja";
-    names[1] = "Nein";
-    names[2] = "Nicht relevant";
+    names[1] = "kein Patient in dieser Aufgabe";
+    names[2] = "kein Angaben";
+    names[3] = "Nicht relevant";
 
     list.add(new Text(
       "Gibt es ein Patient?",
@@ -41,7 +41,7 @@ class _patientHomeState extends State<patientHome> {
         color: Colors.blue,
       ),
     ));
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 4; i++) {
       list.add(new RadioListTile(
         value: i,
         title: Text(names[i]),

@@ -1,6 +1,6 @@
 import 'dart:ui';
 import 'package:cirs_app/ui/aufgabe_analysis/res_quality.dart';
-import 'package:cirs_app/ui/output_analysis/output.dart';
+import 'package:cirs_app/ui/output_analysis/info_output.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,7 +23,9 @@ class _AufgabeState extends State<aufgabe> {
 
 
   void onPressed() {
-    navigateToResQ(context);  }
+    navigateResQ(context);
+  }
+
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
@@ -44,7 +46,7 @@ class _AufgabeState extends State<aufgabe> {
                             setState(() {
                               _option = value;
                             });
-                            navigateToOutput(context);
+                            navigateToInfo_Output(context);
                           },
                         ),
                         RadioListTile<dqOption>(
@@ -55,7 +57,7 @@ class _AufgabeState extends State<aufgabe> {
                             setState(() {
                               _option = value;
                             });
-                            navigateToOutput(context);
+                            navigateToInfo_Output(context);
                           },
                         ),
                         RadioListTile<dqOption>(
@@ -66,7 +68,7 @@ class _AufgabeState extends State<aufgabe> {
                             setState(() {
                               _option = value;
                             });
-                            navigateToOutput(context);
+                            navigateToInfo_Output(context);
                           },
                         ),
 
@@ -362,9 +364,9 @@ class _AufgabeState extends State<aufgabe> {
   );
 }
 
-Future navigateToOutput(context) async {
+Future navigateToInfo_Output(context) async {
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => output()));
+      context, MaterialPageRoute(builder: (context) => info_output()));
 }
 
 Future navigateResQ(context) async {

@@ -1,6 +1,4 @@
-import 'package:cirs_app/ui/input_analysis/patientDetails.dart';
 import 'package:cirs_app/ui/input_analysis/patientHome.dart';
-import 'package:cirs_app/ui/input_analysis/probenDetails.dart';
 import 'infoDetails.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -29,10 +27,11 @@ class _infoHomeState extends State<infoHome> {
 
   List<Widget> infoHomeList() {
     List<Widget> list = new List<Widget>();
-    List names = new List(3);
+    List names = new List(4);
     names[0] = "Ja";
-    names[1] = "Nein";
-    names[2] = "Nicht relevant";
+    names[1] = "keine Information für die Aufgabe nötig";
+    names[2] = "keine Angaben zu Information";
+    names[3] = "Nicht relevant";
 
     list.add(new Text(
       "Werden für die Aufgabe Informationen verwendet?",
@@ -42,7 +41,7 @@ class _infoHomeState extends State<infoHome> {
         color: Colors.blue,
       ),
     ));
-    for (int i = 0; i < 3; i++) {
+    for (int i = 0; i < 4; i++) {
       list.add(new RadioListTile(
         value: i,
         title: Text(names[i]),
