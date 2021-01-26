@@ -14,9 +14,12 @@ class _ProbenDetailsState extends State<probenDetails> {
 
   void onPressed() {
 
-    if(selected == 1 && selected1 == 2) {
+
+    if((selected == "1" && selected1 == "2") ||(selected == "2" && selected1 == "3 oder mehr")||(selected == "1" && selected1 == "3 oder mehr")) {
       savedAlert(context);
-    }//|| (selected == 2 || selected1 == 1 && selected1 == 2)|| (selected == 2 || selected1 == 1 && selected1 == 2 && selected1 == 3){
+    }
+
+    //|| (selected == 2 || selected1 == 1 && selected1 == 2)|| (selected == 2 || selected1 == 1 && selected1 == 2 && selected1 == 3){
 
     else{
   navigateToPq_input(context);
@@ -74,7 +77,7 @@ class _ProbenDetailsState extends State<probenDetails> {
             ),
             value: selected1,
             // hint: Text("Informationsvolumen"),
-            items: ["1", "2", "3", "keine Angabe", "nicht relevant"]
+            items: ["1", "2", "3 oder mehr", "keine Angabe", "nicht relevant"]
                 .map((label) => DropdownMenuItem(
               child: Text(label),
               value: label,
@@ -107,9 +110,9 @@ Future<void> savedAlert(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Vielen Dank!'),
+        title: Text('Hinweis!'),
         content: const Text(
-            'Ein Feedback wird in den nächsten Tagen veröffentlicht.'),
+            'Bitte Abhängigkeiten beachten: ein Probenmaterial kann nur von einem Absender kommen, zwei Quellen von max. zwei Absendern etc. '),
         actions: <Widget>[
           FlatButton(
             child: Text('Ok'),

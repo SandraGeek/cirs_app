@@ -14,6 +14,9 @@ class _ProbenHomeState extends State<probenHome> {
 
   void onPressed() {
 
+    //ToDo if patientHome._selected != 0 && infoHome._selected != 0){
+    // showMeldung: Sie müssen eine von den Komponenten ausfüllen!
+    // }
 
       if( _selected != 0){
       navigateToInfoHome(context);

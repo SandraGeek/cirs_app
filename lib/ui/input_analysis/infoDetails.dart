@@ -1,11 +1,8 @@
 import 'dart:ui';
-
-import 'package:cirs_app/ui/input_analysis/infoHome.dart';
 import 'package:cirs_app/ui/input_analysis/patientHome.dart';
-import 'package:cirs_app/ui/input_analysis/probenDetails.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../model/info_options.dart';
+
 
 class infoDetails extends StatefulWidget {
   @override
@@ -21,8 +18,12 @@ class _InfoDetailsState extends State<infoDetails> {
 
   void onPressed() {
 
-
+    if((selected == "1" && selected1 == "2") ||(selected == "2" && selected1 == "3 oder mehr")||(selected == "1" && selected1 == "3 oder mehr")) {
+      savedAlert(context);
+    }
+    else{
     navigateToPatientHome(context);
+    }
   }
 
   @override
@@ -190,6 +191,26 @@ class _InfoDetailsState extends State<infoDetails> {
               borderRadius: new BorderRadius.circular(30.0)),
         )
       ]));
+}
+Future<void> savedAlert(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Hinweis!'),
+        content: const Text(
+            'Bitte Abhängigkeiten beachten: eine Informationsquelle kann nur von einem Absender kommen, zwei Quellen von max. zwei Absendern etc. '),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
 
 Future navigateToPatientHome(context) async {
