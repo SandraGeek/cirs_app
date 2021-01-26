@@ -19,8 +19,6 @@ class _ProbenDetailsState extends State<probenDetails> {
       savedAlert(context);
     }
 
-    //|| (selected == 2 || selected1 == 1 && selected1 == 2)|| (selected == 2 || selected1 == 1 && selected1 == 2 && selected1 == 3){
-
     else{
   navigateToPq_input(context);
     }
@@ -31,7 +29,7 @@ class _ProbenDetailsState extends State<probenDetails> {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-        title: Text("Angaben zu Probenmaterial/Medikamenten"),
+        title: Text("Angaben zu Probenmaterial"),
       ),
       body:
       Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[

@@ -1,5 +1,6 @@
 import 'dart:ui';
-import 'package:cirs_app/ui/aufgabe_analysis/aufgabe.dart';
+import 'package:cirs_app/ui/aufgabe_analysis/aufgabeDetails.dart';
+import 'package:cirs_app/ui/aufgabe_analysis/aufgabeHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -20,7 +21,7 @@ class _Dq_inputState extends State<dq_input> {
   String selected7;
 
   void onPressed() {
-    navigateToAufgabe(context);
+    navigateToAufgabehome(context);
   }
 
   @override
@@ -214,7 +215,7 @@ class _Dq_inputState extends State<dq_input> {
   );
 }
 
-Future navigateToAufgabe(context) async {
+Future navigateToAufgabehome(context) async {
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => aufgabe()));
+      context, MaterialPageRoute(builder: (context) => aufgabeHome()));
 }

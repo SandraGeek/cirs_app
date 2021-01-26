@@ -1,27 +1,22 @@
-import 'package:cirs_app/ui/input_analysis/infoHome.dart';
-import 'package:cirs_app/ui/input_analysis/probenDetails.dart';
+import 'package:cirs_app/ui/input_analysis/patientHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+import 'aufgabeDetails.dart';
 
-class probenHome extends StatefulWidget {
+class aufgabeHome extends StatefulWidget {
   @override
-  _ProbenHomeState createState() => _ProbenHomeState();
+  _AufgabeHomeState createState() => _AufgabeHomeState();
 }
 
-class _ProbenHomeState extends State<probenHome> {
+class _AufgabeHomeState extends State<aufgabeHome> {
   int _selected;
 
   void onPressed() {
-
-    //ToDo if patientHome._selected != 0 && infoHome._selected != 0){
-    // showMeldung: Sie müssen eine von den Komponenten ausfüllen!
-    // }
-
-      if( _selected != 0){
-      navigateToInfoHome(context);
+    if( _selected != 0){
+      //ToDo
     }else{
-      navigateToProbenDetails(context);
+      navigateToAufgabeDetails(context);
     }
   }
 
@@ -31,16 +26,16 @@ class _ProbenHomeState extends State<probenHome> {
     });
   }
 
-  List<Widget> probenHomeList() {
+  List<Widget> aufgabeHomeList() {
     List<Widget> list = new List<Widget>();
     List names = new List(4);
     names[0] = "Ja";
-    names[1] = "kein Probenmaterial";
-    names[2] = "keine Angaben";
+    names[1] = "keine Aufgabe";
+    names[2] = "keine Angaben zur Aufgabe";
     names[3] = "Nicht relevant";
 
     list.add(new Text(
-      "Sind Probenmaterial oder Medikamenten vorhanden?",
+      "Liegen Informationen über die Aufgabe vor?",
       style: TextStyle(
         //decoration: TextDecoration.underline,
         fontSize: 18,
@@ -79,7 +74,7 @@ class _ProbenHomeState extends State<probenHome> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text("Angaben zu Probenmaterial"),
+      title: Text("Angaben zur Aufgabe"),
     ),
     body: Center(
       child: new Container(
@@ -88,17 +83,17 @@ class _ProbenHomeState extends State<probenHome> {
         color: Colors.white70,
         alignment: Alignment.center,
         child: new Column(
-          children: probenHomeList(),
+          children: aufgabeHomeList(),
         ),
       ),
     ),
   );
 }
 
-Future navigateToProbenDetails(context) async => Navigator.push(
-    context, MaterialPageRoute(builder: (context) => probenDetails()));
+Future navigateToPatientHome(context) async => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => patientHome()));
 
-Future navigateToInfoHome(context) async => Navigator.push(
-    context, MaterialPageRoute(builder: (context) => infoHome()));
+Future navigateToAufgabeDetails(context) async => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => aufgabeDetails()));
 
 

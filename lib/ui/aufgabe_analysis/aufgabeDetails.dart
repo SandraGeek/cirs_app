@@ -4,13 +4,13 @@ import 'package:cirs_app/ui/output_analysis/info_output.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class aufgabe extends StatefulWidget {
+class aufgabeDetails extends StatefulWidget {
   @override
-  _AufgabeState createState() => _AufgabeState();
+  _AufgabeDetailsState createState() => _AufgabeDetailsState();
 }
 enum dqOption { first, second, third }
 
-class _AufgabeState extends State<aufgabe> {
+class _AufgabeDetailsState extends State<aufgabeDetails> {
   String selected;
   String selected1;
   String selected2;
@@ -29,7 +29,7 @@ class _AufgabeState extends State<aufgabe> {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-        title: Text("Aufgabe"),
+        title: Text("Angaben zur Aufgabe"),
       ),
       body: SafeArea(
           child: Scrollbar(
@@ -38,45 +38,15 @@ class _AufgabeState extends State<aufgabe> {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        RadioListTile<dqOption>(
-                          title: const Text('keine Aufgabe'),
-                          value: dqOption.first,
-                          groupValue: _option,
-                          onChanged: (dqOption value) {
-                            setState(() {
-                              _option = value;
-                            });
-                            navigateToInfo_Output(context);
-                          },
-                        ),
-                        RadioListTile<dqOption>(
-                          title: const Text('keine Angaben zur Aufgabe'),
-                          value: dqOption.second,
-                          groupValue: _option,
-                          onChanged: (dqOption value) {
-                            setState(() {
-                              _option = value;
-                            });
-                            navigateToInfo_Output(context);
-                          },
-                        ),
-                        RadioListTile<dqOption>(
-                          title: const Text('nicht relevant'),
-                          value: dqOption.third,
-                          groupValue: _option,
-                          onChanged: (dqOption value) {
-                            setState(() {
-                              _option = value;
-                            });
-                            navigateToInfo_Output(context);
-                          },
-                        ),
 
-                        new Text(
-                          'Prozedur:',
-                          style: new TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22.0,
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: new Text(
+                            'Angaben zur Prozedur:',
+                            style: new TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22.0,
+                            ),
                           ),
                         ),
                         Padding(
@@ -261,11 +231,14 @@ class _AufgabeState extends State<aufgabe> {
                             },
                           ),
                         ),
-                        new Text(
-                          'Kommunikation & Monitoring:',
-                          style: new TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 22.0,
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: new Text(
+                            'Angaben zu Kommunikation & Monitoring:',
+                            style: new TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22.0,
+                            ),
                           ),
                         ),
                         Padding(

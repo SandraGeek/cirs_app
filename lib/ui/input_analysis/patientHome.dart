@@ -29,7 +29,7 @@ class _patientHomeState extends State<patientHome> {
     List<Widget> list = new List<Widget>();
     List names = new List(4);
     names[0] = "Ja";
-    names[1] = "kein Patient in dieser Aufgabe";
+    names[1] = "kein PatientIn in dieser Aufgabe";
     names[2] = "kein Angaben";
     names[3] = "Nicht relevant";
 
