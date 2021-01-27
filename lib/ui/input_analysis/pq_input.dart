@@ -1,12 +1,8 @@
 import 'dart:ui';
 
 import 'package:cirs_app/ui/input_analysis/dq_input.dart';
-import 'package:cirs_app/ui/input_analysis/infoHome.dart';
-import 'package:cirs_app/ui/input_analysis/patientHome.dart';
-import 'package:cirs_app/ui/input_analysis/probenDetails.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import '../../model/info_options.dart';
 
 class pq_input extends StatefulWidget {
   @override
@@ -23,9 +19,15 @@ class _Pq_inputState extends State<pq_input> {
    String selected6;
    String selected7;
 
-  void onPressed() {
-    navigateToDq_input(context);
-  }
+   void onPressed() {
+     if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null && selected5 != null
+         && selected6 != null && selected7 != null){
+       navigateToDq_input(context);
+     }
+     else{
+       savedAlert(context);
+     }
+   }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -263,6 +265,26 @@ class _Pq_inputState extends State<pq_input> {
    )
           )
       )
+  );
+}
+Future<void> savedAlert(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Hinweis!'),
+        content: const Text(
+            'Bitte alle Felder ausfüllen!'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
   );
 }
 

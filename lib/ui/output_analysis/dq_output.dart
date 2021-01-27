@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'package:cirs_app/ui/feedback/feedback.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,12 +16,17 @@ class _Dq_outputState extends State<dq_output> {
   String selected3;
   String selected4;
   String selected5;
-  String selected6;
-  String selected7;
+
 
   void onPressed() {
-    //ToDo;
+    if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null && selected5 != null){
+      navigateToFeedback(context);
+    }
+    else{
+      savedAlert(context);
+    }
   }
+
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -211,5 +217,28 @@ class _Dq_outputState extends State<dq_output> {
           )
       )
   );
+  Future<void> savedAlert(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Hinweis!'),
+          content: const Text(
+              'Bitte alle Felder ausfüllen!'),
+          actions: <Widget>[
+            FlatButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future navigateToFeedback(context) async => Navigator.push(
+      context, MaterialPageRoute(builder: (context) => feedback()));
 }
 

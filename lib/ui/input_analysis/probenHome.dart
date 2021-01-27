@@ -10,22 +10,25 @@ class probenHome extends StatefulWidget {
 }
 
 class _ProbenHomeState extends State<probenHome> {
+
   int _selected;
 
   void onPressed() {
 
-    //ToDo if patientHome._selected != 0 && infoHome._selected != 0){
-    // showMeldung: Sie müssen eine von den Komponenten ausfüllen!
-    // }
+    if(_selected == null){
+      savedAlert(context);
+    }
+    else if( _selected != 0){
+      //ToDo check dependencies infoHome and patientHome
+      navigateToProbenDetails(context);
 
-      if( _selected != 0){
-      navigateToInfoHome(context);
-    }else{
+    }
+    else if(_selected==0){
       navigateToProbenDetails(context);
     }
   }
 
-  void onChanged(int value) {
+   void onChanged(int value) {
     setState(() {
       _selected = value;
     });
@@ -40,7 +43,7 @@ class _ProbenHomeState extends State<probenHome> {
     names[3] = "Nicht relevant";
 
     list.add(new Text(
-      "Sind Probenmaterial oder Medikamenten vorhanden?",
+      "Sind Probenmaterial/Medikamenten vorhanden?",
       style: TextStyle(
         //decoration: TextDecoration.underline,
         fontSize: 18,
@@ -92,6 +95,27 @@ class _ProbenHomeState extends State<probenHome> {
         ),
       ),
     ),
+  );
+}
+
+Future<void> savedAlert(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Hinweis!'),
+        content: const Text(
+            'Bitte treffen Sie eine Auswahl!'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
   );
 }
 

@@ -18,11 +18,18 @@ class _Info_output_detailsState extends State<info_output_details> {
 
   void onPressed() {
 
-
-    navigateToPatientOutput(context);
+    if((selected == "1" && selected1 == "2") ||(selected == "2" && selected1 == "3 oder mehr")||(selected == "1" && selected1 == "3 oder mehr")) {
+      savedAlert(context);
+    }
+    else if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null){
+      navigateToPatientOutput(context);
+    }
+    else{
+      savedAlert2(context);
+    }
   }
 
-  @override
+   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
         title: Text("Information als Output"),
@@ -187,6 +194,49 @@ class _Info_output_detailsState extends State<info_output_details> {
               borderRadius: new BorderRadius.circular(30.0)),
         )
       ]));
+}
+
+Future<void> savedAlert(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Hinweis!'),
+        content: const Text(
+            'Bitte Abhängigkeiten beachten: eine Informationsquelle kann nur von einem Absender kommen, zwei Quellen von max. zwei Absendern etc. '),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+
+Future<void> savedAlert2(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Hinweis!'),
+        content: const Text(
+            'Bitte alle Felder ausfüllen!'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
 
 Future navigateToPatientOutput(context) async {

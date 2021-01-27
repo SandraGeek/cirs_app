@@ -11,19 +11,23 @@ class _Proben_output_detailsState extends State<proben_output_details> {
 
   String selected;
   String selected1;
-
   void onPressed() {
 
-    if(selected == 1 && selected1 == 2) {
-      savedAlert(context);
-    }//|| (selected == 2 || selected1 == 1 && selected1 == 2)|| (selected == 2 || selected1 == 1 && selected1 == 2 && selected1 == 3){
 
-    else{
-      navigateToPq_output(context);
+    if((selected == "1" && selected1 == "2") ||(selected == "2" && selected1 == "3 oder mehr")||(selected == "1" && selected1 == "3 oder mehr")) {
+      savedAlert(context);
     }
 
+    else if(selected != null && selected1 != null){
+      navigateToPq_output(context);
+    }
+    else{
+      savedAlert2(context);
+    }
 
   }
+
+
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -74,7 +78,7 @@ class _Proben_output_detailsState extends State<proben_output_details> {
             ),
             value: selected1,
             // hint: Text("Informationsvolumen"),
-            items: ["1", "2", "3", "keine Angabe", "nicht relevant"]
+            items: ["1", "2", "3 oder mehr", "keine Angabe", "nicht relevant"]
                 .map((label) => DropdownMenuItem(
               child: Text(label),
               value: label,
@@ -107,9 +111,30 @@ Future<void> savedAlert(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Vielen Dank!'),
+        title: Text('Hinweis!'),
         content: const Text(
-            'Ein Feedback wird in den nächsten Tagen veröffentlicht.'),
+            'Bitte Abhängigkeiten beachten: ein Probenmaterial kann nur von einem Absender kommen, zwei Quellen von max. zwei Absendern etc. '),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+Future<void> savedAlert2(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Hinweis!'),
+        content: const Text(
+            'Bitte alle Felder ausfüllen!'),
         actions: <Widget>[
           FlatButton(
             child: Text('Ok'),

@@ -27,9 +27,15 @@ class _Res_qualityState extends State<res_quality> {
   String selected14;
   String selected15;
 
-
   void onPressed() {
-    navigateToOutput(context);
+    if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null && selected5 != null
+        && selected6 != null && selected7 != null && selected8 != null && selected9 != null && selected10 != null && selected11 != null && selected12 != null
+        && selected13 != null && selected14 != null && selected15 != null){
+      navigateToOutput(context);
+    }
+    else{
+      savedAlert(context);
+    }
   }
 
   @override
@@ -474,6 +480,28 @@ class _Res_qualityState extends State<res_quality> {
       )
   );
 }
+
+Future<void> savedAlert(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Hinweis!'),
+        content: const Text(
+            'Bitte alle Felder ausfüllen!'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 
 Future navigateToOutput(context) async {
   Navigator.push(

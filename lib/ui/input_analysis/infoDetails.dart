@@ -21,8 +21,11 @@ class _InfoDetailsState extends State<infoDetails> {
     if((selected == "1" && selected1 == "2") ||(selected == "2" && selected1 == "3 oder mehr")||(selected == "1" && selected1 == "3 oder mehr")) {
       savedAlert(context);
     }
+    else if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null){
+      navigateToPatientHome(context);
+    }
     else{
-    navigateToPatientHome(context);
+      savedAlert2(context);
     }
   }
 
@@ -200,6 +203,27 @@ Future<void> savedAlert(BuildContext context) {
         title: Text('Hinweis!'),
         content: const Text(
             'Bitte Abhängigkeiten beachten: eine Informationsquelle kann nur von einem Absender kommen, zwei Quellen von max. zwei Absendern etc. '),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+Future<void> savedAlert2(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Hinweis!'),
+        content: const Text(
+            'Bitte alle Felder ausfüllen!'),
         actions: <Widget>[
           FlatButton(
             child: Text('Ok'),

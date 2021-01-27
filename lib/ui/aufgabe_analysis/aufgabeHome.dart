@@ -13,14 +13,20 @@ class _AufgabeHomeState extends State<aufgabeHome> {
   int _selected;
 
   void onPressed() {
-    if( _selected != 0){
-      //ToDo
-    }else{
+
+    if(_selected == null){
+      savedAlert2(context);
+    }
+    else if( _selected != 0){
+      savedAlert(context);
+
+    }
+    else if(_selected==0  || _selected == 3){
       navigateToAufgabeDetails(context);
     }
   }
 
-  void onChanged(int value) {
+   void onChanged(int value) {
     setState(() {
       _selected = value;
     });
@@ -87,6 +93,47 @@ class _AufgabeHomeState extends State<aufgabeHome> {
         ),
       ),
     ),
+  );
+}
+Future<void> savedAlert(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Hinweis!'),
+        content: const Text(
+            'Eine Analyse ohne Aufgabe kann nicht durchgeführt werden'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+Future<void> savedAlert2(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Hinweis!'),
+        content: const Text(
+            'Bitte treffen Sie eine Auswahl!'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
   );
 }
 

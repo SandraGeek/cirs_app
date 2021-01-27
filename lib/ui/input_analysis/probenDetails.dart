@@ -19,10 +19,12 @@ class _ProbenDetailsState extends State<probenDetails> {
       savedAlert(context);
     }
 
-    else{
-  navigateToPq_input(context);
+    else if(selected != null && selected1 != null){
+      navigateToPq_input(context);
     }
-
+    else{
+      savedAlert2(context);
+    }
 
   }
 
@@ -111,6 +113,27 @@ Future<void> savedAlert(BuildContext context) {
         title: Text('Hinweis!'),
         content: const Text(
             'Bitte Abhängigkeiten beachten: ein Probenmaterial kann nur von einem Absender kommen, zwei Quellen von max. zwei Absendern etc. '),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
+Future<void> savedAlert2(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Hinweis!'),
+        content: const Text(
+            'Bitte alle Felder ausfüllen!'),
         actions: <Widget>[
           FlatButton(
             child: Text('Ok'),

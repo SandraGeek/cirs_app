@@ -11,15 +11,16 @@ class patient_output_details extends StatefulWidget {
 class _Patient_output_detailsState extends State<patient_output_details> {
   String selected;
   String selected1;
-  String selected2;
-  String selected3;
-  String selected4;
 
   void onPressed() {
-
-
-    navigateToProbenOutput(context);
+    if(selected != null && selected1 != null){
+      navigateToProbenOutput(context);
+    }
+    else{
+      savedAlert(context);
+    }
   }
+
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -68,7 +69,7 @@ class _Patient_output_detailsState extends State<patient_output_details> {
               ),
               isDense: true,
             ),
-            value: selected4,
+            value: selected1,
             // hint: Text("Informationsvolumen"),
             items: ["niedrig", "mittel", "hoch", "keine Angaben", "nicht relevant"]
                 .map((label) => DropdownMenuItem(
@@ -77,7 +78,7 @@ class _Patient_output_detailsState extends State<patient_output_details> {
             ))
                 .toList(),
             onChanged: (value) {
-              setState(() => selected4 = value);
+              setState(() => selected1 = value);
             },
           ),
         ),
@@ -95,6 +96,27 @@ class _Patient_output_detailsState extends State<patient_output_details> {
               borderRadius: new BorderRadius.circular(30.0)),
         )
       ]));
+}
+
+Future<void> savedAlert(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Hinweis!'),
+        content: const Text(
+            'Bitte alle Felder ausfüllen!'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
 
 Future navigateToProbenOutput(context) async {

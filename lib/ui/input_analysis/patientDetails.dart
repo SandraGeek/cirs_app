@@ -1,5 +1,4 @@
 import 'dart:ui';
-import 'package:cirs_app/ui/input_analysis/probenDetails.dart';
 import 'package:cirs_app/ui/input_analysis/probenHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +17,12 @@ class _PatientDetailsState extends State<patientDetails> {
   String selected4;
 
   void onPressed() {
+    if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null){
     navigateToProbenHome(context);
+    }
+    else{
+      savedAlert(context);
+    }
   }
 
   @override
@@ -179,6 +183,26 @@ class _PatientDetailsState extends State<patientDetails> {
               borderRadius: new BorderRadius.circular(30.0)),
         )
       ]));
+}
+Future<void> savedAlert(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Hinweis!'),
+        content: const Text(
+            'Bitte alle Felder ausfüllen!'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
 }
 
 Future navigateToProbenHome(context) async {

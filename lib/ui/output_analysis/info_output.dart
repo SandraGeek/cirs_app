@@ -12,9 +12,15 @@ class _info_OutputState extends State<info_output> {
   int _selected;
 
   void onPressed() {
-    if( _selected != 0){
+
+    if(_selected == null){
+      savedAlert(context);
+    }
+    else if( _selected != 0){
       navigateToPatientOutput(context);
-    }else{
+
+    }
+    else if(_selected==0){
       navigateToInfo_output_details(context);
     }
   }
@@ -93,9 +99,9 @@ Future<void> savedAlert(BuildContext context) {
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
-        title: Text('Vielen Dank!'),
+        title: Text('Hinweis!'),
         content: const Text(
-            'todo!'),
+            'Bitte treffen Sie eine Auswahl!'),
         actions: <Widget>[
           FlatButton(
             child: Text('Ok'),

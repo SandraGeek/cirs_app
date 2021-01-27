@@ -12,12 +12,19 @@ class _patientHomeState extends State<patientHome> {
   int _selected;
 
   void onPressed() {
-    if( _selected != 0){
+
+    if(_selected == null){
+      savedAlert(context);
+    }
+    else if( _selected != 0){
       navigateToProbenHome(context);
-    }else{
+
+    }
+    else if(_selected==0){
       navigateToPatientDetails(context);
     }
   }
+
 
   void onChanged(int value) {
     setState(() {
@@ -34,7 +41,7 @@ class _patientHomeState extends State<patientHome> {
     names[3] = "Nicht relevant";
 
     list.add(new Text(
-      "Gibt es ein Patient?",
+      "Gibt es ein PatientIn?",
       style: TextStyle(
         //decoration: TextDecoration.underline,
         fontSize: 18,
@@ -86,6 +93,27 @@ class _patientHomeState extends State<patientHome> {
         ),
       ),
     ),
+  );
+}
+
+Future<void> savedAlert(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Hinweis!'),
+        content: const Text(
+            'Bitte treffen Sie eine Auswahl!'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
   );
 }
 

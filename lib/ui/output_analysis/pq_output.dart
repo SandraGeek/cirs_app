@@ -19,10 +19,16 @@ class _Pq_outputState extends State<pq_output> {
   String selected7;
 
   void onPressed() {
-    navigateToDq_output(context);
+    if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null && selected5 != null
+        && selected6 != null && selected7 != null){
+      navigateToDq_output(context);
+    }
+    else{
+      savedAlert(context);
+    }
   }
 
-  @override
+ @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
         title: Text("Output Qualität (Patient)"),
@@ -258,6 +264,27 @@ class _Pq_outputState extends State<pq_output> {
               )
           )
       )
+  );
+}
+
+Future<void> savedAlert(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Hinweis!'),
+        content: const Text(
+            'Bitte alle Felder ausfüllen!'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
   );
 }
 

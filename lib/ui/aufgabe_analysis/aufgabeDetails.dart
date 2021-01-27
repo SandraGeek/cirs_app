@@ -19,12 +19,19 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
   String selected5;
   String selected6;
   String selected7;
-  dqOption _option;
-
+  String selected8;
+  String selected9;
 
   void onPressed() {
-    navigateResQ(context);
+    if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null && selected5 != null
+        && selected6 != null && selected7 != null && selected8 != null && selected9 != null){
+      navigateResQ(context);
+    }
+    else{
+      savedAlert(context);
+    }
   }
+
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -218,7 +225,7 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                               ),
                               isDense: true,
                             ),
-                            value: selected5,
+                            value: selected6,
                             // hint: Text("Informationsvolumen"),
                             items: [ "1", "2", "3 oder mehr", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
@@ -227,7 +234,7 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                             ))
                                 .toList(),
                             onChanged: (value) {
-                              setState(() => selected5 = value);
+                              setState(() => selected6 = value);
                             },
                           ),
                         ),
@@ -253,7 +260,7 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                               ),
                               isDense: true,
                             ),
-                            value: selected5,
+                            value: selected7,
                             // hint: Text("Informationsvolumen"),
                             items: [ "gleiche hierarchische Ebene", "unterschiedlcihe hierarchische Ebenen", "keine Kommunikation", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
@@ -262,7 +269,7 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                             ))
                                 .toList(),
                             onChanged: (value) {
-                              setState(() => selected5 = value);
+                              setState(() => selected7 = value);
                             },
                           ),
                         ),
@@ -278,7 +285,7 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                               ),
                               isDense: true,
                             ),
-                            value: selected5,
+                            value: selected8,
                             // hint: Text("Informationsvolumen"),
                             items: [ "1", "2", "3 oder mehr", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
@@ -287,13 +294,14 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                             ))
                                 .toList(),
                             onChanged: (value) {
-                              setState(() => selected5 = value);
+                              setState(() => selected8 = value);
                             },
                           ),
                         ),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: DropdownButtonFormField<String>(
+                            isExpanded: true,
                             decoration: InputDecoration(
                               border: OutlineInputBorder(),
                               labelText: "Anzahl notwendiger Informationsentitäten",
@@ -302,8 +310,9 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                                 //fontWeight: FontWeight.bold,
                               ),
                               isDense: true,
+
                             ),
-                            value: selected5,
+                            value: selected9,
                             // hint: Text("Informationsvolumen"),
                             items: [ "1", "2", "3 oder mehr", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
@@ -312,7 +321,7 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                             ))
                                 .toList(),
                             onChanged: (value) {
-                              setState(() => selected5 = value);
+                              setState(() => selected9 = value);
                             },
                           ),
                         ),
@@ -334,6 +343,27 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
               )
           )
       )
+  );
+}
+
+Future<void> savedAlert(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Hinweis!'),
+        content: const Text(
+            'Bitte alle Felder ausfüllen!'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
   );
 }
 
