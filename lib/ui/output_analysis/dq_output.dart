@@ -1,5 +1,5 @@
 import 'dart:ui';
-import 'package:cirs_app/ui/feedback/feedback.dart';
+import 'package:cirs_app/ui/Results/feedback.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

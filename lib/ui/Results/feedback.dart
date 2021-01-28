@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:open_file/open_file.dart';
+//import 'package:open_file/open_file.dart';
 
 
 class feedback extends StatefulWidget {
@@ -32,12 +32,13 @@ class _FeedbackState extends State<feedback> {
           "Feedback",
         ),
       ),
+
       body: Padding(
         padding: const EdgeInsets.all(25),
         child: Column(
           children: [
             new RaisedButton(
-              child: Text('Feedback anzeigen'),
+              child: Text('Ergebnis anzeigen'),
               onPressed: readJson,
             ),
 
@@ -59,12 +60,30 @@ class _FeedbackState extends State<feedback> {
               ),
             )
                 : Container(),
-            new RaisedButton(
-              child: Text('PDF erzeugen'),
-              color: Colors.blue,
-              onPressed: _createPDF,
+            new Container(
+              child: new Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
 
-            )
+                  new RaisedButton(
+                    padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                    child: Text('PDF erzeugen'),
+                    color: Colors.blue,
+                    onPressed: _createPDF,
+
+                  ),
+                  new RaisedButton(
+                    padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
+                    child: Text('Statistik anzeigen'),
+                    color: Colors.blue,
+                    onPressed: _createPDF,
+
+                  )
+
+                ],
+              ),
+            ),
+
           ],
         ),
       ),
@@ -92,6 +111,6 @@ class _FeedbackState extends State<feedback> {
 //Write PDF data
     await file.writeAsBytes(bytes, flush: true);
 //Open the PDF document in mobile
-    OpenFile.open('$path/Output.pdf');
+    //OpenFile.open('$path/Output.pdf');
   }
 }
