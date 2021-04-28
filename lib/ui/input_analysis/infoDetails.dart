@@ -10,7 +10,7 @@ class infoDetails extends StatefulWidget {
 }
 
 class _InfoDetailsState extends State<infoDetails> {
-   String selected;
+  String selected;
   String selected1;
   String selected2;
   String selected3;
@@ -35,7 +35,8 @@ class _InfoDetailsState extends State<infoDetails> {
         title: Text("Angaben zur Informationsquelle"),
       ),
       body:
-          Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
+          Column(mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
 
         Padding(
           padding: const EdgeInsets.all(10.0),

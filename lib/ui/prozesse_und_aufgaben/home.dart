@@ -1,3 +1,4 @@
+import 'package:cirs_app/ui/prozesse_und_aufgaben/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cirs_app/model//database_helpers.dart';
@@ -19,7 +20,11 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          title: Text('Critical Incident Reporting System'),
+          title: appBar(context),
+          centerTitle: true,
+          backgroundColor: Colors.transparent,
+          elevation: 0.0,
+          brightness: Brightness.light,
         ),
         body: Center(
           child: Column(
