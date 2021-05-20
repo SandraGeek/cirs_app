@@ -22,7 +22,8 @@ class Proben_OutputState extends State<probenHome_output> {
     if (selected == 0) {
       navigateToproben_output_details(context);}
 
-    else if( (selected == 1 || selected == 2 || selected == 3) &&  (patientHome_outputState.selected == 1) || (patientHome_outputState.selected == 2) || (patientHome_outputState.selected == 3)  ){
+    else if( (selected == 1 || selected == 2 || selected == 3) &&  ((patientHome_outputState.selected == 1) || (patientHome_outputState.selected == 2) ||
+        (patientHome_outputState.selected == 3)) && (info_OutputState == 0 ) ){
       navigateToFeedback(context);
     }
 

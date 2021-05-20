@@ -22,11 +22,11 @@ class ProbenHomeState extends State<probenHome> {
       savedAlert(context);
     }
 
-    if(selected == 0){
+    else if(selected == 0){
       navigateToProbenDetails(context);
     }
 
-    else if( (selected == 1 || selected == 2 || selected == 3) &&  (patientHomeState.selected == 1) || (patientHomeState.selected == 2) || (patientHomeState.selected == 3)  ){
+    else if( (selected == 1 || selected == 2 || selected == 3) && ((patientHomeState.selected == 1) || (patientHomeState.selected == 2) || (patientHomeState.selected == 3)) && (infoHomeState == 0) ){
       navigateToAufgabenHome(context);
     }
 
