@@ -1,46 +1,46 @@
-import 'package:cirs_app/ui/output_analysis/info_output_details.dart';
-import 'package:cirs_app/ui/output_analysis/patient_output.dart';
+import 'package:cirs_app/ui/output_analysis/patient_output_details.dart';
+import 'package:cirs_app/ui/output_analysis/probenHome_output.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class info_output extends StatefulWidget {
+class patientHome_output extends StatefulWidget {
   @override
-  _info_OutputState createState() => _info_OutputState();
+  patientHome_outputState createState() => patientHome_outputState();
 }
 
-class _info_OutputState extends State<info_output> {
-  int _selected;
+class patientHome_outputState extends State<patientHome_output> {
+  static int selected;
 
   void onPressed() {
 
-    if(_selected == null){
+    if(selected == null){
       savedAlert(context);
     }
-    else if( _selected != 0){
-      navigateToPatientOutput(context);
+    else if( selected != 0){
+      navigateToProbenOutputDetails(context);
 
     }
-    else if(_selected==0){
-      navigateToInfo_output_details(context);
+    else if(selected==0){
+      navigateToPatient_output_details(context);
     }
   }
 
   void onChanged(int value) {
     setState(() {
-      _selected = value;
+      selected = value;
     });
   }
 
-  List<Widget> info_outputList() {
+  List<Widget> patient_outputList() {
     List<Widget> list = new List<Widget>();
     List names = new List(4);
     names[0] = "Ja";
-    names[1] = "keine Information als Output";
+    names[1] = "kein PatientIn als Output";
     names[2] = "keine Angabe";
     names[3] = "Nicht relevant";
 
     list.add(new Text(
-      "Sind Informationen (Berichte, Befunde, u.a.) Bestandteil des Ergebnisses der Aufgabe?",
+      "Ist ein Patient Bestandteil des Ergebnisses der Aufgabe?",
       style: TextStyle(
         //decoration: TextDecoration.underline,
         fontSize: 18,
@@ -51,7 +51,7 @@ class _info_OutputState extends State<info_output> {
       list.add(new RadioListTile(
         value: i,
         title: Text(names[i]),
-        groupValue: _selected,
+        groupValue: selected,
         onChanged: (int value) {
           onChanged(value);
         },
@@ -79,7 +79,7 @@ class _info_OutputState extends State<info_output> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text("Information als Output"),
+      title: Text("PatientIn als Output"),
     ),
     body: Center(
       child: new Container(
@@ -88,7 +88,7 @@ class _info_OutputState extends State<info_output> {
         color: Colors.white70,
         alignment: Alignment.center,
         child: new Column(
-          children: info_outputList(),
+          children: patient_outputList(),
         ),
       ),
     ),
@@ -115,10 +115,10 @@ Future<void> savedAlert(BuildContext context) {
   );
 }
 
-Future navigateToPatientOutput(context) async => Navigator.push(
-    context, MaterialPageRoute(builder: (context) => patient_output()));
+Future navigateToProbenOutputDetails(context) async => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => probenHome_output()));
 
-Future navigateToInfo_output_details(context) async => Navigator.push(
-    context, MaterialPageRoute(builder: (context) => info_output_details()));
+Future navigateToPatient_output_details(context) async => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => patient_output_details()));
 
 

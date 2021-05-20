@@ -5,30 +5,31 @@ import 'package:flutter/material.dart';
 
 class infoHome extends StatefulWidget {
   @override
-  _infoHomeState createState() => _infoHomeState();
+  infoHomeState createState() => infoHomeState();
 }
 
-class _infoHomeState extends State<infoHome> {
+class infoHomeState extends State<infoHome> {
 
- int _selected;
+ static int selected;
 
   void onPressed() {
 
-    if(_selected == null){
+    if(selected == null){
       savedAlert(context);
     }
-   else if( _selected != 0){
+
+   else if( selected != 0){
     navigateToPatientHome(context);
 
   }
-   else if(_selected==0){
+   else if(selected == 0){
      navigateToInfDetails(context);
    }
   }
 
   void onChanged(int value) {
     setState(() {
-      _selected = value;
+      selected = value;
     });
   }
 
@@ -37,7 +38,7 @@ class _infoHomeState extends State<infoHome> {
     List names = new List(4);
     names[0] = "Ja";
     names[1] = "keine Information für die Aufgabe nötig";
-    names[2] = "keine Angaben zu Information";
+    names[2] = "keine Angaben";
     names[3] = "Nicht relevant";
 
     list.add(new Text(
@@ -52,7 +53,7 @@ class _infoHomeState extends State<infoHome> {
       list.add(new RadioListTile(
         value: i,
         title: Text(names[i]),
-        groupValue: _selected,
+        groupValue: selected,
         onChanged: (int value) {
           onChanged(value);
         },

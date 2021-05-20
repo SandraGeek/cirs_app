@@ -2,6 +2,8 @@ import 'dart:ui';
 import 'package:cirs_app/ui/input_analysis/patientHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cirs_app/model/userData.dart';
+import 'package:cirs_app/model/infoInput_data.dart';
 
 
 class infoDetails extends StatefulWidget {
@@ -15,6 +17,7 @@ class _InfoDetailsState extends State<infoDetails> {
   String selected2;
   String selected3;
   String selected4;
+  String pageTitle = "Angaben zur Informationsquelle";
 
   void onPressed() {
 
@@ -22,6 +25,16 @@ class _InfoDetailsState extends State<infoDetails> {
       savedAlert(context);
     }
     else if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null){
+
+      UserData.myComplexityData.add(InfoInputData.generateUserComplexityObject(
+          "Anzahl der Informationsquellen", selected));
+      UserData.myScoreData.add(InfoInputData.generateUserDataObjects(
+          pageTitle, InfoInputData.calculateScore()));
+
+        print( UserData.myScoreData.toString());
+        print( UserData.myComplexityData.toString());
+        UserData.myComplexityData.clear();
+        UserData.myScoreData.clear();
       navigateToPatientHome(context);
     }
     else{
@@ -32,7 +45,7 @@ class _InfoDetailsState extends State<infoDetails> {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-        title: Text("Angaben zur Informationsquelle"),
+        title: Text(pageTitle),
       ),
       body:
           Column(mainAxisAlignment: MainAxisAlignment.start,
@@ -60,6 +73,7 @@ class _InfoDetailsState extends State<infoDetails> {
                     ))
                 .toList(),
             onChanged: (value) {
+              InfoInputData.setInfoQuelleAnzValue(value);
               setState(() => selected = value);
             },
           ),
@@ -85,6 +99,7 @@ class _InfoDetailsState extends State<infoDetails> {
                     ))
                 .toList(),
             onChanged: (value) {
+              InfoInputData.setAbsenderAnzValue(value);
               setState(() => selected1 = value);
             },
           ),
@@ -116,6 +131,7 @@ class _InfoDetailsState extends State<infoDetails> {
                     ))
                 .toList(),
             onChanged: (value) {
+              InfoInputData.setInfoAustauschFormValue(value);
               setState(() => selected2 = value);
             },
           ),
@@ -152,6 +168,7 @@ class _InfoDetailsState extends State<infoDetails> {
                     ))
                 .toList(),
             onChanged: (value) {
+              InfoInputData.setInfoTypUndStrukturValue(value);
               setState(() => selected3 = value);
             },
           ),
@@ -177,6 +194,7 @@ class _InfoDetailsState extends State<infoDetails> {
                     ))
                 .toList(),
             onChanged: (value) {
+              InfoInputData.setInfoVolumenValue(value);
               setState(() => selected4 = value);
             },
           ),
@@ -203,7 +221,8 @@ Future<void> savedAlert(BuildContext context) {
       return AlertDialog(
         title: Text('Hinweis!'),
         content: const Text(
-            'Bitte Abhängigkeiten beachten: eine Informationsquelle kann nur von einem Absender kommen, zwei Quellen von max. zwei Absendern etc. '),
+            'Bitte Abhängigkeiten beachten: eine Informationsquelle kann'
+                ' nur von einem Absender kommen, zwei Quellen von max. zwei Absendern etc. '),
         actions: <Widget>[
           FlatButton(
             child: Text('Ok'),

@@ -1,8 +1,10 @@
 import 'dart:ui';
-import 'package:cirs_app/ui/aufgabe_analysis/res_quality.dart';
-import 'package:cirs_app/ui/output_analysis/info_output.dart';
+import 'package:cirs_app/model/userData.dart';
+import 'package:cirs_app/ui/aufgabe_analysis/resQuality.dart';
+import 'package:cirs_app/ui/output_analysis/infoHome_output.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cirs_app/model/aufgabe_data.dart';
 
 class aufgabeDetails extends StatefulWidget {
   @override
@@ -21,10 +23,21 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
   String selected7;
   String selected8;
   String selected9;
+  String pageTitle = "Angaben zur Aufgabe";
 
   void onPressed() {
     if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null && selected5 != null
         && selected6 != null && selected7 != null && selected8 != null && selected9 != null){
+
+      UserData.myComplexityData.add(AufgabeData.generateUserComplexityObject(
+          "Angaben zur Prozedur", selected));
+      UserData.myScoreData.add(AufgabeData.generateUserDataObjects(pageTitle, AufgabeData.calculateScore()));
+
+      print( UserData.myScoreData.toString());
+      print( UserData.myComplexityData.toString());
+      UserData.myComplexityData.clear();
+      UserData.myScoreData.clear();
+
       navigateResQ(context);
     }
     else{
@@ -36,7 +49,7 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-        title: Text("Angaben zur Aufgabe"),
+        title: Text(pageTitle),
       ),
       body: SafeArea(
           child: Scrollbar(
@@ -49,7 +62,7 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: new Text(
-                            'Angaben zur Prozedur:',
+                            'Angaben zur Prozedur',
                             style: new TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 22.0,
@@ -78,6 +91,7 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              AufgabeData.setProzedurValue(value);
                               setState(() => selected = value);
                             },
                           ),
@@ -104,6 +118,7 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              AufgabeData.setkontaminationValue(value);
                               setState(() => selected1 = value);
                             },
                           ),
@@ -131,6 +146,7 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              AufgabeData.setMedGeraeteValue(value);
                               setState(() => selected2 = value);
                             },
                           ),
@@ -159,6 +175,7 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              AufgabeData.setAusbildungsStandValue(value);
                               setState(() => selected3 = value);
                             },
                           ),
@@ -184,6 +201,7 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              AufgabeData.setMedMaterialValue(value);
                               setState(() => selected4 = value);
                             },
                           ),
@@ -209,6 +227,7 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              AufgabeData.setAnzMedDomaeneValue(value);
                               setState(() => selected5 = value);
                             },
                           ),
@@ -234,6 +253,7 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              AufgabeData.setAnzPersonenValue(value);
                               setState(() => selected6 = value);
                             },
                           ),
@@ -241,7 +261,7 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: new Text(
-                            'Angaben zu Kommunikation & Monitoring:',
+                            'Angaben zu Kommunikation & Monitoring',
                             style: new TextStyle(
                               fontWeight: FontWeight.bold,
                               fontSize: 22.0,
@@ -262,13 +282,14 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                             ),
                             value: selected7,
                             // hint: Text("Informationsvolumen"),
-                            items: [ "gleiche hierarchische Ebene", "unterschiedlcihe hierarchische Ebenen", "keine Kommunikation", "keine Angaben", "nicht relevant"]
+                            items: [ "gleiche hierarchische Ebene", "unterschiedliche hierarchische Ebenen", "keine Kommunikation", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              AufgabeData.setKommunikationInternValue(value);
                               setState(() => selected7 = value);
                             },
                           ),
@@ -294,6 +315,7 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              AufgabeData.setAnzInfokanaeleValue(value);
                               setState(() => selected8 = value);
                             },
                           ),
@@ -321,6 +343,7 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              AufgabeData.setAnzInfoEntitaetenValue(value);
                               setState(() => selected9 = value);
                             },
                           ),
@@ -369,7 +392,7 @@ Future<void> savedAlert(BuildContext context) {
 
 Future navigateToInfo_Output(context) async {
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => info_output()));
+      context, MaterialPageRoute(builder: (context) => infoHome_output()));
 }
 
 Future navigateResQ(context) async {

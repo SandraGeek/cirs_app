@@ -1,14 +1,16 @@
 import 'dart:ui';
+import 'package:cirs_app/model/userData.dart';
+import 'package:cirs_app/ui/Results/feedback.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'dq_output.dart';
+import 'package:cirs_app/model/patientenQOutput_data.dart';
 
-class pq_output extends StatefulWidget {
+class PatientenQ_Output extends StatefulWidget {
   @override
-  _Pq_outputState createState() => _Pq_outputState();
+  _PatientenQ_OutputState createState() => _PatientenQ_OutputState();
 }
 
-class _Pq_outputState extends State<pq_output> {
+class _PatientenQ_OutputState extends State<PatientenQ_Output> {
   String selected;
   String selected1;
   String selected2;
@@ -17,10 +19,28 @@ class _Pq_outputState extends State<pq_output> {
   String selected5;
   String selected6;
   String selected7;
+  String selected8;
+  String selected9;
+  String selected10;
+  String selected11;
+  String selected12;
+  String selected13;
+  String pageTitle = "Patientenqualitätszustand - Output";
 
   void onPressed() {
     if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null && selected5 != null
-        && selected6 != null && selected7 != null){
+        && selected6 != null && selected7 != null && selected8 != null && selected9 != null && selected10 != null && selected11 != null && selected12 != null && selected13 != null){
+
+      UserData.myComplexityData.add(PatientenQOutputData.generateUserComplexityObject(
+          "Administrative Identifikation", selected));
+      UserData.myScoreData.add(PatientenQOutputData.generateUserDataObjects(
+          pageTitle, PatientenQOutputData.calculateScore()));
+
+      print( UserData.myScoreData.toString());
+      print( UserData.myComplexityData.toString());
+      UserData.myComplexityData.clear();
+      UserData.myScoreData.clear();
+
       navigateToDq_output(context);
     }
     else{
@@ -31,7 +51,7 @@ class _Pq_outputState extends State<pq_output> {
  @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-        title: Text("Output Qualität (Patient)"),
+        title: Text(pageTitle),
       ),
       body: SafeArea(
           child: Scrollbar(
@@ -39,6 +59,16 @@ class _Pq_outputState extends State<pq_output> {
                   child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: new Text(
+                            'Angaben zu Identifikation, Diagnostik und Therapie',
+                            style: new TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22.0,
+                            ),
+                          ),
+                        ),
                         Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: DropdownButtonFormField<String>(
@@ -61,6 +91,7 @@ class _Pq_outputState extends State<pq_output> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              PatientenQOutputData.setAdminIdentValue(value);
                               setState(() => selected = value);
                             },
                           ),
@@ -87,6 +118,7 @@ class _Pq_outputState extends State<pq_output> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              PatientenQOutputData.setPersIdentValue(value);
                               setState(() => selected1 = value);
                             },
                           ),
@@ -114,6 +146,7 @@ class _Pq_outputState extends State<pq_output> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              PatientenQOutputData.setLokalIdentValue(value);
                               setState(() => selected2 = value);
                             },
                           ),
@@ -141,6 +174,7 @@ class _Pq_outputState extends State<pq_output> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              PatientenQOutputData.setPlanungDiagnoseValue(value);
                               setState(() => selected3 = value);
                             },
                           ),
@@ -166,6 +200,7 @@ class _Pq_outputState extends State<pq_output> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              PatientenQOutputData.setDiagnoseValue(value);
                               setState(() => selected4 = value);
                             },
                           ),
@@ -191,6 +226,7 @@ class _Pq_outputState extends State<pq_output> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              PatientenQOutputData.setPlanungTherapieValue(value);
                               setState(() => selected5 = value);
                             },
                           ),
@@ -209,13 +245,14 @@ class _Pq_outputState extends State<pq_output> {
                             ),
                             value: selected6,
                             // hint: Text("Informationsvolumen"),
-                            items: [ "richtig, vollständig", "richtig, unvollständig", "zeitlich verzögert", "falsch NOS", "keine Angaben", "nicht relevant"]
+                            items: [ "richtig, vollständig", "richtig, unvollständig", "zeitlich verzögert", "falsch, NOS", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              PatientenQOutputData.setTherapieDurchValue(value);
                               setState(() => selected6 = value);
                             },
                           ),
@@ -235,17 +272,194 @@ class _Pq_outputState extends State<pq_output> {
                             ),
                             value: selected7,
                             // hint: Text("Informationsvolumen"),
-                            items: [ "kontaminiert", "potentiell kontaminiert", "keine",  "keine Angaben", "nicht relevant"]
+                            items: [ "kontaminiert", "potentiell kontaminiert", "keine Kontamination",  "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              PatientenQOutputData.setKontaminationValue(value);
                               setState(() => selected7 = value);
                             },
                           ),
                         ),
+
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: new Text(
+                            'Angaben zu Dokumentation',
+                            style: new TextStyle(
+                              fontWeight: FontWeight.bold,
+                              fontSize: 22.0,
+                            ),
+                          ),
+                        ),
+
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Allgemeines",
+                              labelStyle: TextStyle(
+                                fontSize: 20,
+                                //fontWeight: FontWeight.bold,
+                              ),
+                              isDense: true,
+                            ),
+                            value: selected8,
+                            //hint: Text("Anzahl der Informationsquellen"),
+                            items:
+                            ["richtig, vollständig", "richtig, unvollständig, NOS", "fehlend", "falsch, NOS", "keine Angaben", "nicht relevant"]
+                                .map((label) => DropdownMenuItem(
+                              child: Text(label),
+                              value: label,
+                            ))
+                                .toList(),
+                            onChanged: (value) {
+                              PatientenQOutputData.setAllgemeinesValue(value);
+                              setState(() => selected8 = value);
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Absender/Empfänger",
+                              labelStyle: TextStyle(
+                                fontSize: 20,
+                                //fontWeight: FontWeight.bold,
+                              ),
+                              isDense: true,
+                            ),
+                            value: selected9,
+                            //hint: Text("Anzahl der Absender"),
+                            items:
+                            ["Absender richtig, vollständig", "Absender richtig, unvollständig", "Absender fehlend", "falsche Absender", "keine Angaben zum Absender", "Absender nicht relevant",
+                              "Adressat richtig, vollständig", "Adressat richtig, unvollständig", "Adressat fehlend", "falsche Adressat", "keine Angaben zum Adressat", "Adressat nicht relevant"]
+                                .map((label) => DropdownMenuItem(
+                              child: Text(label),
+                              value: label,
+                            ))
+                                .toList(),
+                            onChanged: (value) {
+                              PatientenQOutputData.setAbs_EmpfValue(value);
+                              setState(() => selected9 = value);
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Patientidentifikation",
+                              labelStyle: TextStyle(
+                                fontSize: 20,
+                                //fontWeight: FontWeight.bold,
+                              ),
+                              isDense: true,
+                            ),
+                            value: selected10,
+                            // hint: Text("Form des Informationsaustausches"),
+                            items: [
+                              "richtig, vollständig", "richtig, unvollständig", "fehlend", "falsch", "keine Angaben", "nicht relevant"
+                            ]
+                                .map((label) => DropdownMenuItem(
+                              child: Text(label),
+                              value: label,
+                            ))
+                                .toList(),
+                            onChanged: (value) {
+                              PatientenQOutputData.setPatIdentValue(value);
+                              setState(() => selected10 = value);
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Diagnose",
+                              labelStyle: TextStyle(
+                                fontSize: 20,
+                                //fontWeight: FontWeight.bold,
+                              ),
+                              isDense: true,
+                            ),
+                            value: selected11,
+                            // hint: Text("Informationstyp und strukturiertheit"),
+                            items: [
+                              "richtig, vollständig", "richtig, unvollständig", "zeitlich verzögert", "falsch", "keine Angaben", "nicht relevant"
+                            ]
+                                .map((label) => DropdownMenuItem(
+                              child: Text(label),
+                              value: label,
+                            ))
+                                .toList(),
+                            onChanged: (value) {
+                              PatientenQOutputData.setDiagnoseDokuValue(value);
+                              setState(() => selected11 = value);
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Klinische Geschichte",
+                              labelStyle: TextStyle(
+                                fontSize: 20,
+                                //fontWeight: FontWeight.bold,
+                              ),
+                              isDense: true,
+                            ),
+                            value: selected12,
+                            // hint: Text("Informationsvolumen"),
+                            items: [ "richtig, vollständig", "richtig, unvollständig", "zeitlich verzögert", "falsch", "keine Angaben", "nicht relevant"]
+                                .map((label) => DropdownMenuItem(
+                              child: Text(label),
+                              value: label,
+                            ))
+                                .toList(),
+                            onChanged: (value) {
+                              PatientenQOutputData.setKlinischeGeschValue(value);
+                              setState(() => selected12 = value);
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: DropdownButtonFormField<String>(
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              labelText: "Therapie",
+                              labelStyle: TextStyle(
+                                fontSize: 20,
+                                //fontWeight: FontWeight.bold,
+                              ),
+                              isDense: true,
+                            ),
+                            value: selected13,
+                            // hint: Text("Informationsvolumen"),
+                            items: [ "richtig, vollständig", "richtig, unvollständig", "zeitlich verzögert", "falsch", "keine Angaben", "nicht relevant"]
+                                .map((label) => DropdownMenuItem(
+                              child: Text(label),
+                              value: label,
+                            ))
+                                .toList(),
+                            onChanged: (value) {
+                              PatientenQOutputData.setTherapieValue(value);
+                              setState(() => selected13 = value);
+                            },
+                          ),
+                        ),
+
                         new RaisedButton(
                           child: new Text(
                             "Weiter",
@@ -290,5 +504,5 @@ Future<void> savedAlert(BuildContext context) {
 
 Future navigateToDq_output(context) async {
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => dq_output()));
+      context, MaterialPageRoute(builder: (context) => feedback()));
 }

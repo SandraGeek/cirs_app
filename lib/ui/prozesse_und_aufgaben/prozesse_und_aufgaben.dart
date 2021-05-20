@@ -140,7 +140,7 @@ Future<void> _infoButtonPressed(BuildContext context) {
       return AlertDialog(
         title: Text('Wichtige Info'),
         content:
-            const Text("Zu welcher Prozess oder Aufgabe passt Ihr Bericht??"),
+            const Text("Zu welcher Prozess oder Aufgabe passt Ihr Bericht?"),
         actions: <Widget>[
           FlatButton(
             child: Text('Ok'),

@@ -1,36 +1,50 @@
+import 'package:cirs_app/ui/aufgabe_analysis/aufgabeHome.dart';
 import 'package:cirs_app/ui/input_analysis/infoHome.dart';
+import 'package:cirs_app/ui/input_analysis/patientenQ_Input.dart';
 import 'package:cirs_app/ui/input_analysis/probenDetails.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cirs_app/ui/input_analysis/patientHome.dart';
 
 
 class probenHome extends StatefulWidget {
   @override
-  _ProbenHomeState createState() => _ProbenHomeState();
+  ProbenHomeState createState() => ProbenHomeState();
 }
 
-class _ProbenHomeState extends State<probenHome> {
+class ProbenHomeState extends State<probenHome> {
 
-  int _selected;
+ static int selected;
 
   void onPressed() {
 
-    if(_selected == null){
+    if(selected == null){
       savedAlert(context);
     }
-    else if( _selected != 0){
-      //ToDo check dependencies infoHome and patientHome
-      navigateToProbenDetails(context);
 
-    }
-    else if(_selected==0){
+    if(selected == 0){
       navigateToProbenDetails(context);
     }
+
+    else if( (selected == 1 || selected == 2 || selected == 3) &&  (patientHomeState.selected == 1) || (patientHomeState.selected == 2) || (patientHomeState.selected == 3)  ){
+      navigateToAufgabenHome(context);
+    }
+
+   else if( (selected == 1 || selected == 2 || selected == 3) &&  ((patientHomeState.selected == 1) || (patientHomeState.selected == 2) || (patientHomeState.selected == 3)) &&
+        ((infoHomeState.selected == 1) || (infoHomeState.selected == 2) || (infoHomeState.selected == 3)) ){
+      savedAlert2(context);
+    }
+
+    else if( (selected == 1 || selected == 2 || selected == 3) &&  ((patientHomeState.selected != 1) || (patientHomeState.selected != 2) || (patientHomeState.selected != 3)) &&
+        ((infoHomeState.selected != 1) || (infoHomeState.selected != 2) || (infoHomeState.selected != 3)) ){
+      navigateToPatientenQ_Input(context);
+    }
+
   }
 
    void onChanged(int value) {
     setState(() {
-      _selected = value;
+      selected = value;
     });
   }
 
@@ -54,7 +68,7 @@ class _ProbenHomeState extends State<probenHome> {
       list.add(new RadioListTile(
         value: i,
         title: Text(names[i]),
-        groupValue: _selected,
+        groupValue: selected,
         onChanged: (int value) {
           onChanged(value);
         },
@@ -119,10 +133,34 @@ Future<void> savedAlert(BuildContext context) {
   );
 }
 
+Future<void> savedAlert2(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Hinweis!'),
+        content: const Text(
+            'Sie müssen Angaben zu Information oder Patient oder Probenmaterial geben!'),
+        actions: <Widget>[
+          FlatButton(
+            child: Text('Ok'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 Future navigateToProbenDetails(context) async => Navigator.push(
     context, MaterialPageRoute(builder: (context) => probenDetails()));
 
-Future navigateToInfoHome(context) async => Navigator.push(
-    context, MaterialPageRoute(builder: (context) => infoHome()));
+Future navigateToPatientenQ_Input(context) async => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => PatientenQ_Input()));
+
+Future navigateToAufgabenHome(context) async => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => aufgabeHome()));
 
 

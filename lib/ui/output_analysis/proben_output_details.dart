@@ -1,6 +1,10 @@
-import 'package:cirs_app/ui/output_analysis/pq_output.dart';
+import 'package:cirs_app/model/userData.dart';
+import 'package:cirs_app/ui/Results/feedback.dart';
+import 'package:cirs_app/ui/output_analysis/patientenQ_output.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cirs_app/model/probenOutput_data.dart';
+import 'package:cirs_app/ui/output_analysis/patientHome_output.dart';
 
 class proben_output_details extends StatefulWidget {
   @override
@@ -11,6 +15,9 @@ class _Proben_output_detailsState extends State<proben_output_details> {
 
   String selected;
   String selected1;
+  String pageTitle = "Probenmaterial als Output";
+
+
   void onPressed() {
 
 
@@ -18,7 +25,22 @@ class _Proben_output_detailsState extends State<proben_output_details> {
       savedAlert(context);
     }
 
+    else if(( patientHome_outputState.selected == 1) || (patientHome_outputState.selected == 2) || (patientHome_outputState.selected == 3)  ){
+      navigateToFeedback(context);
+    }
+
     else if(selected != null && selected1 != null){
+
+      UserData.myComplexityData.add(ProbenOutputData.generateUserComplexityObject(
+          "Anzahl der Absender", selected1));
+      UserData.myScoreData.add(ProbenOutputData.generateUserDataObjects(
+          pageTitle, ProbenOutputData.calculateScore()));
+
+      print( UserData.myScoreData.toString());
+      print( UserData.myComplexityData.toString());
+      UserData.myComplexityData.clear();
+      UserData.myScoreData.clear();
+
       navigateToPq_output(context);
     }
     else{
@@ -32,7 +54,7 @@ class _Proben_output_detailsState extends State<proben_output_details> {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-        title: Text("Probenmaterial/Medikamenten als Output"),
+        title: Text(pageTitle),
       ),
       body:
       Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
@@ -58,6 +80,7 @@ class _Proben_output_detailsState extends State<proben_output_details> {
             ))
                 .toList(),
             onChanged: (value) {
+              ProbenOutputData.setProbenAnzAnzValue(value);
               setState(() => selected = value);
             },
           ),
@@ -69,7 +92,7 @@ class _Proben_output_detailsState extends State<proben_output_details> {
           child: DropdownButtonFormField<String>(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              labelText: "Anzahl der Absender",
+              labelText: "Anzahl der Empfänger",
               labelStyle: TextStyle(
                 fontSize: 20,
                 //fontWeight: FontWeight.bold,
@@ -85,6 +108,7 @@ class _Proben_output_detailsState extends State<proben_output_details> {
             ))
                 .toList(),
             onChanged: (value) {
+              ProbenOutputData.setEmpfaengerAnzValue(value);
               setState(() => selected1 = value);
             },
           ),
@@ -149,4 +173,7 @@ Future<void> savedAlert2(BuildContext context) {
 }
 
 Future navigateToPq_output(context) async => Navigator.push(context,
-    MaterialPageRoute(builder: (context) => pq_output()));
+    MaterialPageRoute(builder: (context) => PatientenQ_Output()));
+
+Future navigateToFeedback(context) async => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => feedback()));

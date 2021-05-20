@@ -1,7 +1,7 @@
 import 'package:cirs_app/ui/prozesse_und_aufgaben/widgets.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:cirs_app/model//database_helpers.dart';
+import 'package:cirs_app/model/score_data.dart';
 
 import 'fallbericht_erfassen.dart';
 
@@ -17,6 +17,10 @@ class Home extends StatelessWidget {
 }
 
 class MainPage extends StatelessWidget {
+  static int index;
+  static List<ScoreData> myScoreData = new List();
+
+
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(

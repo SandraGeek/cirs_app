@@ -1,46 +1,46 @@
-import 'package:cirs_app/ui/output_analysis/proben_output_details.dart';
+import 'package:cirs_app/ui/output_analysis/info_output_details.dart';
+import 'package:cirs_app/ui/output_analysis/patientHome_output.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class proben_output extends StatefulWidget {
+class infoHome_output extends StatefulWidget {
   @override
-  _Proben_OutputState createState() => _Proben_OutputState();
+  info_OutputState createState() => info_OutputState();
 }
 
-class _Proben_OutputState extends State<proben_output> {
-  int _selected;
+class info_OutputState extends State<infoHome_output> {
+ static int selected;
 
   void onPressed() {
 
-    if(_selected == null){
+    if(selected == null){
       savedAlert(context);
     }
-    else if( _selected != 0){
-      //ToDo check dependencies info_output and patient_output
-      navigateToproben_output_details(context);
+    else if( selected != 0){
+      navigateToPatientOutput(context);
 
     }
-    else if(_selected==0){
-      navigateToproben_output_details(context);
+    else if(selected==0){
+      navigateToInfo_output_details(context);
     }
   }
 
   void onChanged(int value) {
     setState(() {
-      _selected = value;
+      selected = value;
     });
   }
 
-  List<Widget> proben_outputList() {
+  List<Widget> info_outputList() {
     List<Widget> list = new List<Widget>();
     List names = new List(4);
     names[0] = "Ja";
-    names[1] = "keine Probenmaterial/medikamente als Output";
+    names[1] = "keine Information als Output";
     names[2] = "keine Angabe";
     names[3] = "Nicht relevant";
 
     list.add(new Text(
-      "Sind Probenmaterial/medikamente Bestandteil des Ergebnisses der Aufgabe?",
+      "Sind Informationen (Berichte, Befunde, u.a.) Bestandteil des Ergebnisses der Aufgabe?",
       style: TextStyle(
         //decoration: TextDecoration.underline,
         fontSize: 18,
@@ -51,7 +51,7 @@ class _Proben_OutputState extends State<proben_output> {
       list.add(new RadioListTile(
         value: i,
         title: Text(names[i]),
-        groupValue: _selected,
+        groupValue: selected,
         onChanged: (int value) {
           onChanged(value);
         },
@@ -79,7 +79,7 @@ class _Proben_OutputState extends State<proben_output> {
   @override
   Widget build(BuildContext context) => Scaffold(
     appBar: AppBar(
-      title: Text("Probenmaterial als Output"),
+      title: Text("Information als Output"),
     ),
     body: Center(
       child: new Container(
@@ -88,7 +88,7 @@ class _Proben_OutputState extends State<proben_output> {
         color: Colors.white70,
         alignment: Alignment.center,
         child: new Column(
-          children: proben_outputList(),
+          children: info_outputList(),
         ),
       ),
     ),
@@ -115,8 +115,10 @@ Future<void> savedAlert(BuildContext context) {
   );
 }
 
+Future navigateToPatientOutput(context) async => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => patientHome_output()));
 
-Future navigateToproben_output_details(context) async => Navigator.push(
-    context, MaterialPageRoute(builder: (context) => proben_output_details()));
+Future navigateToInfo_output_details(context) async => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => info_output_details()));
 
 

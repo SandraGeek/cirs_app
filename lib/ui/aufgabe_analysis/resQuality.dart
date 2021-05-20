@@ -1,7 +1,9 @@
 import 'dart:ui';
-import 'package:cirs_app/ui/output_analysis/info_output.dart';
+import 'package:cirs_app/model/userData.dart';
+import 'package:cirs_app/ui/output_analysis/infoHome_output.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cirs_app/model/resQuality_data.dart';
 
 
 class res_quality extends StatefulWidget {
@@ -26,11 +28,22 @@ class _Res_qualityState extends State<res_quality> {
   String selected13;
   String selected14;
   String selected15;
+  String pageTitle = "Ressourcen Qualität";
 
   void onPressed() {
     if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null && selected5 != null
         && selected6 != null && selected7 != null && selected8 != null && selected9 != null && selected10 != null && selected11 != null && selected12 != null
         && selected13 != null && selected14 != null && selected15 != null){
+
+      UserData.myComplexityData.add(ResQualityData.generateUserComplexityObject(
+          "Anzahl der Informationsquellen", selected));
+      UserData.myScoreData.add(ResQualityData.generateUserDataObjects(
+          pageTitle, ResQualityData.calculateScore()));
+
+      print( UserData.myScoreData.toString());
+      print( UserData.myComplexityData.toString());
+      UserData.myComplexityData.clear();
+      UserData.myScoreData.clear();
       navigateToOutput(context);
     }
     else{
@@ -41,7 +54,7 @@ class _Res_qualityState extends State<res_quality> {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-        title: Text("Ressourcen Qualität"),
+        title: Text(pageTitle),
       ),
       body: SafeArea(
           child: Scrollbar(
@@ -72,6 +85,7 @@ class _Res_qualityState extends State<res_quality> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              ResQualityData.setArbeitsplatzValue(value);
                               setState(() => selected = value);
                             },
                           ),
@@ -91,13 +105,14 @@ class _Res_qualityState extends State<res_quality> {
                             value: selected1,
                             //hint: Text("Anzahl der Absender"),
                             items:
-                            ["keine Unterbrechung", "Unterbrechung der Aufgabe" "keine Angaben", "nicht relevant"]
+                            ["keine Unterbrechung", "Unterbrechung der Aufgabe", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              ResQualityData.setArtbeitszeitValue(value);
                               setState(() => selected1 = value);
                             },
                           ),
@@ -125,6 +140,7 @@ class _Res_qualityState extends State<res_quality> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              ResQualityData.setkontaminationValue(value);
                               setState(() => selected2 = value);
                             },
                           ),
@@ -152,6 +168,7 @@ class _Res_qualityState extends State<res_quality> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              ResQualityData.setLaermValue(value);
                               setState(() => selected3 = value);
                             },
                           ),
@@ -177,6 +194,7 @@ class _Res_qualityState extends State<res_quality> {
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              ResQualityData.setLoyalitaetValue(value);
                               setState(() => selected4 = value);
                             },
                           ),
@@ -195,13 +213,14 @@ class _Res_qualityState extends State<res_quality> {
                             ),
                             value: selected5,
                             // hint: Text("Informationsvolumen"),
-                            items: [ "Eindeutiger Name und eindeutiges Aussehen", "sounds-alike Medikamente", "looks-alike Medikamente", "fehlend", "keine Angaben", "nicht relevant"]
+                            items: [ "eindeutiger Name und eindeutiges Aussehen", "sound-alike Medikamente", "look-alike Medikamente", "fehlend", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              ResQualityData.setMedikamenteValue(value);
                               setState(() => selected5 = value);
                             },
                           ),
@@ -220,13 +239,14 @@ class _Res_qualityState extends State<res_quality> {
                             ),
                             value: selected6,
                             // hint: Text("Informationsvolumen"),
-                            items: [ "Angemessen und funktioniert", "Nicht angemessen, aber funktionierend","Looks alike Geräteteile", "Fehlend, funktionslos", "keine Angaben", "nicht relevant"]
+                            items: [ "angemessen und funktionierend", "nicht angemessen, aber funktionierend","look-alike Geräteteile", "fehlend, funktionslos", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              ResQualityData.setMedGeraeteValue(value);
                               setState(() => selected6 = value);
                             },
                           ),
@@ -245,13 +265,14 @@ class _Res_qualityState extends State<res_quality> {
                             ),
                             value: selected7,
                             // hint: Text("Informationsvolumen"),
-                            items: [ "Angemessen, laut akzeptiertem Standard", "Nicht angemessen","Looks alike Verbrauchsmaterialien", "Fehlend", "keine Angaben", "nicht relevant"]
+                            items: [ "angemessen, laut akzeptiertem Standard", "nicht angemessen","look-alike Verbrauchsmaterialien", "fehlend", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              ResQualityData.setMedMaterialValue(value);
                               setState(() => selected7 = value);
                             },
                           ),
@@ -270,13 +291,14 @@ class _Res_qualityState extends State<res_quality> {
                             ),
                             value: selected8,
                             // hint: Text("Informationsvolumen"),
-                            items: [ "Angemessen", "Nicht angemessen", "Fehlender Raum", "keine Angaben", "nicht relevant"]
+                            items: [ "angemessen", "nicht angemessen", "fehlender Raum", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              ResQualityData.setRaumValue(value);
                               setState(() => selected8 = value);
                             },
                           ),
@@ -295,13 +317,14 @@ class _Res_qualityState extends State<res_quality> {
                             ),
                             value: selected9,
                             // hint: Text("Informationsvolumen"),
-                            items: [ "Vorhanden", "Fehlend/keine Supervision", "keine Angaben", "nicht relevant"]
+                            items: [ "vorhanden", "fehlend/keine Supervision", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              ResQualityData.setFehlerkorekturValue(value);
                               setState(() => selected9 = value);
                             },
                           ),
@@ -320,13 +343,14 @@ class _Res_qualityState extends State<res_quality> {
                             ),
                             value: selected10,
                             // hint: Text("Informationsvolumen"),
-                            items: [ "Fit, verfügbar", "Ermüdet", "Beschäftigt, nicht verfügbar", "keine Angaben", "nicht relevant"]
+                            items: [ "fit, verfügbar", "ermüdet", "beschäftigt, nicht verfügbar", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              ResQualityData.setMitarbeiterZustandValue(value);
                               setState(() => selected10 = value);
                             },
                           ),
@@ -345,13 +369,14 @@ class _Res_qualityState extends State<res_quality> {
                             ),
                             value: selected11,
                             // hint: Text("Informationsvolumen"),
-                            items: [ "Kompetenzbewusst, kooperativ", "Kompetenzüberschreitend, kooperativ", "Kompetenzbewusst, nicht kooperativ","Kompetenzüberschreitend, nicht kooperativ", "keine Angaben", "nicht relevant"]
+                            items: [ "kompetenzbewusst, kooperativ", "kompetenzüberschreitend, kooperativ", "kompetenzbewusst, nicht kooperativ","kompetenzüberschreitend, nicht kooperativ", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              ResQualityData.setKompetenzValue(value);
                               setState(() => selected11 = value);
                             },
                           ),
@@ -370,13 +395,14 @@ class _Res_qualityState extends State<res_quality> {
                             ),
                             value: selected12,
                             // hint: Text("Informationsvolumen"),
-                            items: [ "Sprachkompetent", "Eingeschränkte Sprachkompetenz", "Keine Sprachkompetenz", "keine Angaben", "nicht relevant"]
+                            items: [ "sprachkompetent", "eingeschränkte Sprachkompetenz", "nicht sprachkompetent", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              ResQualityData.setSprachKompetenzValue(value);
                               setState(() => selected12 = value);
                             },
                           ),
@@ -397,14 +423,15 @@ class _Res_qualityState extends State<res_quality> {
                             ),
                             value: selected13,
                             // hint: Text("Informationsvolumen"),
-                            items: [ "Angemessen qualifiziert und ausreichend", "Angemessen qualifiziert und nicht ausreichend", "Nicht angemessen qualifiziert, aber ausreichend",
-                              "Nicht angemessen qualifiziert und nicht ausreichend", "keine Angaben", "nicht relevant"]
+                            items: [ "angemessen qualifiziert und ausreichend", "angemessen qualifiziert und nicht ausreichend", "nicht angemessen qualifiziert, aber ausreichend",
+                              "nicht angemessen qualifiziert und nicht ausreichend", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              ResQualityData.setBesetzungValue(value);
                               setState(() => selected13 = value);
                             },
                           ),
@@ -423,13 +450,14 @@ class _Res_qualityState extends State<res_quality> {
                             ),
                             value: selected14,
                             // hint: Text("Informationsvolumen"),
-                            items: [ "Existiert, verwendet", "Existiert, aber verwendet", "nicht existent", "keine Angaben", "nicht relevant"]
+                            items: [ "existent, verwendet", "existent, aber nicht verwendet", "nicht existent", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              ResQualityData.setSopValue(value);
                               setState(() => selected14 = value);
                             },
                           ),
@@ -448,13 +476,14 @@ class _Res_qualityState extends State<res_quality> {
                             ),
                             value: selected15,
                             // hint: Text("Informationsvolumen"),
-                            items: [ "Konstant, nicht veränderte Standardbedingung", "Veränderte Standardbedingung", "Keine Standardbedingung", "keine Angaben", "nicht relevant"]
+                            items: [ "konstant, nicht veränderte Standardbedingung", "veränderte Standardbedingung", "keine Standardbedingung", "keine Angaben", "nicht relevant"]
                                 .map((label) => DropdownMenuItem(
                               child: Text(label),
                               value: label,
                             ))
                                 .toList(),
                             onChanged: (value) {
+                              ResQualityData.setStandardbedingungenValue(value);
                               setState(() => selected15 = value);
                             },
                           ),
@@ -505,5 +534,5 @@ Future<void> savedAlert(BuildContext context) {
 
 Future navigateToOutput(context) async {
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => info_output()));
+      context, MaterialPageRoute(builder: (context) => infoHome_output()));
 }

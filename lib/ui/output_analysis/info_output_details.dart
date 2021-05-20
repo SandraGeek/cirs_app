@@ -1,5 +1,7 @@
 import 'dart:ui';
-import 'package:cirs_app/ui/output_analysis/patient_output.dart';
+import 'package:cirs_app/model/infoOutput_data.dart';
+import 'package:cirs_app/model/userData.dart';
+import 'package:cirs_app/ui/output_analysis/patientHome_output.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,6 +17,7 @@ class _Info_output_detailsState extends State<info_output_details> {
   String selected2;
   String selected3;
   String selected4;
+  String pageTitle = "Information als Output";
 
   void onPressed() {
 
@@ -22,6 +25,16 @@ class _Info_output_detailsState extends State<info_output_details> {
       savedAlert(context);
     }
     else if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null){
+      UserData.myComplexityData.add(InfoOutputData.generateUserComplexityObject(
+          "Anzahl der Informationsquellen", selected));
+      UserData.myScoreData.add(InfoOutputData.generateUserDataObjects(
+          pageTitle, InfoOutputData.calculateScore()));
+
+      print( UserData.myScoreData.toString());
+      print( UserData.myComplexityData.toString());
+      UserData.myComplexityData.clear();
+      UserData.myScoreData.clear();
+
       navigateToPatientOutput(context);
     }
     else{
@@ -32,7 +45,7 @@ class _Info_output_detailsState extends State<info_output_details> {
    @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-        title: Text("Information als Output"),
+        title: Text(pageTitle),
       ),
       body:
       Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
@@ -59,6 +72,7 @@ class _Info_output_detailsState extends State<info_output_details> {
             ))
                 .toList(),
             onChanged: (value) {
+              InfoOutputData.setInfoQuelleAnzValue(value);
               setState(() => selected = value);
             },
           ),
@@ -76,7 +90,7 @@ class _Info_output_detailsState extends State<info_output_details> {
               isDense: true,
             ),
             value: selected1,
-            //hint: Text("Anzahl der Absender"),
+            //hint: Text("Anzahl der Empfänger"),
             items: ["1", "2", "3 oder mehr", "keine Angaben", "nicht relevant"]
                 .map((label) => DropdownMenuItem(
               child: Text(label),
@@ -84,6 +98,7 @@ class _Info_output_detailsState extends State<info_output_details> {
             ))
                 .toList(),
             onChanged: (value) {
+              InfoOutputData.setEmpfaengerAnzValue(value);
               setState(() => selected1 = value);
             },
           ),
@@ -115,6 +130,7 @@ class _Info_output_detailsState extends State<info_output_details> {
             ))
                 .toList(),
             onChanged: (value) {
+              InfoOutputData.setInfoAustauschFormValue(value);
               setState(() => selected2 = value);
             },
           ),
@@ -151,6 +167,7 @@ class _Info_output_detailsState extends State<info_output_details> {
             ))
                 .toList(),
             onChanged: (value) {
+              InfoOutputData.setInfoTypUndStrukturValue(value);
               setState(() => selected3 = value);
             },
           ),
@@ -176,6 +193,7 @@ class _Info_output_detailsState extends State<info_output_details> {
             ))
                 .toList(),
             onChanged: (value) {
+              InfoOutputData.setInfoVolumenValue(value);
               setState(() => selected4 = value);
             },
           ),
@@ -241,5 +259,5 @@ Future<void> savedAlert2(BuildContext context) {
 
 Future navigateToPatientOutput(context) async {
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => patient_output()));
+      context, MaterialPageRoute(builder: (context) => patientHome_output()));
 }

@@ -1,6 +1,10 @@
-import 'package:cirs_app/ui/input_analysis/pq_input.dart';
+import 'package:cirs_app/model/userData.dart';
+import 'package:cirs_app/ui/aufgabe_analysis/aufgabeHome.dart';
+import 'package:cirs_app/ui/input_analysis/patientenQ_Input.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cirs_app/model/probenInput_data.dart';
+import 'package:cirs_app/ui/input_analysis/patientHome.dart';
 
 class probenDetails extends StatefulWidget {
   @override
@@ -11,6 +15,7 @@ class _ProbenDetailsState extends State<probenDetails> {
 
   String selected;
   String selected1;
+  String pageTitle = "Angaben zu Probenmaterial";
 
   void onPressed() {
 
@@ -19,7 +24,20 @@ class _ProbenDetailsState extends State<probenDetails> {
       savedAlert(context);
     }
 
+    else if(( patientHomeState.selected == 1) || (patientHomeState.selected == 2) || (patientHomeState.selected == 3)  ){
+      navigateToAufgabenHome(context);
+    }
+
     else if(selected != null && selected1 != null){
+      UserData.myComplexityData.add(ProbenInputData.generateUserComplexityObject(
+          "Anzahl der Absender", selected1));
+      UserData.myScoreData.add(ProbenInputData.generateUserDataObjects(
+          pageTitle, ProbenInputData.calculateScore()));
+
+      print( UserData.myScoreData.toString());
+      print( UserData.myComplexityData.toString());
+      UserData.myComplexityData.clear();
+      UserData.myScoreData.clear();
       navigateToPq_input(context);
     }
     else{
@@ -31,7 +49,7 @@ class _ProbenDetailsState extends State<probenDetails> {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-        title: Text("Angaben zu Probenmaterial"),
+        title: Text(pageTitle),
       ),
       body:
       Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
@@ -57,6 +75,7 @@ class _ProbenDetailsState extends State<probenDetails> {
             ))
                 .toList(),
             onChanged: (value) {
+              ProbenInputData.setProbenAnzAnzValue(value);
               setState(() => selected = value);
             },
           ),
@@ -84,6 +103,7 @@ class _ProbenDetailsState extends State<probenDetails> {
             ))
                 .toList(),
             onChanged: (value) {
+              ProbenInputData.setAbsenderAnzValue(value);
               setState(() => selected1 = value);
             },
           ),
@@ -148,4 +168,7 @@ Future<void> savedAlert2(BuildContext context) {
 }
 
 Future navigateToPq_input(context) async => Navigator.push(context,
-      MaterialPageRoute(builder: (context) => pq_input()));
+      MaterialPageRoute(builder: (context) => PatientenQ_Input()));
+
+Future navigateToAufgabenHome(context) async => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => aufgabeHome()));

@@ -1,7 +1,9 @@
 import 'dart:ui';
-import 'package:cirs_app/ui/output_analysis/proben_output.dart';
+import 'package:cirs_app/model/userData.dart';
+import 'package:cirs_app/ui/output_analysis/probenHome_output.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cirs_app/model/patientOutput_data.dart';
 
 class patient_output_details extends StatefulWidget {
   @override
@@ -11,9 +13,21 @@ class patient_output_details extends StatefulWidget {
 class _Patient_output_detailsState extends State<patient_output_details> {
   String selected;
   String selected1;
+  String pageTitle = "PatientIn als Output";
 
   void onPressed() {
     if(selected != null && selected1 != null){
+
+      UserData.myComplexityData.add(PatientOutputData.generateUserComplexityObject(
+          "Priorität", selected1));
+      UserData.myScoreData.add(PatientOutputData.generateUserDataObjects(
+          pageTitle, PatientOutputData.calculateScore()));
+
+      print( UserData.myScoreData.toString());
+      print( UserData.myComplexityData.toString());
+      UserData.myComplexityData.clear();
+      UserData.myScoreData.clear();
+
       navigateToProbenOutput(context);
     }
     else{
@@ -25,7 +39,7 @@ class _Patient_output_detailsState extends State<patient_output_details> {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-        title: Text("PatientIn als Output"),
+        title: Text(pageTitle),
       ),
       body:
       Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
@@ -52,6 +66,7 @@ class _Patient_output_detailsState extends State<patient_output_details> {
             ))
                 .toList(),
             onChanged: (value) {
+              PatientOutputData.setMedDomaeneAnzValue(value);
               setState(() => selected = value);
             },
           ),
@@ -78,6 +93,7 @@ class _Patient_output_detailsState extends State<patient_output_details> {
             ))
                 .toList(),
             onChanged: (value) {
+              PatientOutputData.setPrioritaetValue(value);
               setState(() => selected1 = value);
             },
           ),
@@ -121,5 +137,5 @@ Future<void> savedAlert(BuildContext context) {
 
 Future navigateToProbenOutput(context) async {
   Navigator.push(
-      context, MaterialPageRoute(builder: (context) => proben_output()));
+      context, MaterialPageRoute(builder: (context) => probenHome_output()));
 }

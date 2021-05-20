@@ -1,7 +1,9 @@
 import 'dart:ui';
+import 'package:cirs_app/model/userData.dart';
 import 'package:cirs_app/ui/input_analysis/probenHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:cirs_app/model/patientInput_data.dart';
 
 // ignore: camel_case_types
 class patientDetails extends StatefulWidget {
@@ -15,9 +17,20 @@ class _PatientDetailsState extends State<patientDetails> {
   String selected2;
   String selected3;
   String selected4;
+  String pageTitle = "Angaben zum Patienten";
 
   void onPressed() {
     if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null){
+
+      UserData.myComplexityData.add(PatientInputData.generateUserComplexityObject(
+          "Anzahl der Informationsquellen", selected));
+      UserData.myScoreData.add(PatientInputData.generateUserDataObjects(
+          pageTitle, PatientInputData.calculateScore()));
+
+      print( UserData.myScoreData.toString());
+      print( UserData.myComplexityData.toString());
+      UserData.myComplexityData.clear();
+      UserData.myScoreData.clear();
     navigateToProbenHome(context);
     }
     else{
@@ -28,7 +41,7 @@ class _PatientDetailsState extends State<patientDetails> {
   @override
   Widget build(BuildContext context) => Scaffold(
       appBar: AppBar(
-        title: Text("Angaben zum Patienten"),
+        title: Text(pageTitle),
       ),
       body:
       Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
@@ -54,6 +67,7 @@ class _PatientDetailsState extends State<patientDetails> {
             ))
                 .toList(),
             onChanged: (value) {
+              PatientInputData.setMedDomaeneAnzValue(value);
               setState(() => selected = value);
             },
           ),
@@ -79,6 +93,7 @@ class _PatientDetailsState extends State<patientDetails> {
             ))
                 .toList(),
             onChanged: (value) {
+              PatientInputData.setDomaeneArztZuPatValue(value);
               setState(() => selected1 = value);
             },
           ),
@@ -109,6 +124,7 @@ class _PatientDetailsState extends State<patientDetails> {
             ))
                 .toList(),
             onChanged: (value) {
+              PatientInputData.setHaeufigkeitValue(value);
               setState(() => selected2 = value);
             },
           ),
@@ -140,6 +156,7 @@ class _PatientDetailsState extends State<patientDetails> {
             ))
                 .toList(),
             onChanged: (value) {
+              PatientInputData.setKommunikationValue(value);
               setState(() => selected3 = value);
             },
           ),
@@ -165,6 +182,7 @@ class _PatientDetailsState extends State<patientDetails> {
             ))
                 .toList(),
             onChanged: (value) {
+              PatientInputData.setPrioritaetValue(value);
               setState(() => selected4 = value);
             },
           ),
