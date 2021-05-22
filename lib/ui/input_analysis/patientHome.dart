@@ -22,6 +22,7 @@ class patientHomeState extends State<patientHome> {
     }
     else if(selected==0){
       navigateToPatientDetails(context);
+
     }
   }
 
@@ -34,11 +35,11 @@ class patientHomeState extends State<patientHome> {
 
   List<Widget> patientHomeList() {
     List<Widget> list = new List<Widget>();
-    List names = new List(4);
-    names[0] = "Ja";
-    names[1] = "kein PatientIn in dieser Aufgabe";
-    names[2] = "kein Angaben";
-    names[3] = "Nicht relevant";
+    List options = new List(4);
+    options[0] = "Ja";
+    options[1] = "kein PatientIn in dieser Aufgabe";
+    options[2] = "kein Angaben";
+    options[3] = "Nicht relevant";
 
     list.add(new Text(
       "Gibt es ein PatientIn?",
@@ -51,7 +52,7 @@ class patientHomeState extends State<patientHome> {
     for (int i = 0; i < 4; i++) {
       list.add(new RadioListTile(
         value: i,
-        title: Text(names[i]),
+        title: Text(options[i]),
         groupValue: selected,
         onChanged: (int value) {
           onChanged(value);

@@ -8,7 +8,11 @@ class ComplexityData{
 
   @override
   String toString() {
-    return 'Question Title: $_questionTitle, Question Answer: $_questionAnswer}';
+    return '$_questionTitle,  $_questionAnswer';
   }
+
+  get questionAnswer => _questionAnswer;
+
+  get questionTitle => _questionTitle;
 
 }

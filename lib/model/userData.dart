@@ -1,8 +1,11 @@
 
+import 'package:cirs_app/model/complexity_data.dart';
+import 'package:cirs_app/model/score_data.dart';
+
 class UserData {
 
-  static List<dynamic> myScoreData = new List();
-  static List<dynamic> myComplexityData = new List();
+  static List<ScoreData> myScoreData = [];
+  static List<ComplexityData> myComplexityData = [];
 
 
 }

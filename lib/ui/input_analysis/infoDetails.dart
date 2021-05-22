@@ -1,4 +1,4 @@
-import 'dart:ui';
+import "package:charts_flutter/flutter.dart" as charts;
 import 'package:cirs_app/ui/input_analysis/patientHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -24,22 +24,22 @@ class _InfoDetailsState extends State<infoDetails> {
     if((selected == "1" && selected1 == "2") ||(selected == "2" && selected1 == "3 oder mehr")||(selected == "1" && selected1 == "3 oder mehr")) {
       savedAlert(context);
     }
-    else if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null){
 
-      UserData.myComplexityData.add(InfoInputData.generateUserComplexityObject(
-          "Anzahl der Informationsquellen", selected));
+    else if(selected != null || selected1 != null || selected2 != null || selected3 != null || selected4 != null){
+
       UserData.myScoreData.add(InfoInputData.generateUserDataObjects(
-          pageTitle, InfoInputData.calculateScore()));
+          "Information -Input", InfoInputData.calculateScore(), charts.ColorUtil.fromDartColor(Colors.orange)));
 
         print( UserData.myScoreData.toString());
-        print( UserData.myComplexityData.toString());
-        UserData.myComplexityData.clear();
-        UserData.myScoreData.clear();
+
       navigateToPatientHome(context);
     }
+
+
     else{
       savedAlert2(context);
     }
+
   }
 
   @override

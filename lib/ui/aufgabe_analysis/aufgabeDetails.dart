@@ -5,6 +5,7 @@ import 'package:cirs_app/ui/output_analysis/infoHome_output.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cirs_app/model/aufgabe_data.dart';
+import "package:charts_flutter/flutter.dart" as charts;
 
 class aufgabeDetails extends StatefulWidget {
   @override
@@ -29,14 +30,36 @@ class _AufgabeDetailsState extends State<aufgabeDetails> {
     if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null && selected5 != null
         && selected6 != null && selected7 != null && selected8 != null && selected9 != null){
 
-      UserData.myComplexityData.add(AufgabeData.generateUserComplexityObject(
-          "Angaben zur Prozedur", selected));
-      UserData.myScoreData.add(AufgabeData.generateUserDataObjects(pageTitle, AufgabeData.calculateScore()));
+      if (selected2 == "2" || selected2 == "3 oder mehr")
+        {UserData.myComplexityData.add(AufgabeData.generateUserComplexityObject(
+            "Benutzung von medizinischen Geräten", selected2));
+        }
+
+      if (selected4 == "2" || selected4 == "3 oder mehr")
+      {UserData.myComplexityData.add(AufgabeData.generateUserComplexityObject(
+          "Benutzung von medizinischem Verbrauchsmaterial", selected4));
+      }
+
+      if (selected5 == "2" || selected5 == "3 oder mehr")
+      {UserData.myComplexityData.add(AufgabeData.generateUserComplexityObject(
+          "Anzahl involvierter medizinischer Domänen", selected5));
+      }
+
+      if (selected6 == "2" || selected6 == "3 oder mehr")
+      {UserData.myComplexityData.add(AufgabeData.generateUserComplexityObject(
+          "Anzahl involvierter Personen", selected6));
+      }
+
+      if (selected7 == "unterschiedliche hierarchische Ebenen")
+      {UserData.myComplexityData.add(AufgabeData.generateUserComplexityObject(
+          "Interne Teamkommunikation", selected7));
+      }
+
+      UserData.myScoreData.add(AufgabeData.generateUserDataObjects("Aufgabe", AufgabeData.calculateScore(), charts.ColorUtil.fromDartColor(Colors.yellow)));
 
       print( UserData.myScoreData.toString());
       print( UserData.myComplexityData.toString());
-      UserData.myComplexityData.clear();
-      UserData.myScoreData.clear();
+
 
       navigateResQ(context);
     }

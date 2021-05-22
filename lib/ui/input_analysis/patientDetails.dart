@@ -1,9 +1,9 @@
-import 'dart:ui';
 import 'package:cirs_app/model/userData.dart';
 import 'package:cirs_app/ui/input_analysis/probenHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cirs_app/model/patientInput_data.dart';
+import "package:charts_flutter/flutter.dart" as charts;
 
 // ignore: camel_case_types
 class patientDetails extends StatefulWidget {
@@ -20,23 +20,24 @@ class _PatientDetailsState extends State<patientDetails> {
   String pageTitle = "Angaben zum Patienten";
 
   void onPressed() {
-    if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null){
+    if (selected != null || selected1 != null || selected2 != null ||
+        selected3 != null || selected4 != null) {
 
-      UserData.myComplexityData.add(PatientInputData.generateUserComplexityObject(
-          "Anzahl der Informationsquellen", selected));
       UserData.myScoreData.add(PatientInputData.generateUserDataObjects(
-          pageTitle, PatientInputData.calculateScore()));
+          "Patient -Input", PatientInputData.calculateScore(), charts.ColorUtil.fromDartColor(Colors.amber)));
 
-      print( UserData.myScoreData.toString());
-      print( UserData.myComplexityData.toString());
-      UserData.myComplexityData.clear();
-      UserData.myScoreData.clear();
-    navigateToProbenHome(context);
+      print(UserData.myScoreData.toString());
+
+      navigateToProbenHome(context);
     }
-    else{
-      savedAlert(context);
+
+     else {
+     savedAlert(context);
+
     }
-  }
+        }
+
+
 
   @override
   Widget build(BuildContext context) => Scaffold(

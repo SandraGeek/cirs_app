@@ -4,13 +4,14 @@ import 'package:cirs_app/ui/aufgabe_analysis/aufgabeHome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cirs_app/model/patientenQInput_data.dart';
+import "package:charts_flutter/flutter.dart" as charts;
 
 class PatientenQ_Input extends StatefulWidget {
   @override
-  _PatientenQ_InputState createState() => _PatientenQ_InputState();
+  PatientenQ_InputState createState() => PatientenQ_InputState();
 }
 
-class _PatientenQ_InputState extends State<PatientenQ_Input> {
+class PatientenQ_InputState extends State<PatientenQ_Input> {
   String selected;
   String selected1;
   String selected2;
@@ -25,7 +26,7 @@ class _PatientenQ_InputState extends State<PatientenQ_Input> {
   String selected11;
   String selected12;
   String selected13;
-  String pageTitle = "Patientenqualitätszustand - Input";
+  String pageTitle = "PQ-I";
 
   void onPressed() {
     if (selected != null &&
@@ -38,17 +39,13 @@ class _PatientenQ_InputState extends State<PatientenQ_Input> {
         selected7 != null &&
     selected8 != null && selected9 != null && selected10 != null && selected11 != null && selected12 != null && selected13 != null) {
 
-      UserData.myComplexityData.add(PatientenQInputData.generateUserComplexityObject(
-          "Administrative Identifikation", selected));
-      UserData.myScoreData.add(PatientenQInputData.generateUserDataObjects(
-          pageTitle, PatientenQInputData.calculateScore()));
+       UserData.myScoreData.add(PatientenQInputData.generateUserDataObjects(
+          pageTitle, PatientenQInputData.calculateScore(), charts.ColorUtil.fromDartColor(Colors.indigo)));
 
       print( UserData.myScoreData.toString());
-         print( UserData.myComplexityData.toString());
-         UserData.myComplexityData.clear();
-        UserData.myScoreData.clear();
 
-      navigateToDq_input(context);
+
+      navigateToAufgabenHome(context);
 
     } else {
       savedAlert(context);
@@ -553,7 +550,7 @@ Future<void> savedAlert(BuildContext context) {
   );
 }
 
-Future navigateToDq_input(context) async {
+Future navigateToAufgabenHome(context) async {
   Navigator.push(context, MaterialPageRoute(builder: (context) => aufgabeHome()));
 }
 

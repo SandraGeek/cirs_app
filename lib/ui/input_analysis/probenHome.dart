@@ -6,43 +6,52 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cirs_app/ui/input_analysis/patientHome.dart';
 
-
 class probenHome extends StatefulWidget {
   @override
   ProbenHomeState createState() => ProbenHomeState();
 }
 
 class ProbenHomeState extends State<probenHome> {
-
- static int selected;
+  static int selected;
 
   void onPressed() {
+    if ((selected == 1 || selected == 2 || selected == 3) &&
+        ((patientHomeState.selected == 1) ||
+            (patientHomeState.selected == 2) ||
+            (patientHomeState.selected == 3)) &&
+        ((infoHomeState.selected == 1) ||
+            (infoHomeState.selected == 2) ||
+            (infoHomeState.selected == 3))) {
+      savedAlert2(context);
 
-    if(selected == null){
+    } else if (selected != null) {
+      if (selected == 0) {
+        navigateToProbenDetails(context);
+      }
+
+      else if ((selected == 1 || selected == 2 || selected == 3) &&
+          ((patientHomeState.selected == 1) ||
+              (patientHomeState.selected == 2) ||
+              (patientHomeState.selected == 3)) &&
+          (infoHomeState.selected == 0)) {
+        navigateToAufgabenHome(context);
+      }
+
+      else if ((selected == 1 || selected == 2 || selected == 3) &&
+          ((patientHomeState.selected != 1) ||
+              (patientHomeState.selected != 2) ||
+              (patientHomeState.selected != 3)) &&
+          ((infoHomeState.selected != 1) ||
+              (infoHomeState.selected != 2) ||
+              (infoHomeState.selected != 3))) {
+        navigateToPatientenQ_Input(context);
+      }
+    } else {
       savedAlert(context);
     }
-
-    else if(selected == 0){
-      navigateToProbenDetails(context);
-    }
-
-    else if( (selected == 1 || selected == 2 || selected == 3) && ((patientHomeState.selected == 1) || (patientHomeState.selected == 2) || (patientHomeState.selected == 3)) && (infoHomeState == 0) ){
-      navigateToAufgabenHome(context);
-    }
-
-   else if( (selected == 1 || selected == 2 || selected == 3) &&  ((patientHomeState.selected == 1) || (patientHomeState.selected == 2) || (patientHomeState.selected == 3)) &&
-        ((infoHomeState.selected == 1) || (infoHomeState.selected == 2) || (infoHomeState.selected == 3)) ){
-      savedAlert2(context);
-    }
-
-    else if( (selected == 1 || selected == 2 || selected == 3) &&  ((patientHomeState.selected != 1) || (patientHomeState.selected != 2) || (patientHomeState.selected != 3)) &&
-        ((infoHomeState.selected != 1) || (infoHomeState.selected != 2) || (infoHomeState.selected != 3)) ){
-      navigateToPatientenQ_Input(context);
-    }
-
   }
 
-   void onChanged(int value) {
+  void onChanged(int value) {
     setState(() {
       selected = value;
     });
@@ -50,11 +59,11 @@ class ProbenHomeState extends State<probenHome> {
 
   List<Widget> probenHomeList() {
     List<Widget> list = new List<Widget>();
-    List names = new List(4);
-    names[0] = "Ja";
-    names[1] = "kein Probenmaterial";
-    names[2] = "keine Angaben";
-    names[3] = "Nicht relevant";
+    List options = new List(4);
+    options[0] = "Ja";
+    options[1] = "kein Probenmaterial";
+    options[2] = "keine Angaben";
+    options[3] = "Nicht relevant";
 
     list.add(new Text(
       "Sind Probenmaterial/Medikamenten vorhanden?",
@@ -67,7 +76,7 @@ class ProbenHomeState extends State<probenHome> {
     for (int i = 0; i < 4; i++) {
       list.add(new RadioListTile(
         value: i,
-        title: Text(names[i]),
+        title: Text(options[i]),
         groupValue: selected,
         onChanged: (int value) {
           onChanged(value);
@@ -95,21 +104,21 @@ class ProbenHomeState extends State<probenHome> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    appBar: AppBar(
-      title: Text("Angaben zu Probenmaterial"),
-    ),
-    body: Center(
-      child: new Container(
-        width: 500.0,
-        height: 500,
-        color: Colors.white70,
-        alignment: Alignment.center,
-        child: new Column(
-          children: probenHomeList(),
+        appBar: AppBar(
+          title: Text("Angaben zu Probenmaterial"),
         ),
-      ),
-    ),
-  );
+        body: Center(
+          child: new Container(
+            width: 500.0,
+            height: 500,
+            color: Colors.white70,
+            alignment: Alignment.center,
+            child: new Column(
+              children: probenHomeList(),
+            ),
+          ),
+        ),
+      );
 }
 
 Future<void> savedAlert(BuildContext context) {
@@ -118,8 +127,7 @@ Future<void> savedAlert(BuildContext context) {
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text('Hinweis!'),
-        content: const Text(
-            'Bitte treffen Sie eine Auswahl!'),
+        content: const Text('Bitte treffen Sie eine Auswahl!'),
         actions: <Widget>[
           FlatButton(
             child: Text('Ok'),
@@ -162,5 +170,3 @@ Future navigateToPatientenQ_Input(context) async => Navigator.push(
 
 Future navigateToAufgabenHome(context) async => Navigator.push(
     context, MaterialPageRoute(builder: (context) => aufgabeHome()));
-
-

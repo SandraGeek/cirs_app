@@ -1,13 +1,14 @@
-
+import "package:charts_flutter/flutter.dart" as charts;
 
 class ScoreData {
-  String _pageTitle;
-  int _score;
+   String pageTitle;
+   int score;
+   charts.Color barColor;
 
-  ScoreData(this._pageTitle, this._score);
+  ScoreData(this.pageTitle, this.score, this.barColor);
 
   @override
   String toString() {
-    return 'Title: $_pageTitle, Score: $_score}';
+    return 'Title: $pageTitle, Score: $score}';
   }
 }

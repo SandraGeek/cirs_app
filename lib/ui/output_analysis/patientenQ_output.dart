@@ -4,6 +4,7 @@ import 'package:cirs_app/ui/Results/feedback.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cirs_app/model/patientenQOutput_data.dart';
+import "package:charts_flutter/flutter.dart" as charts;
 
 class PatientenQ_Output extends StatefulWidget {
   @override
@@ -31,17 +32,12 @@ class _PatientenQ_OutputState extends State<PatientenQ_Output> {
     if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null && selected5 != null
         && selected6 != null && selected7 != null && selected8 != null && selected9 != null && selected10 != null && selected11 != null && selected12 != null && selected13 != null){
 
-      UserData.myComplexityData.add(PatientenQOutputData.generateUserComplexityObject(
-          "Administrative Identifikation", selected));
       UserData.myScoreData.add(PatientenQOutputData.generateUserDataObjects(
-          pageTitle, PatientenQOutputData.calculateScore()));
+          "PQ-O", PatientenQOutputData.calculateScore(), charts.ColorUtil.fromDartColor(Colors.brown)));
 
       print( UserData.myScoreData.toString());
-      print( UserData.myComplexityData.toString());
-      UserData.myComplexityData.clear();
-      UserData.myScoreData.clear();
 
-      navigateToDq_output(context);
+      navigateToFeedback(context);
     }
     else{
       savedAlert(context);
@@ -502,7 +498,7 @@ Future<void> savedAlert(BuildContext context) {
   );
 }
 
-Future navigateToDq_output(context) async {
+Future navigateToFeedback(context) async {
   Navigator.push(
       context, MaterialPageRoute(builder: (context) => feedback()));
 }

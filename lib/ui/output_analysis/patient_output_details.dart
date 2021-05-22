@@ -1,4 +1,4 @@
-import 'dart:ui';
+import "package:charts_flutter/flutter.dart" as charts;
 import 'package:cirs_app/model/userData.dart';
 import 'package:cirs_app/ui/output_analysis/probenHome_output.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,15 +18,10 @@ class _Patient_output_detailsState extends State<patient_output_details> {
   void onPressed() {
     if(selected != null && selected1 != null){
 
-      UserData.myComplexityData.add(PatientOutputData.generateUserComplexityObject(
-          "Priorität", selected1));
-      UserData.myScoreData.add(PatientOutputData.generateUserDataObjects(
-          pageTitle, PatientOutputData.calculateScore()));
+       UserData.myScoreData.add(PatientOutputData.generateUserDataObjects(
+          "Patient - Output", PatientOutputData.calculateScore(), charts.ColorUtil.fromDartColor(Colors.lightGreenAccent)));
 
       print( UserData.myScoreData.toString());
-      print( UserData.myComplexityData.toString());
-      UserData.myComplexityData.clear();
-      UserData.myScoreData.clear();
 
       navigateToProbenOutput(context);
     }

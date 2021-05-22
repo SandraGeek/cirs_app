@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cirs_app/model/probenInput_data.dart';
 import 'package:cirs_app/ui/input_analysis/patientHome.dart';
+import "package:charts_flutter/flutter.dart" as charts;
 
 class probenDetails extends StatefulWidget {
   @override
@@ -12,36 +13,41 @@ class probenDetails extends StatefulWidget {
 }
 
 class _ProbenDetailsState extends State<probenDetails> {
-
   String selected;
   String selected1;
   String pageTitle = "Angaben zu Probenmaterial";
 
   void onPressed() {
 
-
-    if((selected == "1" && selected1 == "2") ||(selected == "2" && selected1 == "3 oder mehr")||(selected == "1" && selected1 == "3 oder mehr")) {
+    if ((selected == "1" && selected1 == "2") ||
+        (selected == "2" && selected1 == "3 oder mehr") ||
+        (selected == "1" && selected1 == "3 oder mehr")) {
       savedAlert(context);
     }
 
-    else if(( patientHomeState.selected == 1) || (patientHomeState.selected == 2) || (patientHomeState.selected == 3)  ){
-      navigateToAufgabenHome(context);
+     else if (selected != null && selected1 != null) {
+      if ((patientHomeState.selected == 1) ||
+          (patientHomeState.selected == 2) ||
+          (patientHomeState.selected == 3)) {
+        UserData.myScoreData.add(ProbenInputData.generateUserDataObjects(
+            "Probenmaterial - Input", ProbenInputData.calculateScore(), charts.ColorUtil.fromDartColor(Colors.green)));
+
+        print(UserData.myScoreData.toString());
+
+        navigateToAufgabenHome(context);
+      }
+      else {
+        UserData.myScoreData.add(ProbenInputData.generateUserDataObjects(
+            "Proben", ProbenInputData.calculateScore(), charts.ColorUtil.fromDartColor(Colors.green)));
+
+        print(UserData.myScoreData.toString());
+
+        navigateToPq_input(context);
+      }
     }
 
-    else if(selected != null && selected1 != null){
-      UserData.myComplexityData.add(ProbenInputData.generateUserComplexityObject(
-          "Anzahl der Absender", selected1));
-      UserData.myScoreData.add(ProbenInputData.generateUserDataObjects(
-          pageTitle, ProbenInputData.calculateScore()));
-
-      print( UserData.myScoreData.toString());
-      print( UserData.myComplexityData.toString());
-      UserData.myComplexityData.clear();
-      UserData.myScoreData.clear();
-      navigateToPq_input(context);
-    }
-    else{
-      savedAlert2(context);
+     else {
+       savedAlert2(context);
     }
 
   }
@@ -52,7 +58,7 @@ class _ProbenDetailsState extends State<probenDetails> {
         title: Text(pageTitle),
       ),
       body:
-      Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
+          Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
         Padding(
           padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
           child: DropdownButtonFormField<String>(
@@ -70,9 +76,9 @@ class _ProbenDetailsState extends State<probenDetails> {
             //hint: Text("Anzahl der Informationsquellen"),
             items: ["1", "2", "3 oder mehr", "keine Angabe", "nicht relevant"]
                 .map((label) => DropdownMenuItem(
-              child: Text(label),
-              value: label,
-            ))
+                      child: Text(label),
+                      value: label,
+                    ))
                 .toList(),
             onChanged: (value) {
               ProbenInputData.setProbenAnzAnzValue(value);
@@ -80,8 +86,6 @@ class _ProbenDetailsState extends State<probenDetails> {
             },
           ),
         ),
-
-
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: DropdownButtonFormField<String>(
@@ -98,9 +102,9 @@ class _ProbenDetailsState extends State<probenDetails> {
             // hint: Text("Informationsvolumen"),
             items: ["1", "2", "3 oder mehr", "keine Angabe", "nicht relevant"]
                 .map((label) => DropdownMenuItem(
-              child: Text(label),
-              value: label,
-            ))
+                      child: Text(label),
+                      value: label,
+                    ))
                 .toList(),
             onChanged: (value) {
               ProbenInputData.setAbsenderAnzValue(value);
@@ -122,7 +126,6 @@ class _ProbenDetailsState extends State<probenDetails> {
               borderRadius: new BorderRadius.circular(30.0)),
         )
       ]));
-
 }
 
 Future<void> savedAlert(BuildContext context) {
@@ -152,8 +155,7 @@ Future<void> savedAlert2(BuildContext context) {
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text('Hinweis!'),
-        content: const Text(
-            'Bitte alle Felder ausfüllen!'),
+        content: const Text('Bitte alle Felder ausfüllen!'),
         actions: <Widget>[
           FlatButton(
             child: Text('Ok'),
@@ -167,8 +169,8 @@ Future<void> savedAlert2(BuildContext context) {
   );
 }
 
-Future navigateToPq_input(context) async => Navigator.push(context,
-      MaterialPageRoute(builder: (context) => PatientenQ_Input()));
+Future navigateToPq_input(context) async => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => PatientenQ_Input()));
 
 Future navigateToAufgabenHome(context) async => Navigator.push(
     context, MaterialPageRoute(builder: (context) => aufgabeHome()));

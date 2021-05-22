@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cirs_app/model/probenOutput_data.dart';
 import 'package:cirs_app/ui/output_analysis/patientHome_output.dart';
+import "package:charts_flutter/flutter.dart" as charts;
 
 class proben_output_details extends StatefulWidget {
   @override
@@ -12,44 +13,43 @@ class proben_output_details extends StatefulWidget {
 }
 
 class _Proben_output_detailsState extends State<proben_output_details> {
-
   String selected;
   String selected1;
   String pageTitle = "Probenmaterial als Output";
 
-
   void onPressed() {
 
-
-    if((selected == "1" && selected1 == "2") ||(selected == "2" && selected1 == "3 oder mehr")||(selected == "1" && selected1 == "3 oder mehr")) {
+    if ((selected == "1" && selected1 == "2") ||
+        (selected == "2" && selected1 == "3 oder mehr") ||
+        (selected == "1" && selected1 == "3 oder mehr")) {
       savedAlert(context);
     }
 
-    else if(( patientHome_outputState.selected == 1) || (patientHome_outputState.selected == 2) || (patientHome_outputState.selected == 3)  ){
-      navigateToFeedback(context);
-    }
+    else if (selected != null && selected1 != null) {
 
-    else if(selected != null && selected1 != null){
+        if ((patientHome_outputState.selected == 1) ||
+            (patientHome_outputState.selected == 2) ||
+            (patientHome_outputState.selected == 3)) {
 
-      UserData.myComplexityData.add(ProbenOutputData.generateUserComplexityObject(
-          "Anzahl der Absender", selected1));
-      UserData.myScoreData.add(ProbenOutputData.generateUserDataObjects(
-          pageTitle, ProbenOutputData.calculateScore()));
+          UserData.myScoreData.add(ProbenOutputData.generateUserDataObjects(
+              "ProbenO", ProbenOutputData.calculateScore(), charts.ColorUtil.fromDartColor(Colors.blue) ));
+          print(UserData.myScoreData.toString());
 
-      print( UserData.myScoreData.toString());
-      print( UserData.myComplexityData.toString());
-      UserData.myComplexityData.clear();
-      UserData.myScoreData.clear();
+          navigateToFeedback(context);
+        } else {
 
-      navigateToPq_output(context);
-    }
-    else{
+          UserData.myScoreData.add(ProbenOutputData.generateUserDataObjects(
+              "Probenmaterial - Output", ProbenOutputData.calculateScore(), charts.ColorUtil.fromDartColor(Colors.blue)));
+
+          print(UserData.myScoreData.toString());
+
+          navigateToPq_output(context);
+        }
+      }
+    else {
       savedAlert2(context);
     }
-
-  }
-
-
+    }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -57,7 +57,7 @@ class _Proben_output_detailsState extends State<proben_output_details> {
         title: Text(pageTitle),
       ),
       body:
-      Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
+          Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
         Padding(
           padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
           child: DropdownButtonFormField<String>(
@@ -75,9 +75,9 @@ class _Proben_output_detailsState extends State<proben_output_details> {
             //hint: Text("Anzahl der Informationsquellen"),
             items: ["1", "2", "3 oder mehr", "keine Angabe", "nicht relevant"]
                 .map((label) => DropdownMenuItem(
-              child: Text(label),
-              value: label,
-            ))
+                      child: Text(label),
+                      value: label,
+                    ))
                 .toList(),
             onChanged: (value) {
               ProbenOutputData.setProbenAnzAnzValue(value);
@@ -85,8 +85,6 @@ class _Proben_output_detailsState extends State<proben_output_details> {
             },
           ),
         ),
-
-
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: DropdownButtonFormField<String>(
@@ -103,9 +101,9 @@ class _Proben_output_detailsState extends State<proben_output_details> {
             // hint: Text("Informationsvolumen"),
             items: ["1", "2", "3 oder mehr", "keine Angabe", "nicht relevant"]
                 .map((label) => DropdownMenuItem(
-              child: Text(label),
-              value: label,
-            ))
+                      child: Text(label),
+                      value: label,
+                    ))
                 .toList(),
             onChanged: (value) {
               ProbenOutputData.setEmpfaengerAnzValue(value);
@@ -127,7 +125,6 @@ class _Proben_output_detailsState extends State<proben_output_details> {
               borderRadius: new BorderRadius.circular(30.0)),
         )
       ]));
-
 }
 
 Future<void> savedAlert(BuildContext context) {
@@ -137,7 +134,8 @@ Future<void> savedAlert(BuildContext context) {
       return AlertDialog(
         title: Text('Hinweis!'),
         content: const Text(
-            'Bitte Abhängigkeiten beachten: ein Probenmaterial kann nur von einem Absender kommen, zwei Quellen von max. zwei Absendern etc. '),
+            'Bitte Abhängigkeiten beachten: ein Probenmaterial kann'
+                ' nur eine Empfänger geschickt werden, zwei an max. zwei Empfänger etc. '),
         actions: <Widget>[
           FlatButton(
             child: Text('Ok'),
@@ -157,8 +155,7 @@ Future<void> savedAlert2(BuildContext context) {
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text('Hinweis!'),
-        content: const Text(
-            'Bitte alle Felder ausfüllen!'),
+        content: const Text('Bitte alle Felder ausfüllen!'),
         actions: <Widget>[
           FlatButton(
             child: Text('Ok'),
@@ -172,8 +169,8 @@ Future<void> savedAlert2(BuildContext context) {
   );
 }
 
-Future navigateToPq_output(context) async => Navigator.push(context,
-    MaterialPageRoute(builder: (context) => PatientenQ_Output()));
+Future navigateToPq_output(context) async => Navigator.push(
+    context, MaterialPageRoute(builder: (context) => PatientenQ_Output()));
 
 Future navigateToFeedback(context) async => Navigator.push(
     context, MaterialPageRoute(builder: (context) => feedback()));

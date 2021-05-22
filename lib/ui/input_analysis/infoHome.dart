@@ -35,11 +35,11 @@ class infoHomeState extends State<infoHome> {
 
   List<Widget> infoHomeList() {
     List<Widget> list = new List<Widget>();
-    List names = new List(4);
-    names[0] = "Ja";
-    names[1] = "keine Information für die Aufgabe nötig";
-    names[2] = "keine Angaben";
-    names[3] = "Nicht relevant";
+    List options = new List(4);
+    options[0] = "Ja";
+    options[1] = "keine Information für die Aufgabe nötig";
+    options[2] = "keine Angaben";
+    options[3] = "Nicht relevant";
 
     list.add(new Text(
       "Werden für die Aufgabe Informationen verwendet?",
@@ -52,7 +52,7 @@ class infoHomeState extends State<infoHome> {
     for (int i = 0; i < 4; i++) {
       list.add(new RadioListTile(
         value: i,
-        title: Text(names[i]),
+        title: Text(options[i]),
         groupValue: selected,
         onChanged: (int value) {
           onChanged(value);

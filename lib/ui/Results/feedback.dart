@@ -1,11 +1,9 @@
-import 'dart:convert';
-import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:syncfusion_flutter_pdf/pdf.dart';
-import 'package:path_provider/path_provider.dart';
-//import 'package:open_file/open_file.dart';
+import 'package:cirs_app/ui/Results/chart.dart';
+import 'package:cirs_app/model/userData.dart';
 
+String pageTitle = "Ergebnisse der Analyse";
 
 class feedback extends StatefulWidget {
   @override
@@ -13,104 +11,97 @@ class feedback extends StatefulWidget {
 }
 
 class _FeedbackState extends State<feedback> {
-  List _items = [];
 
-  // Fetch content from the json file
-  Future<void> readJson() async {
-    final String response = await rootBundle.loadString('assets/feedback.json');
-    final data = await json.decode(response);
-    setState(() {
-      _items = data["items"];
-    });
-  }
-
+  @override
   Widget build(BuildContext context) {
+
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          "Feedback",
-        ),
-      ),
+        appBar: AppBar(
+          title: Text(pageTitle),
+        actions: <Widget>[
+            IconButton(
+                icon: Icon(Icons.info_outline),
+                onPressed: () {
+                  _infoButtonPressed(context);
+                })
+          ]),
 
-      body: Padding(
-        padding: const EdgeInsets.all(25),
-        child: Column(
-          children: [
-            new RaisedButton(
-              child: Text('Ergebnis anzeigen'),
-              onPressed: readJson,
-            ),
-
-            // Display the data loaded from sample.json
-            _items.length > 0
-                ? Expanded(
-              child: ListView.builder(
-                itemCount: _items.length,
-                itemBuilder: (context, index) {
-                  return Card(
-                    margin: EdgeInsets.all(10),
-                    child: ListTile(
-                      leading: Text(_items[index]["id"]),
-                      title: Text(_items[index]["name"]),
-                      subtitle: Text(_items[index]["description"]),
-                    ),
-                  );
-                },
-              ),
-            )
-                : Container(),
-            new Container(
-              child: new Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-
-                  new RaisedButton(
-                    padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                    child: Text('PDF erzeugen'),
-                    color: Colors.blue,
-                    onPressed: _createPDF,
-
-                  ),
-                  new RaisedButton(
-                    padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
-                    child: Text('Statistik anzeigen'),
-                    color: Colors.blue,
-                    onPressed: _createPDF,
-
-                  )
-
-                ],
+        body: Column(children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: new Text(
+              'Komplexität der Aufgabe',
+              style: new TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 20.0,
               ),
             ),
-
+          ),
+          Expanded(
+          child: DataTable(
+          columns: const <DataColumn>[
+          DataColumn(
+          label: Text(
+          'Merkmal',
+          style: TextStyle(fontStyle: FontStyle.italic),
+          ),
+          ),
+          DataColumn(
+          label: Text(
+          'Value',
+          style: TextStyle(fontStyle: FontStyle.italic),
+          ),
+          ),
           ],
-        ),
-      ),
+          rows: List<DataRow>.generate(
+          UserData.myComplexityData.length,
+          (int index) => DataRow(
+          cells: <DataCell>[
+          DataCell(Text(UserData.myComplexityData[index].questionTitle)),
+    DataCell(Text(UserData.myComplexityData[index].questionAnswer))
+    ])))),
+          RaisedButton(
+            child: Text("Graphische Darstellung anzeigen", style: TextStyle(
+              fontSize: 18.0,
+              color: Colors.white,
+            )),color: Colors.blue,
+            onPressed: () {
+              navigateToChart(context);
+            },
+            shape: new RoundedRectangleBorder(
+                borderRadius: new BorderRadius.circular(30.0)),
+          ),
+        ],
+
+
+        )
     );
   }
 
-  Future<void> _createPDF() async {
-    //Create a PDF document.
-    var document = PdfDocument();
-    //Add page and draw text to the page.
-    document.pages.add().graphics.drawString(
-        'Hello World!', PdfStandardFont(PdfFontFamily.helvetica, 18),
-        brush: PdfSolidBrush(PdfColor(0, 0, 0)),
-        bounds: Rect.fromLTWH(0, 0, 500, 30));
-    //Save the document
-    var bytes = document.save();
-    // Dispose the document
-    document.dispose();
-    //Get external storage directory
-    Directory directory = await getExternalStorageDirectory();
-//Get directory path
-    String path = directory.path;
-//Create an empty file to write PDF data
-    File file = File('$path/Output.pdf');
-//Write PDF data
-    await file.writeAsBytes(bytes, flush: true);
-//Open the PDF document in mobile
-    //OpenFile.open('$path/Output.pdf');
+
+  Future navigateToChart(context) async {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => Chart()));
+  }
+
+  Future<void> _infoButtonPressed(BuildContext context) {
+    return showDialog<void>(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Wichtige Info'),
+          content:
+          const Text("Die hier dargestellte Ergebnis zeigt Ihnen welche Merkmale, zur Komplexität der Aufgabe beigetragen hat! "),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Ok'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

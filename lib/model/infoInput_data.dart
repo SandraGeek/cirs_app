@@ -20,9 +20,9 @@ class InfoInputData {
     return score;
   }
 
-  static ScoreData generateUserDataObjects(String pageTitle, int score) {
+  static ScoreData generateUserDataObjects(String pageTitle, int score, barColor) {
 
-    return new ScoreData(pageTitle, score);
+    return new ScoreData(pageTitle, score, barColor);
 
   }
 

@@ -15,37 +15,44 @@ class Proben_OutputState extends State<probenHome_output> {
   static int selected;
 
   void onPressed() {
-    if (selected == null) {
+
+    if ((selected == 1 || selected == 2 || selected == 3) &&
+    ((patientHome_outputState.selected == 1) ||
+    (patientHome_outputState.selected == 2) ||
+    (patientHome_outputState.selected == 3)) &&
+    ((info_OutputState.selected == 1) ||
+    (info_OutputState.selected == 2) ||
+    (info_OutputState.selected == 3))) {
+    savedAlert2(context);
+    }
+
+
+    else if (selected != null) {
+      if (selected == 0) {
+        navigateToproben_output_details(context);
+      }
+
+      else if ((selected == 1 || selected == 2 || selected == 3) &&
+          ((patientHome_outputState.selected == 1) ||
+              (patientHome_outputState.selected == 2) ||
+              (patientHome_outputState.selected == 3)) &&
+          (info_OutputState.selected == 0)) {
+        navigateToFeedback(context);
+      }
+
+      else if ((selected == 1 || selected == 2 || selected == 3) &&
+          ((patientHome_outputState.selected != 1) ||
+              (patientHome_outputState.selected != 2) ||
+              (patientHome_outputState.selected != 3)) &&
+          ((info_OutputState.selected != 1) ||
+              (info_OutputState.selected != 2) ||
+              (info_OutputState.selected != 3))) {
+        navigateToPatientenQ_Output(context);
+      }
+    }
+
+    else {
       savedAlert(context);
-    }
-
-    if (selected == 0) {
-      navigateToproben_output_details(context);}
-
-    else if( (selected == 1 || selected == 2 || selected == 3) &&  ((patientHome_outputState.selected == 1) || (patientHome_outputState.selected == 2) ||
-        (patientHome_outputState.selected == 3)) && (info_OutputState == 0 ) ){
-      navigateToFeedback(context);
-    }
-
-
-    else if ((selected == 1 || selected == 2 || selected == 3) &&
-        ((patientHome_outputState.selected == 1) ||
-            (patientHome_outputState.selected == 2) ||
-            (patientHome_outputState.selected == 3)) &&
-        ((info_OutputState.selected == 1) ||
-            (info_OutputState.selected == 2) ||
-            (info_OutputState.selected == 3))) {
-      savedAlert2(context);
-
-    }
-    else if ((selected == 1 || selected == 2 || selected == 3) &&
-        ((patientHome_outputState.selected != 1) ||
-            (patientHome_outputState.selected != 2) ||
-            (patientHome_outputState.selected != 3)) &&
-        ((info_OutputState.selected != 1) ||
-            (info_OutputState.selected != 2) ||
-            (info_OutputState.selected != 3))) {
-      navigateToPatientenQ_Output(context);
     }
   }
 
@@ -59,7 +66,7 @@ class Proben_OutputState extends State<probenHome_output> {
     List<Widget> list = new List<Widget>();
     List names = new List(4);
     names[0] = "Ja";
-    names[1] = "keine Probenmaterial/medikamente als Output";
+    names[1] = "keine Probenmaterial/Medikamente als Output";
     names[2] = "keine Angabe";
     names[3] = "Nicht relevant";
 

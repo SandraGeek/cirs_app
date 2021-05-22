@@ -1,4 +1,4 @@
-import 'dart:ui';
+import "package:charts_flutter/flutter.dart" as charts;
 import 'package:cirs_app/model/userData.dart';
 import 'package:cirs_app/ui/output_analysis/infoHome_output.dart';
 import 'package:flutter/cupertino.dart';
@@ -35,15 +35,11 @@ class _Res_qualityState extends State<res_quality> {
         && selected6 != null && selected7 != null && selected8 != null && selected9 != null && selected10 != null && selected11 != null && selected12 != null
         && selected13 != null && selected14 != null && selected15 != null){
 
-      UserData.myComplexityData.add(ResQualityData.generateUserComplexityObject(
-          "Anzahl der Informationsquellen", selected));
-      UserData.myScoreData.add(ResQualityData.generateUserDataObjects(
-          pageTitle, ResQualityData.calculateScore()));
+       UserData.myScoreData.add(ResQualityData.generateUserDataObjects(
+          "Ressoucen", ResQualityData.calculateScore(), charts.ColorUtil.fromDartColor(Colors.red)));
 
       print( UserData.myScoreData.toString());
-      print( UserData.myComplexityData.toString());
-      UserData.myComplexityData.clear();
-      UserData.myScoreData.clear();
+
       navigateToOutput(context);
     }
     else{

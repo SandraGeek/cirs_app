@@ -1,4 +1,4 @@
-import 'dart:ui';
+import "package:charts_flutter/flutter.dart" as charts;
 import 'package:cirs_app/model/infoOutput_data.dart';
 import 'package:cirs_app/model/userData.dart';
 import 'package:cirs_app/ui/output_analysis/patientHome_output.dart';
@@ -25,15 +25,11 @@ class _Info_output_detailsState extends State<info_output_details> {
       savedAlert(context);
     }
     else if(selected != null && selected1 != null && selected2 != null && selected3 != null && selected4 != null){
-      UserData.myComplexityData.add(InfoOutputData.generateUserComplexityObject(
-          "Anzahl der Informationsquellen", selected));
+
       UserData.myScoreData.add(InfoOutputData.generateUserDataObjects(
-          pageTitle, InfoOutputData.calculateScore()));
+          "Information - Output", InfoOutputData.calculateScore(), charts.ColorUtil.fromDartColor(Colors.purple)));
 
       print( UserData.myScoreData.toString());
-      print( UserData.myComplexityData.toString());
-      UserData.myComplexityData.clear();
-      UserData.myScoreData.clear();
 
       navigateToPatientOutput(context);
     }
@@ -221,7 +217,8 @@ Future<void> savedAlert(BuildContext context) {
       return AlertDialog(
         title: Text('Hinweis!'),
         content: const Text(
-            'Bitte Abhängigkeiten beachten: eine Informationsquelle kann nur von einem Absender kommen, zwei Quellen von max. zwei Absendern etc. '),
+            'Bitte Abhängigkeiten beachten: eine Informationsquelle kann'
+                ' nur eine Empfänger geschickt werden, zwei Quellen an max. zwei Empfänger etc. '),
         actions: <Widget>[
           FlatButton(
             child: Text('Ok'),

@@ -1,4 +1,3 @@
-import 'package:cirs_app/model/complexity_data.dart';
 import 'package:cirs_app/model/score_data.dart';
 
 
@@ -20,15 +19,9 @@ class PatientInputData {
     return score;
   }
 
-  static ScoreData generateUserDataObjects(String pageTitle, int score) {
+  static ScoreData generateUserDataObjects(String pageTitle, int score, barColor) {
 
-    return new ScoreData(pageTitle, score);
-
-  }
-
-  static ComplexityData generateUserComplexityObject(String pageTitle, String answer) {
-
-    return new ComplexityData(pageTitle, answer);
+    return new ScoreData(pageTitle, score, barColor);
 
   }
 
