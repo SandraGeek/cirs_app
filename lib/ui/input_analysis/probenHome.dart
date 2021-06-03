@@ -12,9 +12,11 @@ class probenHome extends StatefulWidget {
 }
 
 class ProbenHomeState extends State<probenHome> {
+  /// This class shows the options needed to provide material input data or not
   static int selected;
 
   void onPressed() {
+    // this condition checks if the user has provided data on information and/or patient. If not the second pop-up message is shown
     if ((selected == 1 || selected == 2 || selected == 3) &&
         ((patientHomeState.selected == 1) ||
             (patientHomeState.selected == 2) ||
@@ -26,9 +28,11 @@ class ProbenHomeState extends State<probenHome> {
 
     } else if (selected != null) {
       if (selected == 0) {
+        // navigates to material input details when "Ja" is chosen
         navigateToProbenDetails(context);
       }
 
+      // this condition checks if the user has provided data on information (input). If yes navigate to task home page
       else if ((selected == 1 || selected == 2 || selected == 3) &&
           ((patientHomeState.selected == 1) ||
               (patientHomeState.selected == 2) ||
@@ -37,6 +41,7 @@ class ProbenHomeState extends State<probenHome> {
         navigateToAufgabenHome(context);
       }
 
+      // this condition checks if the user has provided data on information (input) and patient (input). If yes navigate to patient quality state (input) page
       else if ((selected == 1 || selected == 2 || selected == 3) &&
           ((patientHomeState.selected != 1) ||
               (patientHomeState.selected != 2) ||
@@ -47,17 +52,20 @@ class ProbenHomeState extends State<probenHome> {
         navigateToPatientenQ_Input(context);
       }
     } else {
+      // shows pop-up message in case no choice is made
       savedAlert(context);
     }
   }
 
   void onChanged(int value) {
+    //sets selected option as the list value
     setState(() {
       selected = value;
     });
   }
 
   List<Widget> probenHomeList() {
+    /// creates list of options on material input home page
     List<Widget> list = new List<Widget>();
     List options = new List(4);
     options[0] = "Ja";
@@ -122,6 +130,7 @@ class ProbenHomeState extends State<probenHome> {
 }
 
 Future<void> savedAlert(BuildContext context) {
+  ///creates pop-up message
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -142,6 +151,7 @@ Future<void> savedAlert(BuildContext context) {
 }
 
 Future<void> savedAlert2(BuildContext context) {
+  ///creates second pop-up message
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -163,10 +173,13 @@ Future<void> savedAlert2(BuildContext context) {
 }
 
 Future navigateToProbenDetails(context) async => Navigator.push(
+  /// navigates to material input details page
     context, MaterialPageRoute(builder: (context) => probenDetails()));
 
 Future navigateToPatientenQ_Input(context) async => Navigator.push(
+  /// navigates to patient quality state input page
     context, MaterialPageRoute(builder: (context) => PatientenQ_Input()));
 
 Future navigateToAufgabenHome(context) async => Navigator.push(
+  /// navigates to task page
     context, MaterialPageRoute(builder: (context) => aufgabeHome()));

@@ -20,9 +20,9 @@ class ProzesseUndAufgaben extends StatelessWidget {
         title: Text('Prozesse und Aufgaben'),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.info_outline),
+              icon: Icon(Icons.info_outline), //shows information icon on app bar
               onPressed: () {
-                _infoButtonPressed(context);
+                _infoButtonPressed(context); // // show information icon pop-up message
               })
         ],
       ),
@@ -37,9 +37,9 @@ class BodyLayoutPA extends StatelessWidget {
 }
 
 Widget _PAList(BuildContext context) {
-  // backing data
 
   return ListView(
+    // creates list of items found on this page
     children: <Widget>[
       ListTile(
         title: Text('Allgemeine medizinische Versorgung'),
@@ -134,6 +134,7 @@ Widget _PAList(BuildContext context) {
 }
 
 Future<void> _infoButtonPressed(BuildContext context) {
+  //creates information icon pop-up message
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {

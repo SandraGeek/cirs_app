@@ -21,11 +21,12 @@ class BodyLayoutresMan extends StatelessWidget {
 }
 
 Future navigateToInfoHome(context) async {
+  //navigates to information input home page
   Navigator.push(context, MaterialPageRoute(builder: (context) => infoHome()));
 }
 
 Widget _resManList(BuildContext context) {
-  // backing data
+  // creates list of items found on this page
   return ListView(
     children: <Widget>[
       ListTile(

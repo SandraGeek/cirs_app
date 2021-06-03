@@ -21,6 +21,7 @@ class BodyLayoutAllMedVer extends StatelessWidget {
 }
 
 Future navigateToInfoHome(context) async {
+  //navigates to information input home page
   Navigator.push(context, MaterialPageRoute(builder: (context) => infoHome()));
 }
 

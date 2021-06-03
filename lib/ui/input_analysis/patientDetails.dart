@@ -12,6 +12,8 @@ class patientDetails extends StatefulWidget {
 }
 
 class _PatientDetailsState extends State<patientDetails> {
+  /// declares all user's selected options for each dropdown button and page title
+
   String selected;
   String selected1;
   String selected2;
@@ -20,24 +22,32 @@ class _PatientDetailsState extends State<patientDetails> {
   String pageTitle = "Angaben zum Patienten";
 
   void onPressed() {
-    if (selected != null || selected1 != null || selected2 != null ||
-        selected3 != null || selected4 != null) {
-
+    // Checks for the listed conditions, generates and saves respective data objects (UserData) and navigates to the respective page or shows pop-up message.
+    if (selected != null ||
+        selected1 != null ||
+        selected2 != null ||
+        selected3 != null ||
+        selected4 != null) {
+      // generates a user data object with the required parameters
       UserData.myScoreData.add(PatientInputData.generateUserDataObjects(
-          "Patient -Input", PatientInputData.calculateScore(), charts.ColorUtil.fromDartColor(Colors.amber)));
+          "Patient-Input",
+          PatientInputData.calculateScore(),
+          charts.ColorUtil.fromDartColor(Colors.amber)));
 
-      print(UserData.myScoreData.toString());
+      //generates the standard user data object for the patient input component. According to the OPT-Model the highest score for patient input is 12.
+      UserData.myScoreData.add(PatientInputData.generateUserDataObjects(
+          "Patient-Input",
+          12 - PatientInputData.calculateScore(), // this subtraction is performed to adequately present the remainder of the grey area on the bar chart
+          charts.ColorUtil.fromDartColor(Colors.grey)));
 
-      navigateToProbenHome(context);
+      //print(UserData.myScoreData.toString());
+
+      navigateToProbenHome(context); //navigates toi material input home page
+    } else {
+      //shows pop-message
+      savedAlert(context);
     }
-
-     else {
-     savedAlert(context);
-
-    }
-        }
-
-
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -45,11 +55,11 @@ class _PatientDetailsState extends State<patientDetails> {
         title: Text(pageTitle),
       ),
       body:
-      Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
+          Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
         Padding(
           padding: EdgeInsets.fromLTRB(5, 5, 5, 5),
           child: DropdownButtonFormField<String>(
-           //, itemHeight: 2,
+            //, itemHeight: 2,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: "Anzahl der medizinischen Domänen",
@@ -63,11 +73,12 @@ class _PatientDetailsState extends State<patientDetails> {
             //hint: Text("Anzahl der Informationsquellen"),
             items: ["1", "2", "3 oder mehr", "keine Angaben", "nicht relevant"]
                 .map((label) => DropdownMenuItem(
-              child: Text(label),
-              value: label,
-            ))
+                      child: Text(label),
+                      value: label,
+                    ))
                 .toList(),
             onChanged: (value) {
+              // sets selected value to be new value
               PatientInputData.setMedDomaeneAnzValue(value);
               setState(() => selected = value);
             },
@@ -78,7 +89,8 @@ class _PatientDetailsState extends State<patientDetails> {
           child: DropdownButtonFormField<String>(
             decoration: InputDecoration(
               border: OutlineInputBorder(),
-              labelText: "Uebereinstimmung der medizinischen Domaene der AerztIn mit der medizinischen Domaene der PatientIn",
+              labelText:
+                  "Uebereinstimmung der medizinischen Domaene der AerztIn mit der medizinischen Domaene der PatientIn",
               labelStyle: TextStyle(
                 fontSize: 20,
                 //fontWeight: FontWeight.bold,
@@ -87,13 +99,20 @@ class _PatientDetailsState extends State<patientDetails> {
             ),
             value: selected1,
             //hint: Text("Anzahl der Absender"),
-            items: ["vollständig", "teilweise", "keine", "keine Angaben", "nicht relevant"]
+            items: [
+              "vollständig",
+              "teilweise",
+              "keine",
+              "keine Angaben",
+              "nicht relevant"
+            ]
                 .map((label) => DropdownMenuItem(
-              child: Text(label),
-              value: label,
-            ))
+                      child: Text(label),
+                      value: label,
+                    ))
                 .toList(),
             onChanged: (value) {
+              // sets selected value to be new value
               PatientInputData.setDomaeneArztZuPatValue(value);
               setState(() => selected1 = value);
             },
@@ -113,18 +132,14 @@ class _PatientDetailsState extends State<patientDetails> {
             ),
             value: selected2,
             // hint: Text("Form des Informationsaustausches"),
-            items: [
-              "häufig",
-              "selten",
-              "keine Angaben",
-              "nicht relevant"
-            ]
+            items: ["häufig", "selten", "keine Angaben", "nicht relevant"]
                 .map((label) => DropdownMenuItem(
-              child: Text(label),
-              value: label,
-            ))
+                      child: Text(label),
+                      value: label,
+                    ))
                 .toList(),
             onChanged: (value) {
+              // sets selected value to be new value
               PatientInputData.setHaeufigkeitValue(value);
               setState(() => selected2 = value);
             },
@@ -152,11 +167,12 @@ class _PatientDetailsState extends State<patientDetails> {
               "nicht relevant"
             ]
                 .map((label) => DropdownMenuItem(
-              child: Text(label),
-              value: label,
-            ))
+                      child: Text(label),
+                      value: label,
+                    ))
                 .toList(),
             onChanged: (value) {
+              // sets selected value to be new value
               PatientInputData.setKommunikationValue(value);
               setState(() => selected3 = value);
             },
@@ -176,13 +192,15 @@ class _PatientDetailsState extends State<patientDetails> {
             ),
             value: selected4,
             // hint: Text("Informationsvolumen"),
-            items: ["niedrig", "mittel", "hoch", "keine Angaben", "nicht relevant"]
-                .map((label) => DropdownMenuItem(
-              child: Text(label),
-              value: label,
-            ))
-                .toList(),
+            items:
+                ["niedrig", "mittel", "hoch", "keine Angaben", "nicht relevant"]
+                    .map((label) => DropdownMenuItem(
+                          child: Text(label),
+                          value: label,
+                        ))
+                    .toList(),
             onChanged: (value) {
+              // sets selected value to be new value
               PatientInputData.setPrioritaetValue(value);
               setState(() => selected4 = value);
             },
@@ -203,14 +221,15 @@ class _PatientDetailsState extends State<patientDetails> {
         )
       ]));
 }
+
 Future<void> savedAlert(BuildContext context) {
+  ///creates pop-up message
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text('Hinweis!'),
-        content: const Text(
-            'Bitte alle Felder ausfüllen!'),
+        content: const Text('Bitte alle Felder ausfüllen!'),
         actions: <Widget>[
           FlatButton(
             child: Text('Ok'),
@@ -225,6 +244,7 @@ Future<void> savedAlert(BuildContext context) {
 }
 
 Future navigateToProbenHome(context) async {
+  /// navigates to material home page
   Navigator.push(
       context, MaterialPageRoute(builder: (context) => probenHome()));
 }

@@ -1,18 +1,21 @@
+class ComplexityData {
+  ///This class is created to declare the parameters needed to appropriately create a complexity data.
+  var _characteristic;
+  var _value;
 
-class ComplexityData{
-
-  var _questionTitle;
-  var _questionAnswer;
-
-  ComplexityData(this._questionTitle, this._questionAnswer);
+  ComplexityData(this._characteristic, this._value);
 
   @override
   String toString() {
-    return '$_questionTitle,  $_questionAnswer';
+    ///converts the values of complexity data to strings
+    return '$_characteristic,  $_value';
   }
 
-  get questionAnswer => _questionAnswer;
+  get value => _value;
 
-  get questionTitle => _questionTitle;
+  ///needed later for presentation as feedback (used in the feedback class)
 
+  get characteristic => _characteristic;
+
+  ///needed later for presentation as feedback (used in the feedback class)
 }

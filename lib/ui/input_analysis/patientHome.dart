@@ -9,18 +9,22 @@ class patientHome extends StatefulWidget {
 }
 
 class patientHomeState extends State<patientHome> {
+  /// This class shows the options needed to provide patient input data or not
   static int selected;
 
   void onPressed() {
 
     if(selected == null){
+      // shows pop-up message in case no choice is made
       savedAlert(context);
     }
     else if( selected != 0){
+      // navigates to material input home page in case any choice other than "Ja" is made
       navigateToProbenHome(context);
 
     }
     else if(selected==0){
+      // navigates to patient input details when "Ja" is chosen
       navigateToPatientDetails(context);
 
     }
@@ -29,11 +33,13 @@ class patientHomeState extends State<patientHome> {
 
   void onChanged(int value) {
     setState(() {
+      //sets selected option as the list value
       selected = value;
     });
   }
 
   List<Widget> patientHomeList() {
+    /// creates list of options on patient home page
     List<Widget> list = new List<Widget>();
     List options = new List(4);
     options[0] = "Ja";
@@ -98,6 +104,7 @@ class patientHomeState extends State<patientHome> {
 }
 
 Future<void> savedAlert(BuildContext context) {
+  ///creates pop-up message
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -119,7 +126,9 @@ Future<void> savedAlert(BuildContext context) {
 }
 
 Future navigateToProbenHome(context) async => Navigator.push(
+  /// navigates to material home page
     context, MaterialPageRoute(builder: (context) => probenHome()));
 
 Future navigateToPatientDetails(context) async => Navigator.push(
+  /// navigates to patient details page
     context, MaterialPageRoute(builder: (context) => patientDetails()));

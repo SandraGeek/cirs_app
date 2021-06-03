@@ -13,43 +13,60 @@ class probenDetails extends StatefulWidget {
 }
 
 class _ProbenDetailsState extends State<probenDetails> {
+  /// declares all user's selected options for each dropdown button and page title
   String selected;
   String selected1;
   String pageTitle = "Angaben zu Probenmaterial";
 
   void onPressed() {
-
+    // Checks for the listed conditions, generates and saves respective data objects (UserData) and navigates to the respective page or shows pop-up message.
     if ((selected == "1" && selected1 == "2") ||
         (selected == "2" && selected1 == "3 oder mehr") ||
         (selected == "1" && selected1 == "3 oder mehr")) {
       savedAlert(context);
-    }
-
-     else if (selected != null && selected1 != null) {
+    } else if (selected != null && selected1 != null) {
+      //checks if patient details have been provided
       if ((patientHomeState.selected == 1) ||
           (patientHomeState.selected == 2) ||
           (patientHomeState.selected == 3)) {
+        // if not, generates a user data object with the required parameters and navigates to task home page
         UserData.myScoreData.add(ProbenInputData.generateUserDataObjects(
-            "Probenmaterial - Input", ProbenInputData.calculateScore(), charts.ColorUtil.fromDartColor(Colors.green)));
+            "Proben-Input",
+            ProbenInputData.calculateScore(),
+            charts.ColorUtil.fromDartColor(Colors.green)));
 
-        print(UserData.myScoreData.toString());
-
-        navigateToAufgabenHome(context);
-      }
-      else {
+        //generates the standard user data object for material details input component. According to the OPT-Model the highest score for material details input is 6.
         UserData.myScoreData.add(ProbenInputData.generateUserDataObjects(
-            "Proben", ProbenInputData.calculateScore(), charts.ColorUtil.fromDartColor(Colors.green)));
+            "Proben-Input",
+            6 - ProbenInputData.calculateScore(),
+            charts.ColorUtil.fromDartColor(Colors
+                .grey))); // this subtraction is performed to adequately present the remainder of the grey area on the bar chart
 
-        print(UserData.myScoreData.toString());
+        //print(UserData.myScoreData.toString());
 
-        navigateToPq_input(context);
+        navigateToAufgabenHome(context);  //navigates to task home page
+      } else {
+        // if yes, generates a user data object with the required parameters and navigates to task patient quality state input page
+        UserData.myScoreData.add(ProbenInputData.generateUserDataObjects(
+            "Proben-Input",
+            ProbenInputData.calculateScore(),
+            charts.ColorUtil.fromDartColor(Colors.green)));
+
+        //generates the standard user data object for material details input component. According to the OPT-Model the highest score for material details input is 6.
+        UserData.myScoreData.add(ProbenInputData.generateUserDataObjects(
+            "Proben-Input",
+            6 - ProbenInputData.calculateScore(),
+            charts.ColorUtil.fromDartColor(Colors
+                .grey))); // this subtraction is performed to adequately present the remainder of the grey area on the bar chart
+
+        //print(UserData.myScoreData.toString());
+
+        navigateToPq_input(context); //navigates to patient quality state input page
       }
+    } else {
+      // shows second pop-up message
+      savedAlert2(context);
     }
-
-     else {
-       savedAlert2(context);
-    }
-
   }
 
   @override
@@ -81,6 +98,7 @@ class _ProbenDetailsState extends State<probenDetails> {
                     ))
                 .toList(),
             onChanged: (value) {
+              // sets selected value to be new value
               ProbenInputData.setProbenAnzAnzValue(value);
               setState(() => selected = value);
             },
@@ -107,6 +125,7 @@ class _ProbenDetailsState extends State<probenDetails> {
                     ))
                 .toList(),
             onChanged: (value) {
+              // sets selected value to be new value
               ProbenInputData.setAbsenderAnzValue(value);
               setState(() => selected1 = value);
             },
@@ -129,6 +148,7 @@ class _ProbenDetailsState extends State<probenDetails> {
 }
 
 Future<void> savedAlert(BuildContext context) {
+  ///creates pop-up message
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -150,6 +170,7 @@ Future<void> savedAlert(BuildContext context) {
 }
 
 Future<void> savedAlert2(BuildContext context) {
+  ///creates second pop-up message
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -170,7 +191,9 @@ Future<void> savedAlert2(BuildContext context) {
 }
 
 Future navigateToPq_input(context) async => Navigator.push(
+  //navigates to patient quality state page
     context, MaterialPageRoute(builder: (context) => PatientenQ_Input()));
 
 Future navigateToAufgabenHome(context) async => Navigator.push(
+  //navigates to task home page
     context, MaterialPageRoute(builder: (context) => aufgabeHome()));

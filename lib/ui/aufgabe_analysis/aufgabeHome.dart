@@ -10,18 +10,22 @@ class aufgabeHome extends StatefulWidget {
 }
 
 class _AufgabeHomeState extends State<aufgabeHome> {
+  /// This class shows the options needed to provide task data or not
   int _selected;
 
   void onPressed() {
 
     if(_selected == null){
+      // shows second pop-up message in case no choice is made
       savedAlert2(context);
     }
     else if( _selected != 0){
+      // shows pop-up message in case any choice other than "Ja" is made
       savedAlert(context);
 
     }
-    else if(_selected==0  || _selected == 3){
+    else if(_selected==0){
+      // navigates to task details when "Ja" is chosen
       navigateToAufgabeDetails(context);
     }
   }
@@ -33,6 +37,7 @@ class _AufgabeHomeState extends State<aufgabeHome> {
   }
 
   List<Widget> aufgabeHomeList() {
+    /// creates list of options on task home page
     List<Widget> list = new List<Widget>();
     List names = new List(4);
     names[0] = "Ja";
@@ -96,13 +101,15 @@ class _AufgabeHomeState extends State<aufgabeHome> {
   );
 }
 Future<void> savedAlert(BuildContext context) {
+  ///creates pop-up message
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text('Hinweis!'),
         content: const Text(
-            'Eine Analyse ohne Aufgabe kann nicht durchgeführt werden'),
+            'Eine Analyse ohne Aufgabe kann '
+                'nicht durchgeführt werden'),
         actions: <Widget>[
           FlatButton(
             child: Text('Ok'),
@@ -117,6 +124,7 @@ Future<void> savedAlert(BuildContext context) {
 }
 
 Future<void> savedAlert2(BuildContext context) {
+  ///creates second pop-up message
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -138,9 +146,11 @@ Future<void> savedAlert2(BuildContext context) {
 }
 
 Future navigateToPatientHome(context) async => Navigator.push(
+  /// navigates to patient home page
     context, MaterialPageRoute(builder: (context) => patientHome()));
 
 Future navigateToAufgabeDetails(context) async => Navigator.push(
+  /// navigates to task page
     context, MaterialPageRoute(builder: (context) => aufgabeDetails()));
 
 

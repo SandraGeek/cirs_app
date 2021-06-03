@@ -12,6 +12,8 @@ class feedback extends StatefulWidget {
 
 class _FeedbackState extends State<feedback> {
 
+  /// This class shows the complexity data for a reported or analysed incident
+
   @override
   Widget build(BuildContext context) {
 
@@ -20,9 +22,9 @@ class _FeedbackState extends State<feedback> {
           title: Text(pageTitle),
         actions: <Widget>[
             IconButton(
-                icon: Icon(Icons.info_outline),
+                icon: Icon(Icons.info_outline), // shows information icon on app bar
                 onPressed: () {
-                  _infoButtonPressed(context);
+                  _infoButtonPressed(context); // show information icon pop-up message
                 })
           ]),
 
@@ -38,6 +40,7 @@ class _FeedbackState extends State<feedback> {
             ),
           ),
           Expanded(
+            // creates data table to present data
           child: DataTable(
           columns: const <DataColumn>[
           DataColumn(
@@ -57,9 +60,13 @@ class _FeedbackState extends State<feedback> {
           UserData.myComplexityData.length,
           (int index) => DataRow(
           cells: <DataCell>[
-          DataCell(Text(UserData.myComplexityData[index].questionTitle)),
-    DataCell(Text(UserData.myComplexityData[index].questionAnswer))
-    ])))),
+          DataCell(Text(UserData.myComplexityData[index].characteristic)), // populate row with complexity data (characteristic)
+          DataCell(Text(UserData.myComplexityData[index].value)) // populate row with complexity data (value)
+          ]
+          )
+          )
+          )
+          ),
           RaisedButton(
             child: Text("Graphische Darstellung anzeigen", style: TextStyle(
               fontSize: 18.0,
@@ -80,18 +87,20 @@ class _FeedbackState extends State<feedback> {
 
 
   Future navigateToChart(context) async {
+    //navigates to chart page
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => Chart()));
   }
 
   Future<void> _infoButtonPressed(BuildContext context) {
+    //creates information icon pop-up message
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text('Wichtige Info'),
           content:
-          const Text("Die hier dargestellte Ergebnis zeigt Ihnen welche Merkmale, zur Komplexität der Aufgabe beigetragen hat! "),
+          const Text("Die hier dargestellte Ergebnis zeigt Ihnen welche Merkmal(e), zur Komplexität der Aufgabe beigetragen hat/haben! "),
           actions: <Widget>[
             TextButton(
               child: Text('Ok'),

@@ -12,10 +12,12 @@ class probenHome_output extends StatefulWidget {
 }
 
 class Proben_OutputState extends State<probenHome_output> {
+
+  /// This class shows the options needed to provide material output data or not
   static int selected;
 
   void onPressed() {
-
+    // this condition checks if the user has provided data on information and/or patient. If not the second pop-up message is shown
     if ((selected == 1 || selected == 2 || selected == 3) &&
     ((patientHome_outputState.selected == 1) ||
     (patientHome_outputState.selected == 2) ||
@@ -29,9 +31,10 @@ class Proben_OutputState extends State<probenHome_output> {
 
     else if (selected != null) {
       if (selected == 0) {
+        // navigates to material output details when "Ja" is chosen
         navigateToproben_output_details(context);
       }
-
+      // this condition checks if the user has provided data on information (output). If yes navigate to feedback page
       else if ((selected == 1 || selected == 2 || selected == 3) &&
           ((patientHome_outputState.selected == 1) ||
               (patientHome_outputState.selected == 2) ||
@@ -39,7 +42,7 @@ class Proben_OutputState extends State<probenHome_output> {
           (info_OutputState.selected == 0)) {
         navigateToFeedback(context);
       }
-
+      // this condition checks if the user has provided data on information (output) and patient (output). If yes navigate to patient quality state (output) page
       else if ((selected == 1 || selected == 2 || selected == 3) &&
           ((patientHome_outputState.selected != 1) ||
               (patientHome_outputState.selected != 2) ||
@@ -52,17 +55,20 @@ class Proben_OutputState extends State<probenHome_output> {
     }
 
     else {
+      // shows pop-up message in case no choice is made
       savedAlert(context);
     }
   }
 
   void onChanged(int value) {
+    //sets selected option as the list value
     setState(() {
       selected = value;
     });
   }
 
   List<Widget> proben_outputList() {
+    /// creates list of options on material output home page
     List<Widget> list = new List<Widget>();
     List names = new List(4);
     names[0] = "Ja";
@@ -127,6 +133,7 @@ class Proben_OutputState extends State<probenHome_output> {
 }
 
 Future<void> savedAlert(BuildContext context) {
+  ///creates pop-up message
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -147,6 +154,7 @@ Future<void> savedAlert(BuildContext context) {
 }
 
 Future<void> savedAlert2(BuildContext context) {
+  ///creates second pop-up message
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -168,11 +176,14 @@ Future<void> savedAlert2(BuildContext context) {
 }
 
 Future navigateToproben_output_details(context) async => Navigator.push(
+  /// navigates to material output details page
     context, MaterialPageRoute(builder: (context) => proben_output_details()));
 
 Future navigateToPatientenQ_Output(context) async => Navigator.push(
+  /// navigates to patient quality state output page
     context, MaterialPageRoute(builder: (context) => PatientenQ_Output()));
 
 
 Future navigateToFeedback(context) async => Navigator.push(
+  /// navigates to task page
     context, MaterialPageRoute(builder: (context) => feedback()));

@@ -9,6 +9,9 @@ class FallBerichtPage extends StatefulWidget {
 
 class _FallBerichtPageState extends State<FallBerichtPage> {
 
+  // Creates a global key that uniquely identifies the Form widget
+  // and allows validation of the form.
+
   final _formKey = GlobalKey<FormState>();
 
 
@@ -19,13 +22,14 @@ class _FallBerichtPageState extends State<FallBerichtPage> {
         title: Text('Fallbericht erfassen'),
         actions: <Widget>[
           IconButton(
-              icon: Icon(Icons.info_outline),
+              icon: Icon(Icons.info_outline), //shows information icon on app bar
               onPressed: () {
-                _infoButtonPressed(context);
+                _infoButtonPressed(context); // show information icon pop-up message
               })
         ],
       ),
       body: Form(
+        // Build a Form widget using the _formKey created above.
         key: _formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -49,6 +53,7 @@ class _FallBerichtPageState extends State<FallBerichtPage> {
             RaisedButton(
               onPressed: () {
                 if (_formKey.currentState.validate()) {
+                  //show pop-up message
                   savedAlert(context);
                 }
               },
@@ -61,7 +66,7 @@ class _FallBerichtPageState extends State<FallBerichtPage> {
             RaisedButton(
               onPressed: () {
                 if (_formKey.currentState.validate()) {
-                  navigateToProcesses(context);
+                  navigateToProcesses(context); //navigate to processes and task page
                 }
               },
               child: Text('Abgeben und Analyse durchführen'),
@@ -76,6 +81,7 @@ class _FallBerichtPageState extends State<FallBerichtPage> {
   }
 
   Future<void> savedAlert(BuildContext context) {
+    //creates pop-up message
     return showDialog<void>(
       context: context,
       builder: (BuildContext context) {
@@ -97,12 +103,14 @@ class _FallBerichtPageState extends State<FallBerichtPage> {
   }
 
   Future navigateToProcesses(context) async {
+    //navigates to processes and task page
     Navigator.push(context,
         MaterialPageRoute(builder: (context) => ProzesseUndAufgaben()));
   }
 }
 
 Future<void> _infoButtonPressed(BuildContext context) {
+  //creates information icon pop-up message
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {

@@ -13,43 +13,60 @@ class proben_output_details extends StatefulWidget {
 }
 
 class _Proben_output_detailsState extends State<proben_output_details> {
+  /// declares all user's selected options for each dropdown button and page title
   String selected;
   String selected1;
   String pageTitle = "Probenmaterial als Output";
 
   void onPressed() {
-
+// Checks for the listed conditions, generates and saves respective data objects (UserData) and navigates to the respective page or shows pop-up message.
     if ((selected == "1" && selected1 == "2") ||
         (selected == "2" && selected1 == "3 oder mehr") ||
         (selected == "1" && selected1 == "3 oder mehr")) {
       savedAlert(context);
-    }
+    } else if (selected != null && selected1 != null) {
+      //checks if patient details have been provided
+      if ((patientHome_outputState.selected == 1) ||
+          (patientHome_outputState.selected == 2) ||
+          (patientHome_outputState.selected == 3)) {
+        // if not, generates a user data object with the required parameters and navigates to task home page
+        UserData.myScoreData.add(ProbenOutputData.generateUserDataObjects(
+            "Proben-Output",
+            ProbenOutputData.calculateScore(),
+            charts.ColorUtil.fromDartColor(Colors.blue)));
 
-    else if (selected != null && selected1 != null) {
+        //generates the standard user data object for material details output component. According to the OPT-Model the highest score for material details output is 6.
+        UserData.myScoreData.add(ProbenOutputData.generateUserDataObjects(
+            "Proben-Output",
+            6 - ProbenOutputData.calculateScore(),
+            charts.ColorUtil.fromDartColor(Colors
+                .grey))); // this subtraction is performed to adequately present the remainder of the grey area on the bar chart
+        // print(UserData.myScoreData.toString());
 
-        if ((patientHome_outputState.selected == 1) ||
-            (patientHome_outputState.selected == 2) ||
-            (patientHome_outputState.selected == 3)) {
+        navigateToFeedback(context); // navigates to feedback page
+      } else {
+        // if yes, generates a user data object with the required parameters and navigates to task patient quality state output page
 
-          UserData.myScoreData.add(ProbenOutputData.generateUserDataObjects(
-              "ProbenO", ProbenOutputData.calculateScore(), charts.ColorUtil.fromDartColor(Colors.blue) ));
-          print(UserData.myScoreData.toString());
+        UserData.myScoreData.add(ProbenOutputData.generateUserDataObjects(
+            "Proben-Output",
+            ProbenOutputData.calculateScore(),
+            charts.ColorUtil.fromDartColor(Colors.blue)));
 
-          navigateToFeedback(context);
-        } else {
+        //generates the standard user data object for material details output component. According to the OPT-Model the highest score for material details output is 6.
+        UserData.myScoreData.add(ProbenOutputData.generateUserDataObjects(
+            "Proben-Output",
+            6 - ProbenOutputData.calculateScore(), // this subtraction is performed to adequately present the remainder of the grey area on the bar chart
+            charts.ColorUtil.fromDartColor(Colors.grey)));
 
-          UserData.myScoreData.add(ProbenOutputData.generateUserDataObjects(
-              "Probenmaterial - Output", ProbenOutputData.calculateScore(), charts.ColorUtil.fromDartColor(Colors.blue)));
+        // print(UserData.myScoreData.toString());
 
-          print(UserData.myScoreData.toString());
-
-          navigateToPq_output(context);
-        }
+        navigateToPq_output(context); //navigates to patient quality state output page
       }
-    else {
+    } else {
+      // shows second pop-up message
       savedAlert2(context);
     }
-    }
+  }
 
   @override
   Widget build(BuildContext context) => Scaffold(
@@ -80,6 +97,7 @@ class _Proben_output_detailsState extends State<proben_output_details> {
                     ))
                 .toList(),
             onChanged: (value) {
+              // sets selected value to be new value
               ProbenOutputData.setProbenAnzAnzValue(value);
               setState(() => selected = value);
             },
@@ -106,6 +124,7 @@ class _Proben_output_detailsState extends State<proben_output_details> {
                     ))
                 .toList(),
             onChanged: (value) {
+              // sets selected value to be new value
               ProbenOutputData.setEmpfaengerAnzValue(value);
               setState(() => selected1 = value);
             },
@@ -128,6 +147,7 @@ class _Proben_output_detailsState extends State<proben_output_details> {
 }
 
 Future<void> savedAlert(BuildContext context) {
+  //creates pop-up message
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -135,7 +155,7 @@ Future<void> savedAlert(BuildContext context) {
         title: Text('Hinweis!'),
         content: const Text(
             'Bitte Abhängigkeiten beachten: ein Probenmaterial kann'
-                ' nur eine Empfänger geschickt werden, zwei an max. zwei Empfänger etc. '),
+            ' nur eine Empfänger geschickt werden, zwei an max. zwei Empfänger etc. '),
         actions: <Widget>[
           FlatButton(
             child: Text('Ok'),
@@ -150,6 +170,7 @@ Future<void> savedAlert(BuildContext context) {
 }
 
 Future<void> savedAlert2(BuildContext context) {
+  //creates second pop-up message
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
@@ -170,7 +191,9 @@ Future<void> savedAlert2(BuildContext context) {
 }
 
 Future navigateToPq_output(context) async => Navigator.push(
+  //navigates to patient quality state ouput page
     context, MaterialPageRoute(builder: (context) => PatientenQ_Output()));
 
 Future navigateToFeedback(context) async => Navigator.push(
+  //navigates to feedback page
     context, MaterialPageRoute(builder: (context) => feedback()));

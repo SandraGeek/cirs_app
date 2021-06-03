@@ -5,13 +5,13 @@ import 'package:flutter/material.dart';
 import 'package:cirs_app/model/userData.dart';
 import 'package:cirs_app/model/infoInput_data.dart';
 
-
 class infoDetails extends StatefulWidget {
   @override
   _InfoDetailsState createState() => _InfoDetailsState();
 }
 
 class _InfoDetailsState extends State<infoDetails> {
+  /// declares all user's selected options for each dropdown button and page title
   String selected;
   String selected1;
   String selected2;
@@ -20,26 +20,35 @@ class _InfoDetailsState extends State<infoDetails> {
   String pageTitle = "Angaben zur Informationsquelle";
 
   void onPressed() {
-
-    if((selected == "1" && selected1 == "2") ||(selected == "2" && selected1 == "3 oder mehr")||(selected == "1" && selected1 == "3 oder mehr")) {
+    // Checks for the listed conditions, generates and saves respective data objects (UserData) and navigates to the respective page or shows pop-up message.
+    if ((selected == "1" && selected1 == "2") ||
+        (selected == "2" && selected1 == "3 oder mehr") ||
+        (selected == "1" && selected1 == "3 oder mehr")) {
       savedAlert(context);
-    }
-
-    else if(selected != null || selected1 != null || selected2 != null || selected3 != null || selected4 != null){
-
+    } else if (selected != null ||
+        selected1 != null ||
+        selected2 != null ||
+        selected3 != null ||
+        selected4 != null) {
+      // generates a user data object with the required parameters
       UserData.myScoreData.add(InfoInputData.generateUserDataObjects(
-          "Information -Input", InfoInputData.calculateScore(), charts.ColorUtil.fromDartColor(Colors.orange)));
+          "Information-Input",
+          InfoInputData.calculateScore(),
+          charts.ColorUtil.fromDartColor(Colors.orange)));
 
-        print( UserData.myScoreData.toString());
+      //generates the standard user data object for the information input component. According to the OPT-Model the highest score for information input is 19.
+      UserData.myScoreData.add(InfoInputData.generateUserDataObjects(
 
-      navigateToPatientHome(context);
-    }
+          "Information-Input",
+          19 - InfoInputData.calculateScore(),  // this subtraction is performed to adequately present the remainder of the grey area on the bar chart
+          charts.ColorUtil.fromDartColor(Colors.grey)));
+      //print(UserData.myScoreData.toString());
 
-
-    else{
+      navigateToPatientHome(context); // navigates to patient input home page
+    } else {
+      //shows second pop-message
       savedAlert2(context);
     }
-
   }
 
   @override
@@ -48,13 +57,10 @@ class _InfoDetailsState extends State<infoDetails> {
         title: Text(pageTitle),
       ),
       body:
-          Column(mainAxisAlignment: MainAxisAlignment.start,
-              children: <Widget>[
-
+          Column(mainAxisAlignment: MainAxisAlignment.start, children: <Widget>[
         Padding(
           padding: const EdgeInsets.all(10.0),
           child: DropdownButtonFormField<String>(
-
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: "Anzahl der Informationsquellen",
@@ -73,6 +79,7 @@ class _InfoDetailsState extends State<infoDetails> {
                     ))
                 .toList(),
             onChanged: (value) {
+              // sets selected value to be new value
               InfoInputData.setInfoQuelleAnzValue(value);
               setState(() => selected = value);
             },
@@ -99,6 +106,7 @@ class _InfoDetailsState extends State<infoDetails> {
                     ))
                 .toList(),
             onChanged: (value) {
+              // sets selected value to be new value
               InfoInputData.setAbsenderAnzValue(value);
               setState(() => selected1 = value);
             },
@@ -117,7 +125,7 @@ class _InfoDetailsState extends State<infoDetails> {
               isDense: true,
             ),
             value: selected2,
-           // hint: Text("Form des Informationsaustausches"),
+            // hint: Text("Form des Informationsaustausches"),
             items: [
               "einzeln",
               "sequentiell",
@@ -131,6 +139,7 @@ class _InfoDetailsState extends State<infoDetails> {
                     ))
                 .toList(),
             onChanged: (value) {
+              // sets selected value to be new value
               InfoInputData.setInfoAustauschFormValue(value);
               setState(() => selected2 = value);
             },
@@ -149,7 +158,7 @@ class _InfoDetailsState extends State<infoDetails> {
               isDense: true,
             ),
             value: selected3,
-           // hint: Text("Informationstyp und strukturiertheit"),
+            // hint: Text("Informationstyp und strukturiertheit"),
             items: [
               "strukturiert digital",
               "unstrukturiert digital",
@@ -168,6 +177,7 @@ class _InfoDetailsState extends State<infoDetails> {
                     ))
                 .toList(),
             onChanged: (value) {
+              // sets selected value to be new value
               InfoInputData.setInfoTypUndStrukturValue(value);
               setState(() => selected3 = value);
             },
@@ -186,7 +196,7 @@ class _InfoDetailsState extends State<infoDetails> {
               isDense: true,
             ),
             value: selected4,
-           // hint: Text("Informationsvolumen"),
+            // hint: Text("Informationsvolumen"),
             items: ["gering", "gross", "keine Angaben", "nicht relevant"]
                 .map((label) => DropdownMenuItem(
                       child: Text(label),
@@ -194,6 +204,7 @@ class _InfoDetailsState extends State<infoDetails> {
                     ))
                 .toList(),
             onChanged: (value) {
+              // sets selected value to be new value
               InfoInputData.setInfoVolumenValue(value);
               setState(() => selected4 = value);
             },
@@ -214,15 +225,18 @@ class _InfoDetailsState extends State<infoDetails> {
         )
       ]));
 }
+
 Future<void> savedAlert(BuildContext context) {
+  ///creates pop-up message
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text('Hinweis!'),
-        content: const Text(
-            'Bitte Abhängigkeiten beachten: eine Informationsquelle kann'
-                ' nur von einem Absender kommen, zwei Quellen von max. zwei Absendern etc. '),
+        content: const Text('Bitte Abhängigkeiten beachten: eine '
+            'Informationsquelle kann'
+            ' nur von einem Absender kommen, zwei Quellen'
+            ' von max. zwei Absendern etc. '),
         actions: <Widget>[
           FlatButton(
             child: Text('Ok'),
@@ -237,13 +251,13 @@ Future<void> savedAlert(BuildContext context) {
 }
 
 Future<void> savedAlert2(BuildContext context) {
+  ///creates second pop-up message
   return showDialog<void>(
     context: context,
     builder: (BuildContext context) {
       return AlertDialog(
         title: Text('Hinweis!'),
-        content: const Text(
-            'Bitte alle Felder ausfüllen!'),
+        content: const Text('Bitte alle Felder ausfüllen!'),
         actions: <Widget>[
           FlatButton(
             child: Text('Ok'),
@@ -258,6 +272,7 @@ Future<void> savedAlert2(BuildContext context) {
 }
 
 Future navigateToPatientHome(context) async {
+  /// navigates to patient home page
   Navigator.push(
       context, MaterialPageRoute(builder: (context) => patientHome()));
 }

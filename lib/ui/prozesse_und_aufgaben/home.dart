@@ -18,7 +18,7 @@ class Home extends StatelessWidget {
 
 class MainPage extends StatelessWidget {
   static int index;
-  static List<ScoreData> myScoreData = new List();
+  static List<ScoreData> myScoreData = new List(); //creates a new instance (list of score data) each time the application is restarted
 
 
   @override
@@ -53,6 +53,7 @@ class MainPage extends StatelessWidget {
       );
 
   Future navigateToFirstPage(context) async {
+    //navigates to fallbericht page
     Navigator.push(
         context, MaterialPageRoute(builder: (context) => FallBerichtPage()));
   }
